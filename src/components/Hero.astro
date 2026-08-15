@@ -1,0 +1,22 @@
+---
+const tags = ['Vue.js', 'Nuxt', 'React', 'Next.js'];
+---
+
+<section id="hero" class="max-w-4xl mx-auto px-6 min-h-[80vh] flex flex-col justify-center gap-6">
+  <p class="font-mono text-accent text-sm">&gt; whoami --role=frontend</p>
+  <h1 class="text-4xl sm:text-5xl font-bold">João P.</h1>
+  <p class="text-lg text-muted">Front-End Developer &rarr; Fullstack</p>
+  <ul class="flex flex-wrap gap-2 font-mono text-xs">
+    {tags.map((tag) => (
+      <li class="border border-border rounded px-2 py-1 text-muted">{tag}</li>
+    ))}
+  </ul>
+  <div class="flex gap-4 pt-4">
+    <a href="#projetos" class="bg-accent text-bg font-semibold px-5 py-2 rounded hover:opacity-90 transition-opacity">
+      Ver projetos
+    </a>
+    <a href="/cv.pdf" download class="border border-accent text-accent px-5 py-2 rounded hover:bg-accent/10 transition-colors">
+      Baixar CV
+    </a>
+  </div>
+</section>
