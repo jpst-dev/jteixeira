@@ -1,0 +1,24 @@
+---
+import ContatoForm from './ContatoForm.vue';
+
+const links = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jpst-dev/' },
+  { label: 'GitHub', href: 'https://github.com/jpst-dev' },
+  { label: 'E-mail', href: 'mailto:jteixeira.dev@outlook.com' },
+];
+---
+
+<section id="contato" class="max-w-4xl mx-auto px-6 py-24">
+  <h2 class="font-mono text-accent text-sm mb-8">## contato</h2>
+  <div class="grid sm:grid-cols-2 gap-12">
+    <div>
+      <p class="text-muted mb-4">Prefere um contato direto?</p>
+      <ul class="space-y-2 font-mono text-sm">
+        {links.map((link) => (
+          <li><a href={link.href} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+    <ContatoForm client:visible />
+  </div>
+</section>
