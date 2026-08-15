@@ -26,6 +26,18 @@ const { Content } = await render(projeto);
       ))}
     </ul>
 
+    {projeto.data.imagens.length > 0 && (
+      <div class="grid gap-4 my-10">
+        {projeto.data.imagens.map((imagem: string) => (
+          <img
+            src={imagem}
+            alt={`Screenshot do projeto ${projeto.data.titulo}`}
+            class="rounded-lg border border-border w-full"
+          />
+        ))}
+      </div>
+    )}
+
     <div class="space-y-8">
       <div>
         <h2 class="font-mono text-accent text-sm mb-2">## problema</h2>

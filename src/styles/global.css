@@ -15,12 +15,15 @@
 
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius: 0.5rem;
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
+  scroll-behavior: smooth;
 }
 
 ::selection {

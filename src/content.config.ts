@@ -13,6 +13,7 @@ const projetos = defineCollection({
     linkRepo: z.string().url().optional(),
     linkDemo: z.string().url().optional(),
     destaque: z.boolean().default(false),
+    imagens: z.array(z.string()).default([]),
   }),
 });
 
