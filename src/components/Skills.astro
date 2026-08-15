@@ -1,0 +1,36 @@
+---
+const grupos = [
+  {
+    categoria: 'Front-end',
+    itens: ['Vue.js', 'Nuxt', 'React', 'Next.js', 'TypeScript', 'Design System'],
+  },
+  {
+    categoria: 'Qualidade & Performance',
+    itens: ['TDD', 'Testes automatizados', 'Acessibilidade', 'Performance web'],
+  },
+  {
+    categoria: 'Backend em evolução',
+    itens: ['C#', '.NET', 'APIs REST', 'Arquitetura de integração'],
+  },
+  {
+    categoria: 'IA no fluxo de trabalho',
+    itens: ['Automação de tarefas repetitivas', 'Produtividade assistida por IA com revisão humana'],
+  },
+];
+---
+
+<section id="skills" class="max-w-4xl mx-auto px-6 py-24">
+  <h2 class="font-mono text-accent text-sm mb-8">## skills</h2>
+  <div class="grid sm:grid-cols-2 gap-8">
+    {grupos.map((grupo) => (
+      <div>
+        <h3 class="font-semibold mb-3">{grupo.categoria}</h3>
+        <ul class="flex flex-wrap gap-2 font-mono text-xs">
+          {grupo.itens.map((item) => (
+            <li class="border border-border rounded px-2 py-1 text-muted">{item}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
