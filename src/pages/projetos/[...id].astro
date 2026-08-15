@@ -1,0 +1,53 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projetos = await getCollection('projetos');
+  return projetos.map((projeto) => ({
+    params: { id: projeto.id },
+    props: { projeto },
+  }));
+}
+
+const { projeto } = Astro.props;
+const { Content } = await render(projeto);
+---
+
+<BaseLayout title={`${projeto.data.titulo} — João P.`} description={projeto.data.resumo}>
+  <article class="max-w-3xl mx-auto px-6 py-24">
+    <a href="/#projetos" class="font-mono text-accent text-sm">&larr; voltar para projetos</a>
+    <h1 class="text-3xl font-bold mt-4 mb-2">{projeto.data.titulo}</h1>
+    <p class="text-muted mb-6">{projeto.data.papel}</p>
+
+    <ul class="flex flex-wrap gap-2 font-mono text-xs mb-10">
+      {projeto.data.stack.map((tech: string) => (
+        <li class="border border-border rounded px-2 py-1 text-muted">{tech}</li>
+      ))}
+    </ul>
+
+    <div class="space-y-8">
+      <div>
+        <h2 class="font-mono text-accent text-sm mb-2">## problema</h2>
+        <p class="text-text/90 leading-relaxed">{projeto.data.problema}</p>
+      </div>
+      <div>
+        <h2 class="font-mono text-accent text-sm mb-2">## solução</h2>
+        <p class="text-text/90 leading-relaxed">{projeto.data.solucao}</p>
+      </div>
+    </div>
+
+    <div class="prose prose-invert mt-10">
+      <Content />
+    </div>
+
+    <div class="flex gap-4 mt-10">
+      {projeto.data.linkRepo && (
+        <a href={projeto.data.linkRepo} class="border border-accent text-accent px-4 py-2 rounded text-sm">Ver repositório</a>
+      )}
+      {projeto.data.linkDemo && (
+        <a href={projeto.data.linkDemo} class="bg-accent text-bg px-4 py-2 rounded text-sm">Ver demo</a>
+      )}
+    </div>
+  </article>
+</BaseLayout>
