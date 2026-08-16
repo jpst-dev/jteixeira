@@ -1,0 +1,43 @@
+---
+titulo: "Finance Dashboard"
+resumo: "Dashboard financeiro moderno para gerenciar finanças pessoais e investimentos em criptomoedas, com gráficos interativos e acompanhamento do portfólio."
+problema: "Gerenciar finanças pessoais e, ao mesmo tempo, acompanhar investimentos em criptomoedas normalmente exige ferramentas separadas: um app de controle de gastos e uma exchange/portfólio para os ativos. O projeto centraliza tudo em um único painel, com visão do saldo, receitas/despesas e do portfólio de cripto em um só lugar."
+solucao: "Aplicação Vue 3 + TypeScript (Vite) com duas áreas principais: Dashboard (saldo total, receitas/despesas mensais, gráfico mensal, despesas por categoria e lista de transações recentes) e Portfolio (valor do portfólio em tempo real, lucros/perdas, alocação de ativos e histórico de performance). Transações e investimentos têm CRUD completo com modais de confirmação, e o app inclui metas financeiras e estrutura de internacionalização (i18n) com locales. Os dados de criptomoedas ficam isolados em uma camada de serviço (cryptoService.ts), desacoplada das views."
+stack: ["Vue 3", "TypeScript", "Tailwind CSS", "Pinia", "Vue Router", "Chart.js", "Vite", "Axios"]
+papel: "Criador do projeto — desenvolvimento completo: arquitetura, componentes, CRUD de transações e investimentos, gráficos, integração com dados de criptomoedas e estado global via Pinia."
+linkRepo: "https://github.com/jpst-dev/finance-dashboard"
+destaque: false
+---
+
+## Visão geral
+
+Dashboard financeiro que reúne controle de finanças pessoais e gestão de portfólio de criptomoedas em uma única interface, com gráficos interativos (Chart.js), modo claro/escuro e layout responsivo. Licença ISC.
+
+## Funcionalidades
+
+**Dashboard principal**
+- Visualização do saldo total.
+- Acompanhamento de receitas e despesas mensais.
+- Gráfico de visão geral mensal e de despesas por categoria.
+- Lista de transações recentes, com CRUD completo (criar, editar, excluir com modal de confirmação).
+- Metas financeiras (formulário dedicado).
+
+**Portfólio de criptomoedas**
+- Acompanhamento do valor total do portfólio com dados reais (cryptoService).
+- Visualização de lucros/perdas.
+- Gráfico de alocação de ativos e histórico de performance.
+- Gerenciamento de investimentos e de transações em cripto, com seleção de moedas.
+
+## Decisões técnicas
+
+- **Estado global com Pinia** (`src/store`), centralizando dados financeiros e do portfólio fora das views.
+- **Camada de serviços isolada** (`src/services/cryptoService.ts`): o consumo de dados de criptomoedas fica separado dos componentes, facilitando manutenção e troca de provedor de dados.
+- **Componentes especializados**: gráficos (`MonthlyChart`, `ExpenseChart`, `PortfolioAllocationChart`, `PortfolioHistoryChart`), modais de formulário e listas (`TransactionList`, `InvestmentList`, `CryptoTransactions`) — cada responsabilidade em um componente reutilizável.
+- **i18n com locales** (`src/i18n/locales`), preparando a aplicação para múltiplos idiomas desde a estrutura.
+- **Chart.js** para as quatro visualizações, e **Axios** como cliente HTTP na camada de serviços.
+
+## Aprendizados
+
+- Modelar CRUD de domínios distintos (transações e investimentos) com estado global e modais reutilizáveis.
+- Integrar dados dinâmicos de criptomoedas mantendo a camada de API desacoplada da UI.
+- Estruturar um dashboard com múltiplos gráficos e métricas sem perder performance e clareza de código.

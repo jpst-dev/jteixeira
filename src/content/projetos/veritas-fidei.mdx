@@ -1,0 +1,38 @@
+---
+titulo: "Veritas Fidei"
+resumo: "Plataforma interativa e educativa para estudo e defesa da fé católica, com conteúdo organizado em categorias, subcategorias e tópicos."
+problema: "Material de apologética católica costuma estar fragmentado — blogs, vídeos e PDFs isolados, sem uma estrutura que permita estudar de forma progressiva e organizada. A plataforma nasce para dar ordem a esse conteúdo e facilitar a navegação por tema."
+solucao: "Aplicação Vue 3 + TypeScript (Vite) que organiza o conteúdo em uma hierarquia Categorias → Subcategorias → Tópicos, com tags, busca aprimorada, favoritos e tema claro/escuro. Cada nível da hierarquia tem rota e view dedicadas, com breadcrumbs guiando a navegação — estrutura que escala naturalmente à medida que o conteúdo cresce."
+stack: ["Vue 3", "TypeScript", "Vite", "Tailwind CSS", "Pinia", "Vue Router"]
+papel: "Criador do projeto — desenvolvimento completo: arquitetura, componentes, hierarquia de conteúdo, estados globais (tema e favoritos) e deploy na Vercel."
+linkRepo: "https://github.com/jpst-dev/veritas-fidei"
+destaque: false
+---
+
+## Visão geral
+
+Plataforma interativa e educativa para estudo e defesa da fé católica, com foco em organização do conteúdo e boa experiência de navegação. Deploy: [veritas-fidei.vercel.app](https://veritas-fidei.vercel.app)
+
+## Funcionalidades
+
+- Conteúdo em hierarquia de Categorias → Subcategorias → Tópicos, cada nível com página dedicada.
+- Página de detalhe do tópico, com tags associadas.
+- Busca com barra aprimorada e página de resultados.
+- Favoritos persistidos localmente via Pinia.
+- Tema claro/escuro via Pinia.
+- Breadcrumbs para navegação em profundidade.
+- Página Sobre com cards de missão, layout responsivo e página 404 customizada.
+- Licença MIT.
+
+## Estrutura e decisões técnicas
+
+- **Views por nível da hierarquia**: `HomeView`, `CategoriesView`, `CategoryView`, `SubcategoryView`, `TopicsView`, `TopicView`, `TagView` e `SearchView` — cada nível tem rota e componente próprios, mantendo o código simples e a navegação previsível.
+- **Componentes organizados por domínio**: pastas `category/`, `topic/` e `common/` separam componentes específicos dos reutilizáveis (Navbar, Footer, Breadcrumbs, TopicCard, TagList).
+- **Pinia para estado global**: stores de `favorites` e `theme`, desacopladas da camada de views.
+- **Vue Router** com rotas limpas e hierárquicas.
+
+## Aprendizados
+
+- Modelar rotas e componentes para conteúdo hierárquico (categorias → subcategorias → tópicos).
+- Uso prático de Pinia em aplicação real: estado de tema e favoritos.
+- Organização de componentes por domínio em projeto Vue de porte médio, visando manutenibilidade.

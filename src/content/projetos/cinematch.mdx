@@ -1,0 +1,43 @@
+---
+titulo: "CineMatch"
+resumo: "Plataforma de recomendação de filmes com busca inteligente, filtros avançados e integração com a API do TMDb, com visual elegante e totalmente responsivo."
+problema: "Descobrir o que assistir exige cruzar informações de várias fontes: filmes populares, bem avaliados, por gênero, em cartaz. O projeto resolve isso consolidando tudo em uma única interface, com dados reais da API do TMDb e foco em usabilidade."
+solucao: "Aplicação Vue 3 + TypeScript (Vite) consumindo a API do TMDb. A busca usa debounce (VueUse) para evitar requisições desnecessárias e sugestões instantâneas com autocomplete. O estado global é gerenciado com Pinia, o carregamento usa scroll infinito e os destaques ficam em carrosséis de filmes em cartaz e recomendados. Página de detalhe completa com sinopse, trailer, elenco e onde assistir, com deploy na Vercel."
+stack: ["Vue 3", "TypeScript", "Pinia", "Tailwind CSS", "Axios", "VueUse"]
+papel: "Desenvolvedor front-end — criei o projeto do zero: design, arquitetura de código, integração com a API do TMDb e deploy na Vercel."
+linkRepo: "https://github.com/jpst-dev/cinematch"
+destaque: false
+---
+
+## Visão geral
+
+CineMatch é um projeto de recomendação de filmes que une estética e funcionalidade em uma aplicação real consumindo uma API externa. O usuário descobre filmes populares, mais bem avaliados ou filtra por gênero, nota e data — tudo com um visual rápido e responsivo.
+
+Deploy: [cinematch-rho.vercel.app](https://cinematch-rho.vercel.app/)
+
+## Funcionalidades
+
+- Sugestões por popularidade e avaliação.
+- Busca com debounce e sugestões instantâneas (autocomplete).
+- Filtros por gênero, nota, popularidade e data.
+- Card de filme com 3 tamanhos personalizáveis.
+- Scroll infinito para carregamento dinâmico.
+- Carrossel com filmes em cartaz e recomendados.
+- Detalhes completos: sinopse, trailer, elenco e onde assistir.
+- Layout responsivo para todas as telas.
+
+## Decisões técnicas
+
+- **Vue 3 + TypeScript (Vite)**: base moderna e tipagem robusta em todo o fluxo de dados vindo da API.
+- **Pinia** para estado global, mantendo filtros e dados de forma previsível.
+- **Debounce com VueUse** na busca: evita disparar requisições a cada tecla digitada, reduzindo custo e latência.
+- **Scroll infinito + carrosséis**: carregamento dinâmico sem paginação explícita, priorizando fluidez na navegação.
+- **Axios** para as requisições HTTP ao TMDb, com camada de consumo da API isolada do restante da aplicação.
+
+## Aprendizados
+
+- Integração real com API externa (TMDb): autenticação por chave, tratamento de respostas e dados tipados.
+- Padrões de UX como autocomplete, debounce e carregamento incremental.
+- Deploy de SPA no Vercel com variáveis de ambiente (`VITE_TMDB_API_KEY`).
+
+> Observação: por ser uma SPA estática, a chave do TMDb fica exposta no bundle do client (padrão do serviço para apps de leitura). Um próximo passo natural é mover o consumo da API para um proxy no servidor, como fiz no projeto GameDeals.

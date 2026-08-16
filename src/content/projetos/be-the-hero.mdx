@@ -1,0 +1,38 @@
+---
+titulo: "Be The Hero"
+resumo: "Plataforma full-stack que conecta ONGs a doadores: ONGs se cadastram, publicam casos e recebem contato de quem quer ajudar."
+problema: "ONGs precisam de um meio simples e rápido de divulgar suas causas e conseguir arrecadação. Sem uma plataforma dedicada, a divulgação fica dispersa em redes sociais e o contato com potenciais doadores é desorganizado."
+solucao: "Aplicação full-stack com backend em Node.js + Express e frontend em React (JavaScript). A API (com Express, Knex e SQLite3) expõe o CRUD de ONGs, casos e sessão de login, com controllers separados por domínio (OngController, IncidentController, ProfileController, SessionController). No frontend, React Router organiza os fluxos em páginas (Logon, Register, Profile, Newincident) e o Axios centraliza as chamadas à API em uma camada de serviços. É um projeto full-stack completo: autenticação simples por ID de ONG, cadastro de casos e visualização do perfil com os casos da ONG logada."
+stack: ["React", "Node.js", "Express", "Knex", "SQLite3", "Axios", "React Router"]
+papel: "Desenvolvedor full-stack — implementei backend (API REST com Express/Knex/SQLite) e frontend (React com rotas, consumo de API e telas de login, cadastro e perfil)."
+linkRepo: "https://github.com/jpst-dev/be-the-hero"
+destaque: false
+---
+
+## Visão geral
+
+Projeto da Semana OmniStack 11 (Rocketseat, 2020), que conecta ONGs a pessoas dispostas a ajudar. O foco do exercício foi construir uma aplicação full-stack completa, do banco de dados à interface. É um projeto de estudo que consolidou a base do desenvolvimento web full-stack com JavaScript.
+
+## Funcionalidades
+
+- Cadastro de ONGs com geração de ID para login.
+- Sessão de login da ONG (SessionController).
+- Cadastro e listagem de casos (incidentes) com título, descrição e valor.
+- Página de perfil da ONG listando seus casos, com opção de exclusão.
+- Frontend com rotas: Logon, Register, Profile e Newincident.
+
+## Decisões técnicas
+
+- **Backend organizado em camadas**: `controllers/` separa a lógica por domínio, `routes.js` centraliza as rotas e `database/` isola a configuração do Knex.
+- **SQLite + Knex**: banco local simples e sem dependência de infraestrutura — adequado para o escopo, com migrations garantindo a evolução do schema.
+- **Camada de serviços no frontend** (`src/services`): o Axios fica isolado das páginas, padrão que facilita manutenção.
+- **React Router DOM** para navegação entre os fluxos da ONG.
+
+## Aprendizados
+
+- Primeira experiência full-stack: conectar frontend React a uma API REST própria, do zero.
+- Modelagem de banco relacional com Knex (ONGs e casos com chave estrangeira).
+- Fluxo completo de autenticação simples baseada em ID, sem bibliotecas externas de auth.
+- Estruturação de projeto com pastas por domínio, tanto no backend quanto no frontend.
+
+> Observação: projeto em JavaScript (sem TypeScript) e sem deploy publicado. Foi uma etapa importante de formação — recomendo apresentá-lo no portfólio como "projeto de estudo" (o que é verdade), não como projeto autoral de produção, para manter credibilidade técnica em entrevista.
