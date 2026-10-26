@@ -1,0 +1,139 @@
+---
+// Arte 1200×630 da imagem de compartilhamento; vira public/og.png com `npm run og`.
+import '@fontsource-variable/inter';
+import '@fontsource/jetbrains-mono';
+import { Image } from 'astro:assets';
+import foto from '../assets/eu.jpeg';
+
+// Pontos fixos de uma "constelação" decorativa (x, y em px) e as ligações entre eles.
+const pontos = [
+  [70, 520], [180, 585], [300, 540], [250, 470], [1120, 60], [1010, 120], [1150, 190], [930, 40],
+  [620, 590], [760, 560], [700, 500], [1180, 560], [1080, 600], [40, 80], [140, 40],
+];
+const ligacoes = [
+  [0, 1], [1, 2], [2, 3], [0, 3], [4, 5], [5, 6], [4, 6], [5, 7], [8, 9], [9, 10], [8, 10], [11, 12], [13, 14],
+];
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <title>OG</title>
+  </head>
+  <body>
+    <div class="og">
+      <svg class="constelacao" width="1200" height="630" aria-hidden="true">
+        {ligacoes.map(([a, b]) => (
+          <line x1={pontos[a][0]} y1={pontos[a][1]} x2={pontos[b][0]} y2={pontos[b][1]} />
+        ))}
+        {pontos.map(([x, y], i) => <circle cx={x} cy={y} r={i % 3 === 0 ? 3 : 2} />)}
+      </svg>
+
+      <div class="texto">
+        <p class="logo"><span class="verde">&lt;/&gt;</span> jteixeira<span class="verde">.dev</span></p>
+        <h1>João Pedro<br /><span class="gradiente">Teixeira.</span></h1>
+        <p class="papel"><span class="verde">&gt;</span> Full Stack Developer · AI-Assisted Engineering</p>
+        <p class="stack">Vue · Nuxt · React · TypeScript · C#/.NET</p>
+      </div>
+
+      <div class="foto">
+        <Image src={foto} alt="" width={340} height={340} class="img" />
+      </div>
+    </div>
+
+    <style is:global>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #09090b;
+      }
+      .og {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 90px;
+        font-family: 'Inter Variable', sans-serif;
+        color: #fafafa;
+        background:
+          radial-gradient(ellipse at 80% 35%, rgba(66, 211, 146, 0.22), transparent 55%),
+          #09090b;
+      }
+      .constelacao {
+        position: absolute;
+        inset: 0;
+      }
+      .constelacao line {
+        stroke: rgba(255, 255, 255, 0.12);
+        stroke-width: 1;
+      }
+      .constelacao circle {
+        fill: rgba(66, 211, 146, 0.55);
+      }
+      .texto {
+        position: relative;
+      }
+      .logo {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 34px;
+      }
+      .verde {
+        color: #42d392;
+      }
+      .logo .verde:first-child,
+      .papel .verde {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      h1 {
+        font-size: 104px;
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        line-height: 0.95;
+      }
+      .gradiente {
+        background: linear-gradient(90deg, #42d392, #2dd4bf);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .papel {
+        margin-top: 34px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 21px;
+        white-space: nowrap;
+      }
+      .stack {
+        margin-top: 14px;
+        font-size: 22px;
+        color: #a1a1aa;
+      }
+      .foto {
+        position: relative;
+        flex-shrink: 0;
+        padding: 10px;
+        border-radius: 40px;
+        background: conic-gradient(from 200deg, #42d392, transparent 30%, #2dd4bf 55%, transparent 80%);
+        box-shadow: 0 30px 90px -20px rgba(66, 211, 146, 0.45);
+      }
+      .foto .img {
+        display: block;
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        object-position: 50% 20%;
+        border-radius: 32px;
+        border: 4px solid #09090b;
+      }
+    </style>
+  </body>
+</html>

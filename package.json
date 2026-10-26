@@ -12,7 +12,8 @@
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
-    "cv": "astro build && node scripts/gerar-cv.mjs"
+    "cv": "astro build && node scripts/gerar-cv.mjs",
+    "og": "astro build && node scripts/gerar-og.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.5",
