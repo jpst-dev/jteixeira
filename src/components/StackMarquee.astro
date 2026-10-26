@@ -1,14 +1,31 @@
 ---
+import { logos } from './ui/logos';
+
 const stack = ['Vue.js', 'Nuxt', 'TypeScript', 'React', 'Next.js', 'C#', '.NET', 'Claude Code', 'Cursor', 'Tailwind CSS', 'Pinia', 'Vitest', 'Jest', 'Cypress', 'Playwright', 'Node.js', 'Docker', 'Git'];
+const slug = (tech: string) => `logo-${tech.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
+
+<svg width="0" height="0" class="absolute" aria-hidden="true">
+  {Object.entries(logos).map(([tech, d]) => (
+    <symbol id={slug(tech)} viewBox="0 0 24 24"><path d={d} /></symbol>
+  ))}
+</svg>
 
 <div class="marquee border-y border-border py-6 overflow-hidden" role="region" aria-label="Tecnologias com que trabalho">
   <div class="marquee-track flex w-max gap-10">
     {[0, 1].map((copia) => (
       <ul class="flex shrink-0 gap-10 font-mono text-sm text-muted" aria-hidden={copia === 1 ? 'true' : undefined}>
         {stack.map((tech) => (
-          <li class="flex items-center gap-10 whitespace-nowrap">
-            {tech}<span class="text-accent/60" aria-hidden="true">✦</span>
+          <li class="group flex items-center gap-10 whitespace-nowrap">
+            <span class="flex items-center gap-2.5 transition-colors group-hover:text-text">
+              {logos[tech] && (
+                <svg width="20" height="20" fill="currentColor" aria-hidden="true" class="transition-colors group-hover:text-accent">
+                  <use href={`#${slug(tech)}`} />
+                </svg>
+              )}
+              {tech}
+            </span>
+            <span class="text-accent/60" aria-hidden="true">✦</span>
           </li>
         ))}
       </ul>
