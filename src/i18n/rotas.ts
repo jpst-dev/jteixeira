@@ -9,7 +9,8 @@ export const secoes = {
 export const home = (lang: Lang) => (lang === 'en' ? '/en/' : '/');
 export const projeto = (lang: Lang, id: string) => (lang === 'en' ? `/en/projects/${id}/` : `/projetos/${id}/`);
 export const cvPdf = (lang: Lang) => (lang === 'en' ? '/Joao-Pedro-Teixeira-Resume.pdf' : '/Joao-Pedro-Teixeira-CV.pdf');
-export const ogImagem = (lang: Lang) => (lang === 'en' ? '/og-en.png' : '/og.png');
+// A arte da OG (nome, cargo e stack) já é neutra de idioma: uma imagem serve aos dois.
+export const ogImagem = (_lang: Lang) => '/og.png';
 
 export function langDe(pathname: string): Lang {
   return pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'pt';

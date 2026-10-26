@@ -98,6 +98,18 @@ const pt = {
     erro: 'Algo deu errado — tente novamente ou use o e-mail direto abaixo.',
   },
   rodape: { feitoCom: 'Feito com Astro, Vue & Tailwind' },
+  cv: {
+    tituloPagina: 'João Pedro Teixeira — Currículo',
+    resumoTitulo: 'Resumo',
+    resumo:
+      'Desenvolvedor full stack com mais de 4 anos construindo produtos web, do Design System à API. Base sólida em front-end com Vue.js, Nuxt, React, Next.js e TypeScript, atuando também no backend com C#/.NET e APIs REST. Uso IA (Claude Code, Cursor) no centro do fluxo para prototipar, refatorar e gerar testes — com revisão humana e foco em qualidade, TDD, acessibilidade e performance.',
+    experiencia: 'Experiência',
+    projetos: 'Projetos',
+    habilidades: 'Habilidades',
+    formacao: 'Formação',
+    idiomas: 'Idiomas',
+    certificacoes: 'Certificações',
+  },
 };
 
 export type Dicionario = typeof pt;
@@ -197,6 +209,18 @@ const en: Dicionario = {
     erro: 'Something went wrong — please try again or use the email below.',
   },
   rodape: { feitoCom: 'Built with Astro, Vue & Tailwind' },
+  cv: {
+    tituloPagina: 'João Pedro Teixeira — Resume',
+    resumoTitulo: 'Summary',
+    resumo:
+      'Full stack developer with 4+ years building web products, from Design System to API. Strong front-end foundation with Vue.js, Nuxt, React, Next.js and TypeScript, also working on the back end with C#/.NET and REST APIs. I use AI (Claude Code, Cursor) at the core of my workflow to prototype, refactor and generate tests — with human review and a focus on quality, TDD, accessibility and performance.',
+    experiencia: 'Experience',
+    projetos: 'Projects',
+    habilidades: 'Skills',
+    formacao: 'Education',
+    idiomas: 'Languages',
+    certificacoes: 'Certifications',
+  },
 };
 
 export const ui: Record<Lang, Dicionario> = { pt, en };

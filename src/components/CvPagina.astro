@@ -1,0 +1,268 @@
+---
+// Currículo em uma página A4, pensado para virar PDF (npm run cv). Usa os mesmos dados do site.
+import '@fontsource-variable/inter';
+import { formatPeriodo } from '../lib/formatPeriodo';
+import { contato, skills, formacao, certificacoes, idiomas } from '../data/perfil';
+import { experienciasDoIdioma } from '../data/carreira';
+import { projetosDoIdioma } from '../data/projetos';
+import { langDe } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+const lang = langDe(Astro.url.pathname);
+const dic = t(lang);
+const tx = dic.cv;
+const experiencias = await experienciasDoIdioma(lang);
+const projetos = (await projetosDoIdioma(lang))
+  .filter((p) => p.data.linkDemo)
+  .sort((a, b) => Number(b.data.destaque) - Number(a.data.destaque))
+  .slice(0, 3);
+const semProtocolo = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang={dic.meta.htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>{tx.tituloPagina}</title>
+  </head>
+  <body>
+    <main class="cv">
+      <header>
+        <h1>João Pedro Teixeira</h1>
+        <p class="titulo">Full Stack Developer · AI-Assisted Engineering</p>
+        <p class="contato">
+          <a href={`mailto:${contato.email}`}>{contato.email}</a>
+          <span data-telefone hidden></span>
+          <a href={`https://${contato.site}`}>{contato.site}</a>
+          <a href={`https://${contato.linkedin}`}>{contato.linkedin}</a>
+          <a href={`https://${contato.github}`}>{contato.github}</a>
+          <span>{contato.local[lang]}</span>
+        </p>
+      </header>
+
+      <section>
+        <h2>{tx.resumoTitulo}</h2>
+        <p>{tx.resumo}</p>
+      </section>
+
+      <section>
+        <h2>{tx.experiencia}</h2>
+        {experiencias.map(({ data }) => (
+          <article class="item">
+            <div class="linha">
+              <h3>{data.cargo} <span class="sub">· {data.empresa}</span></h3>
+              <span class="periodo">{formatPeriodo(data.inicio, data.fim, lang)}</span>
+            </div>
+            <p class="local">{data.local}</p>
+            <ul>
+              {data.bullets.map((b) => <li>{b}</li>)}
+            </ul>
+          </article>
+        ))}
+      </section>
+
+      <section>
+        <h2>{tx.projetos}</h2>
+        {projetos.map(({ data }) => (
+          <article class="item projeto">
+            <div class="linha">
+              <h3>{data.titulo} <span class="sub">· {data.stack.slice(0, 4).join(', ')}</span></h3>
+              <a class="periodo" href={data.linkDemo}>{semProtocolo(data.linkDemo!)}</a>
+            </div>
+            <p>{data.resumo}</p>
+          </article>
+        ))}
+      </section>
+
+      <section>
+        <h2>{tx.habilidades}</h2>
+        <dl class="skills">
+          {skills[lang].map((g) => (
+            <div>
+              <dt>{g.categoria}</dt>
+              <dd>{g.itens.join(' · ')}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <div class="colunas">
+        <section>
+          <h2>{tx.formacao}</h2>
+          {formacao[lang].map((f) => (
+            <p class="formacao"><strong>{f.curso}</strong><br />{f.instituicao} · {f.periodo}</p>
+          ))}
+          <h2 class="espaco">{tx.idiomas}</h2>
+          <p>{idiomas[lang].join(' · ')}</p>
+        </section>
+        <section>
+          <h2>{tx.certificacoes}</h2>
+          <ul class="certs">
+            {certificacoes[lang].map((c) => <li>{c}</li>)}
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <script is:inline>
+      // Telefone só entra no PDF privado (npm run cv -- --telefone "..."): nunca fica no HTML publicado.
+      const tel = new URLSearchParams(location.search).get('tel');
+      const alvo = document.querySelector('[data-telefone]');
+      if (tel && alvo) {
+        alvo.textContent = `${tel} (WhatsApp)`;
+        alvo.hidden = false;
+      }
+    </script>
+
+    <style is:global>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        background: #e4e4e7;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      body {
+        font-family: 'Inter Variable', system-ui, sans-serif;
+        color: #18181b;
+        font-size: 8.9pt;
+        line-height: 1.33;
+      }
+      .cv {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        padding: 10mm 14mm;
+        background: #fff;
+      }
+      @media print {
+        html {
+          background: #fff;
+        }
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      header {
+        border-bottom: 2px solid #42d392;
+        padding-bottom: 3.5mm;
+        margin-bottom: 3.2mm;
+      }
+      h1 {
+        font-size: 21pt;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+      .titulo {
+        font-size: 11pt;
+        font-weight: 600;
+        color: #15803d;
+        margin-top: 1mm;
+      }
+      .contato {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 3.5mm;
+        margin-top: 2mm;
+        color: #3f3f46;
+        font-size: 8.4pt;
+      }
+      .contato > :not(:last-child)::after {
+        content: '·';
+        margin-left: 3.5mm;
+        color: #a1a1aa;
+      }
+      .contato > [hidden] {
+        display: none;
+      }
+      section + section,
+      .colunas {
+        margin-top: 3mm;
+      }
+      h2 {
+        font-size: 8.4pt;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #15803d;
+        margin-bottom: 1.6mm;
+      }
+      h2.espaco {
+        margin-top: 3mm;
+      }
+      h3 {
+        font-size: 9.8pt;
+        font-weight: 700;
+      }
+      .sub {
+        font-weight: 500;
+        color: #3f3f46;
+      }
+      .item + .item {
+        margin-top: 1.8mm;
+      }
+      .linha {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4mm;
+      }
+      .periodo {
+        flex-shrink: 0;
+        font-size: 8.6pt;
+        color: #52525b;
+        white-space: nowrap;
+      }
+      .local {
+        font-size: 8.6pt;
+        color: #71717a;
+      }
+      ul {
+        padding-left: 4mm;
+        margin-top: 0.8mm;
+      }
+      li + li {
+        margin-top: 0.3mm;
+      }
+      .projeto p {
+        color: #3f3f46;
+      }
+      .skills > div {
+        display: grid;
+        grid-template-columns: 40mm 1fr;
+        gap: 3mm;
+      }
+      .skills > div + div {
+        margin-top: 0.6mm;
+      }
+      dt {
+        font-weight: 600;
+      }
+      .colunas {
+        display: grid;
+        grid-template-columns: 1fr 1.25fr;
+        gap: 7mm;
+      }
+      .colunas section + section {
+        margin-top: 0;
+      }
+      .formacao + .formacao {
+        margin-top: 1.4mm;
+      }
+      .certs {
+        font-size: 8.3pt;
+      }
+    </style>
+  </body>
+</html>

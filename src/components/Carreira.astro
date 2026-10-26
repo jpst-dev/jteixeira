@@ -1,23 +1,15 @@
 ---
-import { getCollection } from 'astro:content';
 import SectionHeading from './ui/SectionHeading.astro';
 import { formatPeriodo } from '../lib/formatPeriodo';
 import { formacao, certificacoes } from '../data/perfil';
+import { experienciasDoIdioma } from '../data/carreira';
 import { langDe, secoes } from '../i18n/rotas';
 import { t } from '../i18n/ui';
 
 const lang = langDe(Astro.url.pathname);
 const tx = t(lang).carreira;
 
-// Mais recente primeiro; o loader não garante a ordem do JSON.
-const experiencias = (await getCollection('carreira'))
-  .sort((a, b) => b.data.inicio.localeCompare(a.data.inicio))
-  // No EN, cargo/local/bullets vêm do bloco `en` da experiência (obrigatório: nada de PT no /en).
-  .map(({ id, data }) => {
-    if (lang === 'pt') return { data };
-    if (!data.en) throw new Error(`Experiência "${id}" sem bloco "en" em src/content/carreira.json`);
-    return { data: { ...data, ...data.en } };
-  });
+const experiencias = await experienciasDoIdioma(lang);
 ---
 
 <section id={secoes[lang].carreira} class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
