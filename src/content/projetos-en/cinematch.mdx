@@ -1,38 +1,34 @@
 ---
 titulo: "CineMatch"
-resumo: "Movie recommendation platform with smart search, advanced filters and TMDb API integration, wrapped in a clean, fully responsive UI."
-problema: "Figuring out what to watch means cross-checking several sources: popular movies, top rated, by genre, now playing. This project brings all of it into a single interface, with real data from the TMDb API and a focus on usability."
-solucao: "A Vue 3 + TypeScript (Vite) app consuming the TMDb API. Search is debounced (VueUse) to avoid unnecessary requests and shows instant autocomplete suggestions. Global state lives in Pinia, lists use infinite scroll, and highlights sit in carousels of now-playing and recommended movies. The movie page has everything — synopsis, trailer, cast and where to watch — and the app is deployed on Vercel."
-papel: "Front-end developer — I built it from scratch: design, code architecture, TMDb API integration and deployment on Vercel."
+resumo: "Movie discovery with a movie-theater look: rotating spotlight, poster rows, trailer, cast and where to watch, with real TMDb data and the API key kept on the server."
+problema: "Figuring out what to watch means cross-checking several sources: what's in theaters, what's trending, what's well rated and where each movie is streaming. The first version of this project covered that, but looked unfinished and shipped the API key in the browser bundle."
+solucao: "I rebuilt CineMatch with its own streaming-inspired identity (dark background, amber accents and Bebas Neue type) in Vue 3 + TypeScript. TMDb calls go through a Vercel Function that holds the key, only allows known paths and caches at the edge. The movie page brings together trailer, technical sheet, director, cast, recommendations and Brazilian streaming services, with high-resolution images for 4K screens."
+papel: "Full stack developer: I built the project from scratch and later redesigned its visual identity, architecture and secure TMDb integration."
 ---
 
 ## Overview
 
-CineMatch is a movie recommendation project that pairs good looks with real functionality, consuming an external API. Users can discover popular or top-rated movies, or filter by genre, rating and release date — all in a fast, responsive interface.
+CineMatch is a movie showcase in the style of streaming services. The home page opens with a rotating spotlight of movies in theaters and poster rows (In theaters, Trending, Top rated). Each movie has its own page with everything that helps you decide what to watch.
 
 ## Features
 
-- Suggestions by popularity and rating.
-- Debounced search with instant suggestions (autocomplete).
-- Filters by genre, rating, popularity and date.
-- Movie cards in 3 customizable sizes.
-- Infinite scroll for dynamic loading.
-- Carousels with now-playing and recommended movies.
-- Full details: synopsis, trailer, cast and where to watch.
-- Responsive layout for every screen size.
+- Rotating spotlight that pauses on hover, with a direct link to the trailer.
+- Horizontal rows with native scrolling, and full lists with infinite scroll.
+- Search with instant suggestions, also opened with the "/" shortcut.
+- Explore by genre, year, rating and sort order.
+- Movie page with trailer, technical sheet (budget, box office, studios), director, writers, cast, recommendations and where to watch in Brazil.
+- Layout designed for phones and large screens, with high-resolution images on 4K.
 
 ## Technical decisions
 
-- **Vue 3 + TypeScript (Vite)**: a modern base with strong typing across all the data coming from the API.
-- **Pinia** for global state, keeping filters and data predictable.
-- **Debounced search with VueUse**: avoids firing a request on every keystroke, cutting cost and latency.
-- **Infinite scroll + carousels**: dynamic loading without explicit pagination, prioritizing smooth browsing.
-- **Axios** for HTTP requests to TMDb, with the API layer isolated from the rest of the app.
+- **Server-side proxy (Vercel Function)**: the TMDb key lives only on the server. The proxy accepts only the paths the app uses, returns 403 for anything else and caches at the edge.
+- **Same proxy in development**: a Vite plugin serves the same function locally, so the app behaves the same on my machine and in production.
+- **No unnecessary libraries**: `fetch` instead of Axios, and local state with composables instead of Pinia.
+- **Vitest tests** for the proxy, formatters and movie-page rules (trailer choice, key crew, technical sheet).
+- **Responsive images**: `srcset` lets the browser pick the backdrop size for the screen.
 
 ## What I learned
 
-- Real-world integration with an external API (TMDb): key-based auth, response handling and typed data.
-- UX patterns like autocomplete, debouncing and incremental loading.
-- Deploying an SPA on Vercel with environment variables (`VITE_TMDB_API_KEY`).
-
-> Note: since this is a static SPA, the TMDb key ships in the client bundle (the service's standard approach for read-only apps). A natural next step is moving API calls behind a server-side proxy, as I did in DealsGamer.
+- Protecting API keys in front-end apps with a serverless function instead of shipping them in the bundle.
+- Building a cohesive visual identity (colors, type, components) for an existing product.
+- Accessibility in interactive components: a full-screen menu with a focus trap, a keyboard shortcut and keyboard navigation in the spotlight.
