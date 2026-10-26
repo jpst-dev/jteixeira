@@ -1,0 +1,38 @@
+---
+titulo: "jteixeira.dev"
+resumo: "Este portfólio: site bilíngue em Astro com ilhas Vue, animações em GSAP, currículo em PDF gerado do próprio site e páginas de projeto como esta."
+problema: "Meu portfólio antigo estava desatualizado e com visual cru: não contava a minha trajetória nem mostrava os projetos com o cuidado que eu tenho no trabalho. Também não tinha versão em inglês, e o currículo vivia num arquivo separado que sempre ficava para trás."
+solucao: "Reconstruí o site em Astro 7, que entrega HTML estático e só carrega JavaScript nos componentes interativos, feitos em Vue. O conteúdo (projetos, carreira) fica em coleções tipadas, com a versão em inglês por cima da portuguesa. O currículo em PDF é gerado a partir de uma página do próprio site, então nunca fica desatualizado, e cada página tem SEO, sitemap e imagem de compartilhamento."
+stack: ["Astro", "Vue 3", "TypeScript", "Tailwind CSS", "GSAP", "Vitest"]
+papel: "Criador do projeto: design, desenvolvimento, conteúdo e deploy na Vercel com domínio próprio."
+linkRepo: "https://github.com/jpst-dev/jteixeira"
+linkDemo: "https://jteixeira.dev"
+imagens: ["/projetos/portfolio.webp"]
+destaque: false
+---
+
+## Visão geral
+
+O site que você está vendo. Ele reúne quem eu sou, a minha carreira e os meus projetos, em português e em inglês, com uma página para cada projeto e o currículo pronto para baixar.
+
+## Funcionalidades
+
+- Versões em português e inglês, com troca de idioma em qualquer página.
+- Fundo de partículas, texto do hero que alterna as stacks e navegação com indicador da seção atual.
+- Carreira agrupada por empresa, com tempo em cada cargo calculado automaticamente.
+- Página de cada projeto com problema, solução, decisões técnicas e aprendizados.
+- Currículo em PDF (PT e EN) gerado a partir da página `/cv`.
+- SEO completo: metadados, sitemap e imagem de compartilhamento.
+
+## Decisões técnicas
+
+- **Astro com ilhas Vue**: as páginas saem como HTML estático e só os componentes interativos (formulário de contato, efeitos) carregam JavaScript.
+- **Conteúdo como coleções tipadas**: projetos e carreira são validados por schema. A versão em inglês guarda só os campos traduzidos e herda o resto (stack, links, imagens) da portuguesa, então não há dado duplicado para manter.
+- **Currículo gerado do site**: um script abre a página `/cv` no Chrome e salva o PDF. Dados privados, como telefone, só entram numa versão gerada localmente, nunca no repositório.
+- **Lógica isolada e testada**: duração de cargos, agrupamento por empresa, tags e validação do formulário ficam em funções puras, cobertas por testes com Vitest.
+
+## Aprendizados
+
+- Usar a arquitetura de ilhas para ter um site rápido sem abrir mão de interatividade.
+- Organizar conteúdo bilíngue sem duplicar informação.
+- Tratar o currículo como um produto do mesmo código, para que site e PDF nunca divirjam.

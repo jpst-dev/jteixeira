@@ -1,0 +1,33 @@
+---
+titulo: "jteixeira.dev"
+resumo: "This portfolio: a bilingual Astro site with Vue islands, GSAP animations, a PDF résumé generated from the site itself and project pages like this one."
+problema: "My old portfolio was outdated and looked unfinished: it didn't tell my story or show my projects with the care I put into my work. It had no English version, and the résumé lived in a separate file that always fell behind."
+solucao: "I rebuilt the site in Astro 7, which ships static HTML and only loads JavaScript for interactive components, written in Vue. Content (projects, career) lives in typed collections, with the English version layered over the Portuguese one. The PDF résumé is generated from a page of the site itself, so it never goes stale, and every page has SEO, a sitemap and a share image."
+papel: "Creator: design, development, content and deployment on Vercel with a custom domain."
+---
+
+## Overview
+
+The site you are looking at. It brings together who I am, my career and my projects, in Portuguese and English, with a page for each project and the résumé ready to download.
+
+## Features
+
+- Portuguese and English versions, with a language switch on every page.
+- Particle background, a hero line that cycles through my stack and navigation that highlights the current section.
+- Career grouped by company, with time in each role calculated automatically.
+- A page for each project covering the problem, solution, technical decisions and lessons learned.
+- PDF résumé (PT and EN) generated from the `/cv` page.
+- Full SEO: metadata, sitemap and share image.
+
+## Technical decisions
+
+- **Astro with Vue islands**: pages ship as static HTML and only interactive components (contact form, effects) load JavaScript.
+- **Content as typed collections**: projects and career are validated by a schema. The English version stores only the translated fields and inherits the rest (stack, links, images) from the Portuguese one, so there is no duplicated data to maintain.
+- **Résumé generated from the site**: a script opens the `/cv` page in Chrome and saves the PDF. Private data such as my phone number only goes into a locally generated version, never into the repository.
+- **Isolated, tested logic**: role durations, company grouping, tags and form validation live in pure functions covered by Vitest tests.
+
+## What I learned
+
+- Using the islands architecture to get a fast site without giving up interactivity.
+- Organizing bilingual content without duplicating information.
+- Treating the résumé as a product of the same code, so the site and the PDF never diverge.
