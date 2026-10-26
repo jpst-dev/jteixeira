@@ -160,6 +160,28 @@ section[id] {
   }
 }
 
+/* Holofote que segue o mouse (posição em --x/--y via interactions.ts). */
+[data-spotlight] {
+  position: relative;
+  isolation: isolate;
+}
+[data-spotlight]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(66, 211, 146, 0.1), transparent 40%);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight]:hover::before {
+    opacity: 1;
+  }
+}
+
 /* Constelação (tsParticles) fixa atrás de todo o conteúdo. */
 .constellation {
   position: fixed;

@@ -20,6 +20,7 @@ const destaque = variante === 'destaque';
 <a
   href={`/projetos/${projeto.id}/`}
   data-reveal
+  data-spotlight
   class:list={[
     'group block rounded-2xl border border-border bg-surface/85 p-3 transition duration-300 hover:border-border-strong hover:shadow-[0_20px_60px_-25px_rgba(66,211,146,.35)]',
     destaque && 'md:grid md:grid-cols-[1.3fr_1fr] md:gap-8 md:items-center',

@@ -50,7 +50,7 @@ async function onSubmit() {
         class="w-full bg-bg border border-border rounded-xl px-4 py-3 placeholder:text-subtle transition-colors focus:border-accent"></textarea>
       <p v-if="errors.mensagem" id="erro-mensagem" class="text-red-400 text-sm mt-1">{{ errors.mensagem }}</p>
     </div>
-    <button type="submit" :disabled="status === 'sending'"
+    <button type="submit" data-magnetic :disabled="status === 'sending'"
       class="w-full sm:w-auto bg-accent text-on-accent font-semibold px-5 py-3 rounded-xl hover:brightness-110 transition disabled:opacity-50">
       {{ status === 'sending' ? 'Enviando...' : 'Enviar mensagem' }}
     </button>

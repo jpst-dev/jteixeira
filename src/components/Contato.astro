@@ -23,6 +23,7 @@ const links = [
         <button
           type="button"
           data-copy={email}
+          data-magnetic
           class="inline-flex items-center gap-1.5 rounded-lg border border-border-strong px-3 py-1.5 text-sm text-muted hover:text-text hover:bg-surface transition-colors"
         >
           <Icon name="copy" size={14} /> <span data-copy-label>Copiar</span>
@@ -34,6 +35,7 @@ const links = [
         {links.map((link) => (
           <li>
             <a
+              data-magnetic
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
@@ -46,7 +48,7 @@ const links = [
       </ul>
     </div>
 
-    <div data-reveal class="rounded-2xl border border-border bg-surface/85 p-6 sm:p-8">
+    <div data-reveal data-spotlight class="rounded-2xl border border-border bg-surface/85 p-6 sm:p-8">
       <ContatoForm client:visible />
     </div>
   </div>

@@ -35,7 +35,7 @@ const certificacoes = [
           ]}
           aria-hidden="true"
         ></span>
-        <article class="rounded-2xl border border-border bg-surface/85 p-5 sm:p-6 transition-colors hover:border-border-strong">
+        <article data-spotlight class="rounded-2xl border border-border bg-surface/85 p-5 sm:p-6 transition-colors hover:border-border-strong">
           <header class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
             <h3 class="text-lg font-semibold">{data.empresa}</h3>
             <p class="font-mono text-xs text-subtle">{formatPeriodo(data.inicio, data.fim)}</p>
@@ -55,7 +55,7 @@ const certificacoes = [
   </ol>
 
   <div class="mt-16 grid gap-4 md:grid-cols-[1fr_1.4fr]" data-reveal-group>
-    <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal>
+    <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal data-spotlight>
       <h3 class="font-semibold mb-4">Formação</h3>
       <ul class="space-y-4">
         {formacao.map((item) => (
@@ -66,7 +66,7 @@ const certificacoes = [
         ))}
       </ul>
     </div>
-    <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal>
+    <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal data-spotlight>
       <h3 class="font-semibold mb-4">Certificações</h3>
       <ul class="space-y-2 text-sm text-muted list-disc pl-4 marker:text-accent/60">
         {certificacoes.map((item) => <li>{item}</li>)}

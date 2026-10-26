@@ -38,8 +38,10 @@ const { title, description } = Astro.props;
     <script>
       import { initAnimations } from '../scripts/animations';
       import { initTypewriter } from '../scripts/typewriter';
+      import { initInteractions } from '../scripts/interactions';
       initAnimations();
       initTypewriter();
+      initInteractions();
 
       // O fundo é decorativo: carrega depois da página pronta e falhas são ignoradas.
       const iniciarFundo = () => {

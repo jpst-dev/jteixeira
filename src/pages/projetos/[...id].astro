@@ -36,12 +36,12 @@ const { Content } = await render(projeto);
         {(linkRepo || linkDemo) && (
           <div class="mt-8 flex flex-wrap gap-3" data-hero-item>
             {linkDemo && (
-              <a href={linkDemo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-accent text-on-accent font-semibold px-5 py-3 hover:brightness-110 transition">
+              <a href={linkDemo} data-magnetic target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-accent text-on-accent font-semibold px-5 py-3 hover:brightness-110 transition">
                 Ver demo <Icon name="arrow-up-right" size={18} />
               </a>
             )}
             {linkRepo && (
-              <a href={linkRepo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl border border-border-strong px-5 py-3 font-semibold hover:bg-surface transition-colors">
+              <a href={linkRepo} data-magnetic target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl border border-border-strong px-5 py-3 font-semibold hover:bg-surface transition-colors">
                 <Icon name="github" size={18} /> Repositório
               </a>
             )}
@@ -77,7 +77,7 @@ const { Content } = await render(projeto);
         <Content />
       </div>
 
-      <a href={`/projetos/${proximo.id}/`} class="group mt-20 flex items-center justify-between gap-4 rounded-2xl border border-border bg-surface/85 p-6 hover:border-border-strong transition-colors">
+      <a href={`/projetos/${proximo.id}/`} data-spotlight class="group mt-20 flex items-center justify-between gap-4 rounded-2xl border border-border bg-surface/85 p-6 hover:border-border-strong transition-colors">
         <span>
           <span class="block font-mono text-xs text-subtle">Próximo projeto</span>
           <span class="mt-1 block text-xl font-semibold">{proximo.titulo}</span>
