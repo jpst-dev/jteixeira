@@ -1,0 +1,89 @@
+---
+// Corpo da página de projeto, compartilhado entre PT e EN.
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjetoThumb from './ProjetoThumb.astro';
+import Icon from './ui/Icon.astro';
+import type { ProjetoIdioma } from '../data/projetos';
+import { home, langDe, projeto as rotaProjeto, secoes } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+interface Props {
+  projeto: ProjetoIdioma;
+  proximo: { id: string; titulo: string };
+}
+
+const { projeto, proximo } = Astro.props;
+const lang = langDe(Astro.url.pathname);
+const tx = t(lang).projetos;
+const { titulo, papel, stack, imagens, problema, solucao, linkRepo, linkDemo } = projeto.data;
+const { Content } = await render(projeto.conteudo);
+---
+
+<BaseLayout title={`${titulo} — João Pedro Teixeira`} description={projeto.data.resumo} tipo="article">
+  <article>
+    <header class="relative overflow-hidden">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="relative max-w-4xl mx-auto px-4 sm:px-6 pt-32 pb-12">
+        <a href={`${home(lang)}#${secoes[lang].projetos}`} class="font-mono text-sm text-muted hover:text-accent transition-colors" data-hero-item>&larr; {tx.voltar}</a>
+        <h1 class="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight" data-hero-item>{titulo}</h1>
+        <p class="mt-4 text-lg text-muted leading-relaxed max-w-3xl" data-hero-item>{papel}</p>
+        <ul class="mt-6 flex flex-wrap gap-2 font-mono text-xs" data-hero-item>
+          {stack.map((tech) => (
+            <li class="rounded-full border border-border bg-bg px-2.5 py-1 text-muted">{tech}</li>
+          ))}
+        </ul>
+        {(linkRepo || linkDemo) && (
+          <div class="mt-8 flex flex-wrap gap-3" data-hero-item>
+            {linkDemo && (
+              <a href={linkDemo} data-magnetic target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-accent text-on-accent font-semibold px-5 py-3 hover:brightness-110 transition">
+                {tx.verDemo} <Icon name="arrow-up-right" size={18} />
+              </a>
+            )}
+            {linkRepo && (
+              <a href={linkRepo} data-magnetic target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl border border-border-strong px-5 py-3 font-semibold hover:bg-surface transition-colors">
+                <Icon name="github" size={18} /> {tx.repositorio}
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 pb-24">
+      <div data-reveal>
+        <ProjetoThumb titulo={titulo} imagem={imagens[0]} class="rounded-2xl border border-border" />
+      </div>
+      {imagens.length > 1 && (
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          {imagens.slice(1).map((imagem) => (
+            <img src={imagem} alt={`${tx.screenshotAlt} ${titulo}`} loading="lazy" class="rounded-2xl border border-border w-full" />
+          ))}
+        </div>
+      )}
+
+      <div class="mt-12 grid gap-4 md:grid-cols-2" data-reveal-group>
+        <section class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal>
+          <h2 class="font-mono text-sm text-subtle mb-3">{tx.problema}</h2>
+          <p class="text-muted leading-relaxed">{problema}</p>
+        </section>
+        <section class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal>
+          <h2 class="font-mono text-sm text-subtle mb-3">{tx.solucao}</h2>
+          <p class="text-muted leading-relaxed">{solucao}</p>
+        </section>
+      </div>
+
+      <div class="prose prose-invert max-w-3xl mt-16 prose-headings:tracking-tight prose-a:text-accent prose-strong:text-text prose-code:text-accent prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-p:text-muted prose-li:text-muted prose-li:marker:text-accent/60">
+        <Content />
+      </div>
+
+      <a href={rotaProjeto(lang, proximo.id)} data-spotlight class="group mt-20 flex items-center justify-between gap-4 rounded-2xl border border-border bg-surface/85 p-6 hover:border-border-strong transition-colors">
+        <span>
+          <span class="block font-mono text-xs text-subtle">{tx.proximo}</span>
+          <span class="mt-1 block text-xl font-semibold">{proximo.titulo}</span>
+        </span>
+        <Icon name="arrow-right" size={22} class="text-accent transition-transform group-hover:translate-x-1" />
+      </a>
+    </div>
+  </article>
+</BaseLayout>
