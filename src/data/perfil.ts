@@ -16,8 +16,8 @@ export const skills: Record<Lang, Grupo[]> = {
   pt: [
     {
       categoria: 'Front-end',
-      diaADia: ['Vue.js', 'Nuxt', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Pinia', 'Design System'],
-      jaUsei: ['React', 'Next.js'],
+      diaADia: ['Vue.js', 'Nuxt', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Design System'],
+      jaUsei: ['React', 'Next.js', 'Pinia'],
     },
     {
       categoria: 'Backend',
@@ -31,15 +31,15 @@ export const skills: Record<Lang, Grupo[]> = {
     },
     {
       categoria: 'Qualidade, testes & entrega',
-      diaADia: ['TDD', 'Jest', 'Cypress', 'Code review', 'Acessibilidade', 'Performance web'],
-      jaUsei: ['Vitest', 'Playwright', 'CI/CD', 'Docker'],
+      diaADia: ['TDD', 'Jest', 'Cypress', 'Playwright', 'Code review', 'CI/CD', 'Docker', 'Acessibilidade', 'Performance web'],
+      jaUsei: ['Vitest'],
     },
   ],
   en: [
     {
       categoria: 'Front end',
-      diaADia: ['Vue.js', 'Nuxt', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Pinia', 'Design System'],
-      jaUsei: ['React', 'Next.js'],
+      diaADia: ['Vue.js', 'Nuxt', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Design System'],
+      jaUsei: ['React', 'Next.js', 'Pinia'],
     },
     {
       categoria: 'Back end',
@@ -53,8 +53,8 @@ export const skills: Record<Lang, Grupo[]> = {
     },
     {
       categoria: 'Quality, testing & delivery',
-      diaADia: ['TDD', 'Jest', 'Cypress', 'Code review', 'Accessibility', 'Web performance'],
-      jaUsei: ['Vitest', 'Playwright', 'CI/CD', 'Docker'],
+      diaADia: ['TDD', 'Jest', 'Cypress', 'Playwright', 'Code review', 'CI/CD', 'Docker', 'Accessibility', 'Web performance'],
+      jaUsei: ['Vitest'],
     },
   ],
 };
