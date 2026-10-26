@@ -1,22 +1,42 @@
-<section id="sobre" class="max-w-6xl mx-auto px-4 sm:px-6 py-24">
-  <h2 class="font-mono text-accent text-sm mb-2">## sobre</h2>
-  <div class="space-y-4 text-lg text-text/90 leading-relaxed max-w-2xl">
-    <p>
-      Sou desenvolvedor front-end há mais de 4 anos, especializado em Vue.js e Nuxt —
-      com base sólida também em React e Next.js. Meu foco é construir interfaces
-      performáticas, acessíveis e fáceis de manter, aplicando TDD, testes automatizados
-      e Design System no dia a dia.
-    </p>
-    <p>
-      Atualmente estou evoluindo para fullstack: aprofundando backend com C#/.NET e
-      APIs REST no trabalho, sempre com atenção à arquitetura e à integração entre o
-      que o front consome e o que o backend entrega.
-    </p>
-    <p>
-      Uso IA como parte do meu fluxo — para acelerar tarefas repetitivas e ganhar
-      produtividade — sempre com revisão humana e foco em qualidade. Acredito que
-      tecnologia bem construída simplifica o dia a dia das pessoas, e é assim que
-      busco evoluir: da interface à infraestrutura.
-    </p>
+---
+import SectionHeading from './ui/SectionHeading.astro';
+
+const stats = [
+  { valor: '4+ anos', legenda: 'em front-end' },
+  { valor: 'Design System', legenda: 'em produção' },
+  { valor: 'Vue · Nuxt · .NET', legenda: 'stack principal' },
+];
+---
+
+<section id="sobre" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
+  <SectionHeading numero="01" titulo="Sobre" />
+  <div class="grid gap-12 lg:grid-cols-[1.5fr_1fr] items-start">
+    <div class="space-y-5 text-lg text-muted leading-relaxed" data-reveal>
+      <p>
+        Sou desenvolvedor front-end há mais de 4 anos, especializado em Vue.js e Nuxt —
+        com base sólida também em React e Next.js. Meu foco é construir interfaces
+        performáticas, acessíveis e fáceis de manter, aplicando TDD, testes automatizados
+        e Design System no dia a dia.
+      </p>
+      <p>
+        Atualmente estou evoluindo para fullstack: aprofundando backend com C#/.NET e
+        APIs REST no trabalho, sempre com atenção à arquitetura e à integração entre o
+        que o front consome e o que o backend entrega.
+      </p>
+      <p>
+        Uso IA como parte do meu fluxo — para acelerar tarefas repetitivas e ganhar
+        produtividade — sempre com revisão humana e foco em qualidade. Acredito que
+        tecnologia bem construída simplifica o dia a dia das pessoas, e é assim que
+        busco evoluir: da interface à infraestrutura.
+      </p>
+    </div>
+    <ul class="grid gap-4 sm:grid-cols-3 lg:grid-cols-1" data-reveal-group>
+      {stats.map((stat) => (
+        <li class="rounded-2xl border border-border bg-surface/85 p-5" data-reveal>
+          <p class="text-2xl font-bold tracking-tight text-text">{stat.valor}</p>
+          <p class="mt-1 font-mono text-xs text-subtle">{stat.legenda}</p>
+        </li>
+      ))}
+    </ul>
   </div>
 </section>

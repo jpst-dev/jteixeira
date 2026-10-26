@@ -1,0 +1,54 @@
+---
+const stack = ['Vue.js', 'Nuxt', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Pinia', 'Vitest', 'Cypress', 'Jest', 'Playwright', 'C#', '.NET', 'Node.js', 'Docker', 'Git'];
+---
+
+<div class="marquee border-y border-border py-6 overflow-hidden" role="region" aria-label="Tecnologias com que trabalho">
+  <div class="marquee-track flex w-max gap-10">
+    {[0, 1].map((copia) => (
+      <ul class="flex shrink-0 gap-10 font-mono text-sm text-muted" aria-hidden={copia === 1 ? 'true' : undefined}>
+        {stack.map((tech) => (
+          <li class="flex items-center gap-10 whitespace-nowrap">
+            {tech}<span class="text-accent/60" aria-hidden="true">✦</span>
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(calc(-50% - 1.25rem));
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      mask-image: none;
+    }
+    .marquee-track {
+      animation: none;
+      width: auto;
+      justify-content: center;
+      padding-inline: 1rem;
+    }
+    .marquee-track > ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem 2rem;
+      flex-shrink: 1;
+    }
+    .marquee-track > ul + ul {
+      display: none;
+    }
+  }
+</style>
