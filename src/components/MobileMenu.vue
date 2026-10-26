@@ -6,7 +6,14 @@ defineProps<{ links: { href: string; label: string }[]; cvHref: string }>();
 const open = ref(false);
 // O painel só é teleportado no client, evitando conflito de hidratação com o HTML do servidor.
 const mounted = ref(false);
-onMounted(() => (mounted.value = true));
+// No desktop o botão some (md:hidden); se a tela alargar com o menu aberto, fechamos para não travar a página.
+let desktop: MediaQueryList | undefined;
+const onDesktop = (event: MediaQueryListEvent) => event.matches && open.value && closeMenu(false);
+onMounted(() => {
+  mounted.value = true;
+  desktop = window.matchMedia('(min-width: 768px)');
+  desktop.addEventListener('change', onDesktop);
+});
 const toggleBtn = ref<HTMLButtonElement | null>(null);
 const panel = ref<HTMLElement | null>(null);
 
@@ -45,7 +52,10 @@ function onKeydown(event: KeyboardEvent) {
   items[next]?.focus();
 }
 
-onBeforeUnmount(() => closeMenu(false));
+onBeforeUnmount(() => {
+  desktop?.removeEventListener('change', onDesktop);
+  closeMenu(false);
+});
 </script>
 
 <template>
