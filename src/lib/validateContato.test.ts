@@ -32,3 +32,13 @@ describe('validateContato', () => {
     expect(Object.keys(result.errors)).toEqual(['nome', 'email', 'mensagem']);
   });
 });
+
+describe('validateContato (en)', () => {
+  it('returns English messages', () => {
+    expect(validateContato({ nome: '', email: 'x', mensagem: '' }, 'en').errors).toEqual({
+      nome: 'Please enter your full name.',
+      email: 'Please enter a valid email.',
+      mensagem: 'Write a message with at least 10 characters.',
+    });
+  });
+});

@@ -1,3 +1,5 @@
+import type { Lang } from '../i18n/rotas';
+
 export interface ContatoData {
   nome: string;
   email: string;
@@ -9,19 +11,33 @@ export interface ValidationResult {
   errors: Partial<Record<keyof ContatoData, string>>;
 }
 
+const MENSAGENS: Record<Lang, Record<keyof ContatoData, string>> = {
+  pt: {
+    nome: 'Informe seu nome completo.',
+    email: 'Informe um e-mail válido.',
+    mensagem: 'Escreva uma mensagem com pelo menos 10 caracteres.',
+  },
+  en: {
+    nome: 'Please enter your full name.',
+    email: 'Please enter a valid email.',
+    mensagem: 'Write a message with at least 10 characters.',
+  },
+};
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function validateContato(data: ContatoData): ValidationResult {
+export function validateContato(data: ContatoData, lang: Lang = 'pt'): ValidationResult {
+  const msg = MENSAGENS[lang];
   const errors: ValidationResult['errors'] = {};
 
   if (data.nome.trim().length < 2) {
-    errors.nome = 'Informe seu nome completo.';
+    errors.nome = msg.nome;
   }
   if (!EMAIL_REGEX.test(data.email.trim())) {
-    errors.email = 'Informe um e-mail válido.';
+    errors.email = msg.email;
   }
   if (data.mensagem.trim().length < 10) {
-    errors.mensagem = 'Escreva uma mensagem com pelo menos 10 caracteres.';
+    errors.mensagem = msg.mensagem;
   }
 
   return { valid: Object.keys(errors).length === 0, errors };

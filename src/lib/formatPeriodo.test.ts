@@ -14,3 +14,10 @@ describe('formatPeriodo', () => {
     expect(() => formatPeriodo('2022')).toThrow();
   });
 });
+
+describe('formatPeriodo (en)', () => {
+  it('uses English months and "present"', () => {
+    expect(formatPeriodo('2022-07', undefined, 'en')).toBe('Jul 2022 — present');
+    expect(formatPeriodo('2020-12', '2022-06', 'en')).toBe('Dec 2020 — Jun 2022');
+  });
+});
