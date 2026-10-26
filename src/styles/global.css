@@ -108,6 +108,11 @@ section[id] {
 .scroll-hint:hover {
   color: var(--color-text);
 }
+@media (max-height: 700px) {
+  .scroll-hint {
+    display: none;
+  }
+}
 .scroll-hint-line {
   position: relative;
   width: 1px;
