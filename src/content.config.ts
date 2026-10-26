@@ -35,6 +35,7 @@ const carreira = defineCollection({
   loader: file('src/content/carreira.json'),
   schema: z.object({
     empresa: z.string(),
+    logo: z.string().optional(),
     cargo: z.string(),
     local: z.string(),
     inicio: anoMes,
