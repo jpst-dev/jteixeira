@@ -1,10 +1,10 @@
 ---
 titulo: "Veritas Fidei"
-resumo: "Plataforma interativa e educativa para estudo e defesa da fé católica, com conteúdo organizado em categorias, subcategorias e tópicos."
-problema: "Material de apologética católica costuma estar fragmentado — blogs, vídeos e PDFs isolados, sem uma estrutura que permita estudar de forma progressiva e organizada. A plataforma nasce para dar ordem a esse conteúdo e facilitar a navegação por tema."
-solucao: "Aplicação Vue 3 + TypeScript (Vite) que organiza o conteúdo em uma hierarquia Categorias → Subcategorias → Tópicos, com tags, busca aprimorada, favoritos e tema claro/escuro. Cada nível da hierarquia tem rota e view dedicadas, com breadcrumbs guiando a navegação — estrutura que escala naturalmente à medida que o conteúdo cresce."
-stack: ["Vue 3", "TypeScript", "Vite", "Tailwind CSS", "Pinia", "Vue Router"]
-papel: "Criador do projeto — desenvolvimento completo: arquitetura, componentes, hierarquia de conteúdo, estados globais (tema e favoritos) e deploy na Vercel."
+resumo: "Site de formação e defesa da fé católica: artigos revisados e trilhas de estudo, com identidade de livro litúrgico e cor que acompanha o tempo litúrgico."
+problema: "Material católico de qualidade costuma estar espalhado em blogs, vídeos e PDFs, sem ordem para estudar e, muitas vezes, sem fontes conferidas. A primeira versão do projeto era uma SPA: o Google não indexava os artigos, os links compartilhados não geravam prévia e cada texto novo exigia mexer no código."
+solucao: "Recomecei o projeto em Nuxt 4 com Nuxt Content 3, gerado de forma estática na Vercel. Cada artigo é um arquivo Markdown com metadados validados por schema, e só entra no site com status de publicado. Um verificador próprio confere os artigos contra um padrão editorial (estrutura, citações do Catecismo, links das referências e ortografia), e o visual foi pensado para leitura longa, com tipografia de livro e cor de destaque calculada pelo calendário litúrgico."
+stack: ["Nuxt 4", "Nuxt Content", "TypeScript", "Tailwind CSS", "Vitest"]
+papel: "Criador do projeto: arquitetura, modelo de conteúdo, padrão editorial e ferramenta de revisão, identidade visual e deploy na Vercel."
 linkRepo: "https://github.com/jpst-dev/veritas-fidei"
 linkDemo: "https://veritas-fidei.vercel.app"
 imagens: ["/projetos/veritas-fidei.webp"]
@@ -13,28 +13,27 @@ destaque: false
 
 ## Visão geral
 
-Plataforma interativa e educativa para estudo e defesa da fé católica, com foco em organização do conteúdo e boa experiência de navegação.
+O Veritas Fidei é um site para o católico que quer entender o que a Igreja ensina, por que ensina e onde isso está nas Escrituras e na Tradição. O conteúdo se divide em **Aprender** (artigos de ensino), **Trilhas** (artigos em ordem sobre um tema) e **Defesa da fé** (respostas a objeções).
 
 ## Funcionalidades
 
-- Conteúdo em hierarquia de Categorias → Subcategorias → Tópicos, cada nível com página dedicada.
-- Página de detalhe do tópico, com tags associadas.
-- Busca com barra aprimorada e página de resultados.
-- Favoritos persistidos localmente via Pinia.
-- Tema claro/escuro via Pinia.
-- Breadcrumbs para navegação em profundidade.
-- Página Sobre com cards de missão, layout responsivo e página 404 customizada.
-- Licença MIT.
+- Artigos de ensino e de defesa da fé, organizados em temas e trilhas de estudo.
+- Artigos de defesa da fé no formato das questões medievais: "Parece que…", "Em sentido contrário…" e "Respondo".
+- Índice do artigo, barra de progresso de leitura e tempo de leitura calculado no build.
+- Cor de destaque que muda com o tempo litúrgico (verde, roxo, branco e dourado, vermelho).
+- Tema escuro por padrão, com modo claro salvo no navegador.
+- Feed RSS gerado no build.
 
-## Estrutura e decisões técnicas
+## Decisões técnicas
 
-- **Views por nível da hierarquia**: `HomeView`, `CategoriesView`, `CategoryView`, `SubcategoryView`, `TopicsView`, `TopicView`, `TagView` e `SearchView` — cada nível tem rota e componente próprios, mantendo o código simples e a navegação previsível.
-- **Componentes organizados por domínio**: pastas `category/`, `topic/` e `common/` separam componentes específicos dos reutilizáveis (Navbar, Footer, Breadcrumbs, TopicCard, TagList).
-- **Pinia para estado global**: stores de `favorites` e `theme`, desacopladas da camada de views.
-- **Vue Router** com rotas limpas e hierárquicas.
+- **Recomeçar em vez de remendar**: o valor de um site de conteúdo está em ser encontrado e compartilhado, e uma SPA entrega HTML vazio. Com geração estática, cada página já sai pronta para o Google e para as prévias do WhatsApp.
+- **Nuxt Content com schema**: título, tema, status e referências de cada artigo são validados no build; publicar é criar um arquivo `.md`.
+- **Revisão como parte do código**: `npm run verificar` confere estrutura, citações do Catecismo, links das referências e ortografia (LanguageTool). Rascunhos aparecem só no desenvolvimento, com selo de status.
+- **Calendário litúrgico calculado**: o tempo litúrgico vem do calendário romano com as transferências usadas no Brasil, coberto por testes.
+- **Tipografia para leitura longa**: Literata no texto e Cinzel nos títulos, e referências como "CIC 1252" nunca quebram de linha.
 
 ## Aprendizados
 
-- Modelar rotas e componentes para conteúdo hierárquico (categorias → subcategorias → tópicos).
-- Uso prático de Pinia em aplicação real: estado de tema e favoritos.
-- Organização de componentes por domínio em projeto Vue de porte médio, visando manutenibilidade.
+- Escolher a arquitetura pelo tipo de produto: conteúdo pede renderização estática, não SPA.
+- Tratar conteúdo como código, com schema, validação e revisão automatizada.
+- Construir uma identidade visual que reforça o tema do site.
