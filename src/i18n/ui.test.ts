@@ -18,3 +18,13 @@ describe('ui dictionary', () => {
     expect(vazias).toBeNull();
   });
 });
+
+describe('accessible names (WCAG 2.5.3)', () => {
+  it('contain the visible text of the cv and language links', () => {
+    for (const lang of ['pt', 'en'] as const) {
+      const nav = ui[lang].nav;
+      expect(nav.baixarCv.toLowerCase()).toContain('cv');
+      expect(nav.trocarIdiomaAria).toContain(nav.trocarIdioma);
+    }
+  });
+});

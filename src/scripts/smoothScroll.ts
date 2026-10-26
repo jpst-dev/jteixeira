@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { mesmaPagina } from '../lib/mesmaPagina';
 
 // Rolagem suave para âncoras da própria página (#sobre, /#sobre). Feita via GSAP porque o
 // `scroll-behavior: smooth` do CSS é ignorado pelo navegador quando o sistema desliga animações.
@@ -11,7 +12,7 @@ export function initSmoothScroll(): void {
     const link = (e.target as Element).closest<HTMLAnchorElement>('a[href*="#"]');
     if (!link) return;
     const url = new URL(link.href);
-    if (url.pathname !== location.pathname || !url.hash) return;
+    if (!mesmaPagina(url.pathname, location.pathname) || !url.hash) return;
     const alvo = document.getElementById(decodeURIComponent(url.hash.slice(1)));
     if (!alvo) return;
 

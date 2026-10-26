@@ -19,7 +19,7 @@ const pt = {
     menuMobile: 'Menu mobile',
     // Seletor de idioma: aponta para o outro idioma.
     trocarIdioma: 'EN',
-    trocarIdiomaAria: 'View in English',
+    trocarIdiomaAria: 'EN — View in English',
   },
   hero: {
     local: 'Lins, SP · remoto',
@@ -125,12 +125,12 @@ const en: Dicionario = {
   nav: {
     aria: 'Main navigation',
     links: { sobre: 'About', carreira: 'Career', projetos: 'Projects', skills: 'Skills', contato: 'Contact' },
-    baixarCv: 'Download resume',
+    baixarCv: 'Download CV',
     abrirMenu: 'Open menu',
     fecharMenu: 'Close menu',
     menuMobile: 'Mobile menu',
     trocarIdioma: 'PT',
-    trocarIdiomaAria: 'Ver em português',
+    trocarIdiomaAria: 'PT — Ver em português',
   },
   hero: {
     local: 'Lins, Brazil · remote',
