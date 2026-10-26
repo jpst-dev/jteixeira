@@ -1,38 +1,41 @@
 ---
-titulo: "GameDeals BR"
-resumo: "Comparador de ofertas de jogos para PC com dados da IsThereAnyDeal, focado em boa UX e baixo consumo de API."
+titulo: "DealsGamer"
+resumo: "Comparador de ofertas de jogos para PC para jogadores brasileiros, com dados da IsThereAnyDeal — no ar com domínio próprio, focado em boa UX e baixo consumo de API."
 problema: "Acompanhar promoções de jogos para PC exige checar várias lojas separadamente. O projeto resolve isso centralizando ofertas em um só lugar, com dados atualizados da API da IsThereAnyDeal, sem estourar o consumo da API (que tem limites de requisição)."
 solucao: "Aplicação Nuxt 3 com SSR para melhor SEO e performance, consumindo a IsThereAnyDeal via um proxy Nitro no servidor — decisão que protege a chave da API (ITAD_API_KEY nunca chega ao client) e permite normalizar e controlar o consumo de requisições. O catálogo tem carregamento incremental com auto-load, busca global com autocomplete, página de detalhe com tabela de preços e histórico visual (Chart.js), URLs amigáveis por slug e favoritos/filtros locais persistidos via Pinia."
-stack: ["Nuxt 3", "Vue 3", "TypeScript", "Tailwind CSS", "Pinia", "Chart.js"]
+stack: ["Nuxt 3", "Vue 3", "TypeScript", "Tailwind CSS", "Nuxt UI", "Pinia", "Chart.js"]
 papel: "Criador do projeto — desenvolvi toda a aplicação front-end e a integração com a API da IsThereAnyDeal, incluindo arquitetura, proxy de API, UX e deploy."
 linkRepo: "https://github.com/jpst-dev/gamedeals"
+linkDemo: "https://dealsgamer.com"
+imagens: ["/projetos/gamedeals.webp"]
 destaque: true
 ---
 
 ## Visão geral
 
-Comparador de ofertas de jogos para PC que consolida preços e promoções de diversas lojas em uma interface única, usando dados da [IsThereAnyDeal](https://docs.isthereanydeal.com/). O foco do MVP é entregar boa experiência de usuário mantendo o consumo da API baixo e previsível.
+Comparador de ofertas de jogos para PC que consolida preços e promoções de diversas lojas em uma interface única, usando dados da [IsThereAnyDeal](https://docs.isthereanydeal.com/). O foco é entregar boa experiência de usuário mantendo o consumo da API baixo e previsível.
 
-## Funcionalidades do MVP
+## Funcionalidades
 
-- Home com ofertas em destaque, ordenação e filtros avançados.
+- Home estilo loja: destaque com arte da Steam e prateleiras temáticas.
+- Catálogo `/ofertas` com filtros sempre visíveis (painel lateral no celular), aplicados na hora com estado na URL, e coleções como `/ofertas/gratis` e `/ofertas/acabando`.
 - Carregamento incremental com auto-load + botão manual "Carregar mais".
-- Busca global com autocomplete (dropdown) e navegação direta para a página de detalhe.
-- Página de detalhe com metadados, tabela de preços e histórico visual.
+- Busca global com sugestões que já mostram capa, preço, desconto e menor preço da história; buscas recentes e atalhos `/` e `Ctrl+K`.
+- Página do jogo com caixa de compra, lojas ordenadas por preço e histórico visual.
 - URL amigável por slug (`/game/cyberpunk-2077`).
-- Favoritos e filtros locais via Pinia.
+- Favoritos em `/favoritos` com o melhor preço atual, salvos no navegador.
+- SEO: meta por página, JSON-LD de produto, canonical, sitemap e robots.
 
 ## Decisões técnicas e arquitetura
 
 - **SSR com Nuxt 3**: melhora SEO (importante para indexação de catálogo) e performance de primeiro carregamento.
-- **Proxy de API no servidor** (`server/api/itad-proxy.ts`): a chave da IsThereAnyDeal fica apenas no servidor, evitando exposição no bundle do client e centralizando a lógica de normalização dos dados.
+- **Rotas de API no servidor** (Nitro, `server/api/**`): a chave da IsThereAnyDeal fica apenas no servidor, evitando exposição no bundle do client e centralizando a normalização dos dados.
+- **Cache SWR nas rotas**: respostas reaproveitadas entre visitantes, mantendo o consumo da API baixo e previsível.
 - **TypeScript strict** em todo o código, reforçando a confiabilidade da integração com dados externos.
 - **Normalização centralizada** no composable `useGamesApi.ts`, mantendo páginas desacopladas do formato da API.
 - **Estado global via Pinia** (`stores/games.ts`) para favoritos e filtros, sem dependência de armazenamento server-side.
 - **Grafo de preços com Chart.js + vue-chartjs** na página de detalhe.
 - **Yarn 4** com `node_modules` linker para instalação mais rápida e reprodutível.
-
-Estrutura principal: `app.vue` (shell com header/busca/footer), `pages/index.vue` (catálogo), `pages/search/index.vue` (resultados), `pages/game/[id].vue` (detalhe), `server/api/itad-proxy.ts` (proxy), `stores/games.ts` (estado).
 
 ## Aprendizados
 
@@ -40,4 +43,3 @@ Estrutura principal: `app.vue` (shell com header/busca/footer), `pages/index.vue
 - Padrões de carregamento incremental e autocomplete com foco em baixo custo de requisições.
 - Deploy contínuo no Vercel com variáveis de ambiente para ambientes Production/Preview/Development.
 
-Deploy: [gamedeals-mocha.vercel.app](https://gamedeals-mocha.vercel.app)
