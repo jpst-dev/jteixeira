@@ -2,22 +2,28 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { caminhoAlternativo, langDe, ogImagem } from '../i18n/rotas';
+import { ui } from '../i18n/ui';
 
 interface Props {
   title: string;
   description: string;
-  /** Imagem de compartilhamento (caminho público, PNG/JPG: o LinkedIn não aceita WebP); padrão: /og.png. */
+  /** Imagem de compartilhamento (caminho público, PNG/JPG: o LinkedIn não aceita WebP); padrão: OG do idioma. */
   imagem?: string;
   tipo?: 'website' | 'article';
 }
 
-const { title, description, imagem = '/og.png', tipo = 'website' } = Astro.props;
+const lang = langDe(Astro.url.pathname);
+const { title, description, imagem = ogImagem(lang), tipo = 'website' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const alternativo = new URL(caminhoAlternativo(Astro.url.pathname), Astro.site);
+const [urlPt, urlEn] = lang === 'pt' ? [canonical, alternativo] : [alternativo, canonical];
+const { htmlLang, locale } = ui[lang].meta;
 const imagemAbsoluta = new URL(imagem, Astro.site);
 ---
 
 <!doctype html>
-<html lang="pt-BR" class="no-js">
+<html lang={htmlLang} class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,13 +31,17 @@ const imagemAbsoluta = new URL(imagem, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="pt-BR" href={urlPt} />
+    <link rel="alternate" hreflang="en" href={urlEn} />
+    <link rel="alternate" hreflang="x-default" href={urlPt} />
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="theme-color" content="#09090b" />
     <meta name="author" content="João Pedro Teixeira" />
 
     <meta property="og:type" content={tipo} />
     <meta property="og:site_name" content="João Pedro Teixeira" />
-    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale" content={locale} />
+    <meta property="og:locale:alternate" content={ui[lang === 'pt' ? 'en' : 'pt'].meta.locale} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

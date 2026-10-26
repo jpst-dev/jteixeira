@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 
-defineProps<{ links: { href: string; label: string }[]; cvHref: string }>();
+defineProps<{
+  links: { href: string; label: string }[];
+  cvHref: string;
+  idioma: { href: string; lang: string; label: string; aria: string };
+  textos: { abrir: string; fechar: string; menu: string; baixarCv: string };
+}>();
 
 const open = ref(false);
 // O painel só é teleportado no client, evitando conflito de hidratação com o HTML do servidor.
@@ -65,7 +70,7 @@ onBeforeUnmount(() => {
     class="-mr-2 p-2 text-text"
     :aria-expanded="open"
     aria-controls="mobile-menu"
-    :aria-label="open ? 'Fechar menu' : 'Abrir menu'"
+    :aria-label="open ? textos.fechar : textos.abrir"
     @click="open ? closeMenu() : openMenu()"
   >
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -81,7 +86,7 @@ onBeforeUnmount(() => {
     ref="panel"
     class="fixed inset-0 z-40 bg-bg/95 backdrop-blur px-6 pt-24 pb-10 flex flex-col"
   >
-    <nav aria-label="Menu mobile">
+    <nav :aria-label="textos.menu">
       <ul class="space-y-2">
         <li v-for="(link, i) in links" :key="link.href">
           <a :href="link.href" class="flex items-baseline gap-3 py-2 text-3xl font-bold tracking-tight" @click="closeMenu(false)">
@@ -90,9 +95,20 @@ onBeforeUnmount(() => {
         </li>
       </ul>
     </nav>
-    <a :href="cvHref" download class="mt-auto inline-flex justify-center rounded-xl border border-border-strong px-5 py-3 font-semibold">
-      Baixar CV
-    </a>
+    <div class="mt-auto flex gap-3">
+      <a :href="cvHref" download class="flex-1 inline-flex justify-center rounded-xl border border-border-strong px-5 py-3 font-semibold">
+        {{ textos.baixarCv }}
+      </a>
+      <a
+        :href="idioma.href"
+        :hreflang="idioma.lang"
+        :lang="idioma.lang"
+        :aria-label="idioma.aria"
+        class="inline-flex justify-center rounded-xl border border-border-strong px-5 py-3 font-mono font-semibold"
+      >
+        {{ idioma.label }}
+      </a>
+    </div>
   </div>
   </Teleport>
 </template>

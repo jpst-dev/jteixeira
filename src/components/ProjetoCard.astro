@@ -2,6 +2,8 @@
 import type { CollectionEntry } from 'astro:content';
 import ProjetoThumb from './ProjetoThumb.astro';
 import Icon from './ui/Icon.astro';
+import { langDe, projeto as rotaProjeto } from '../i18n/rotas';
+import { t } from '../i18n/ui';
 
 interface Props {
   projeto: CollectionEntry<'projetos'>;
@@ -15,10 +17,12 @@ const MAX_TAGS = 4;
 const tags = stack.slice(0, MAX_TAGS);
 const restantes = stack.length - tags.length;
 const destaque = variante === 'destaque';
+const lang = langDe(Astro.url.pathname);
+const tx = t(lang).projetos;
 ---
 
 <a
-  href={`/projetos/${projeto.id}/`}
+  href={rotaProjeto(lang, projeto.id)}
   data-reveal
   data-spotlight
   class:list={[
@@ -30,7 +34,7 @@ const destaque = variante === 'destaque';
   <div class:list={['p-3 pt-5', destaque && 'md:py-6 md:pr-6']}>
     <div class="flex items-center gap-3 font-mono text-xs text-subtle">
       <span>{numero}</span>
-      {destaque && <span class="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-accent">Destaque</span>}
+      {destaque && <span class="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-accent">{tx.destaque}</span>}
     </div>
     <h3 class:list={['mt-2 font-semibold tracking-tight', destaque ? 'text-2xl sm:text-3xl' : 'text-xl']}>{titulo}</h3>
     <p class="mt-2 text-sm text-muted leading-relaxed">{resumo}</p>
@@ -41,7 +45,7 @@ const destaque = variante === 'destaque';
       {restantes > 0 && <li class="rounded-full px-1.5 py-1 text-subtle">+{restantes}</li>}
     </ul>
     <p class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-text">
-      Ver case
+      {tx.verCase}
       <Icon name="arrow-up-right" size={16} class="text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </p>
   </div>

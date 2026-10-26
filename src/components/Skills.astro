@@ -1,11 +1,16 @@
 ---
 import SectionHeading from './ui/SectionHeading.astro';
 import { skills } from '../data/perfil';
-const grupos = skills.pt;
+import { langDe } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+const lang = langDe(Astro.url.pathname);
+const tx = t(lang).skills;
+const grupos = skills[lang];
 ---
 
 <section id="skills" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
-  <SectionHeading numero="04" titulo="Skills" linha1="Ferramentas do" linha2="dia a dia." />
+  <SectionHeading numero="04" titulo={tx.titulo} linha1={tx.linha1} linha2={tx.linha2} />
   <div class="grid gap-4 md:grid-cols-3" data-reveal-group>
     {grupos.map((grupo, i) => (
       <div

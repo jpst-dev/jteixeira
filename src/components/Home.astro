@@ -1,0 +1,25 @@
+---
+// Conteúdo da home, igual nos dois idiomas; cada seção descobre o idioma pela URL.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from './Hero.astro';
+import Sobre from './Sobre.astro';
+import StackMarquee from './StackMarquee.astro';
+import Carreira from './Carreira.astro';
+import Projetos from './Projetos.astro';
+import Skills from './Skills.astro';
+import Contato from './Contato.astro';
+import { langDe } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+const { meta } = t(langDe(Astro.url.pathname));
+---
+
+<BaseLayout title={meta.titulo} description={meta.descricao}>
+  <Hero />
+  <Sobre />
+  <StackMarquee />
+  <Carreira />
+  <Projetos />
+  <Skills />
+  <Contato />
+</BaseLayout>

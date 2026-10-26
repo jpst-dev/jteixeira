@@ -3,13 +3,25 @@ import { getCollection } from 'astro:content';
 import SectionHeading from './ui/SectionHeading.astro';
 import { formatPeriodo } from '../lib/formatPeriodo';
 import { formacao, certificacoes } from '../data/perfil';
+import { langDe, secoes } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+const lang = langDe(Astro.url.pathname);
+const tx = t(lang).carreira;
 
 // Mais recente primeiro; o loader não garante a ordem do JSON.
-const experiencias = (await getCollection('carreira')).sort((a, b) => b.data.inicio.localeCompare(a.data.inicio));
+const experiencias = (await getCollection('carreira'))
+  .sort((a, b) => b.data.inicio.localeCompare(a.data.inicio))
+  // No EN, cargo/local/bullets vêm do bloco `en` da experiência (obrigatório: nada de PT no /en).
+  .map(({ id, data }) => {
+    if (lang === 'pt') return { data };
+    if (!data.en) throw new Error(`Experiência "${id}" sem bloco "en" em src/content/carreira.json`);
+    return { data: { ...data, ...data.en } };
+  });
 ---
 
-<section id="carreira" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
-  <SectionHeading numero="02" titulo="Carreira" linha1="Onde venho" linha2="construindo." />
+<section id={secoes[lang].carreira} class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
+  <SectionHeading numero="02" titulo={tx.titulo} linha1={tx.linha1} linha2={tx.linha2} />
   <ol class="relative border-l border-border ml-1.5 space-y-8" data-reveal-group>
     {experiencias.map(({ data }) => (
       <li class="relative pl-6 sm:pl-10" data-reveal>
@@ -23,7 +35,7 @@ const experiencias = (await getCollection('carreira')).sort((a, b) => b.data.ini
         <article data-spotlight class="rounded-2xl border border-border bg-surface/85 p-5 sm:p-6 transition-colors hover:border-border-strong">
           <header class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
             <h3 class="text-lg font-semibold">{data.empresa}</h3>
-            <p class="font-mono text-xs text-subtle">{formatPeriodo(data.inicio, data.fim)}</p>
+            <p class="font-mono text-xs text-subtle">{formatPeriodo(data.inicio, data.fim, lang)}</p>
           </header>
           <p class="mt-1 text-muted">{data.cargo} · <span class="text-subtle">{data.local}</span></p>
           <ul class="mt-4 space-y-2 text-sm text-muted leading-relaxed list-disc pl-4 marker:text-accent/60">
@@ -41,9 +53,9 @@ const experiencias = (await getCollection('carreira')).sort((a, b) => b.data.ini
 
   <div class="mt-16 grid gap-4 md:grid-cols-[1fr_1.4fr]" data-reveal-group>
     <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal data-spotlight>
-      <h3 class="font-semibold mb-4">Formação</h3>
+      <h3 class="font-semibold mb-4">{tx.formacao}</h3>
       <ul class="space-y-4">
-        {formacao.pt.map((item) => (
+        {formacao[lang].map((item) => (
           <li>
             <p class="text-text">{item.curso}</p>
             <p class="text-sm text-muted">{item.instituicao} · <span class="font-mono text-xs text-subtle">{item.periodo}</span></p>
@@ -52,9 +64,9 @@ const experiencias = (await getCollection('carreira')).sort((a, b) => b.data.ini
       </ul>
     </div>
     <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal data-spotlight>
-      <h3 class="font-semibold mb-4">Certificações</h3>
+      <h3 class="font-semibold mb-4">{tx.certificacoes}</h3>
       <ul class="space-y-2 text-sm text-muted list-disc pl-4 marker:text-accent/60">
-        {certificacoes.pt.map((item) => <li>{item}</li>)}
+        {certificacoes[lang].map((item) => <li>{item}</li>)}
       </ul>
     </div>
   </div>

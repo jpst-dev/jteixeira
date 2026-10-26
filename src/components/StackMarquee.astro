@@ -1,5 +1,9 @@
 ---
 import { logos } from './ui/logos';
+import { langDe } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+const tx = t(langDe(Astro.url.pathname)).marquee;
 
 const stack = ['Vue.js', 'Nuxt', 'TypeScript', 'React', 'Next.js', 'C#', '.NET', 'Claude Code', 'Cursor', 'Tailwind CSS', 'Pinia', 'Vitest', 'Jest', 'Cypress', 'Playwright', 'Node.js', 'Docker', 'Git'];
 const slug = (tech: string) => `logo-${tech.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
@@ -11,7 +15,7 @@ const slug = (tech: string) => `logo-${tech.toLowerCase().replace(/[^a-z0-9]+/g,
   ))}
 </svg>
 
-<div class="marquee border-y border-border py-6 overflow-hidden" role="region" aria-label="Tecnologias com que trabalho">
+<div class="marquee border-y border-border py-6 overflow-hidden" role="region" aria-label={tx.aria}>
   <div class="marquee-track flex w-max gap-10">
     {[0, 1].map((copia) => (
       <ul class="flex shrink-0 gap-10 font-mono text-sm text-muted" aria-hidden={copia === 1 ? 'true' : undefined}>

@@ -2,21 +2,20 @@
 import { Image } from 'astro:assets';
 import Icon from './ui/Icon.astro';
 import foto from '../assets/eu.jpeg';
-import { cvPdf } from '../i18n/rotas';
-const CV_HREF = cvPdf('pt');
+import { cvPdf, langDe, secoes } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+const lang = langDe(Astro.url.pathname);
+const tx = t(lang).hero;
+const ids = secoes[lang];
+const CV_HREF = cvPdf(lang);
 
 const sociais = [
   { label: 'GitHub', href: 'https://github.com/jpst-dev', icon: 'github' as const },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jpst-dev/', icon: 'linkedin' as const },
 ];
 
-const frases = [
-  'Full Stack Developer',
-  'Vue.js · Nuxt · TypeScript',
-  'React · Next.js · Tailwind',
-  'C# · .NET · APIs REST',
-  'Claude Code · Cursor · IA',
-];
+const frases = tx.frases;
 ---
 
 <section id="hero" class="relative overflow-hidden">
@@ -24,7 +23,7 @@ const frases = [
 
   <div class="relative max-w-6xl mx-auto px-4 sm:px-6 min-h-[100svh] pt-28 pb-24 grid gap-12 md:grid-cols-[1.4fr_1fr] items-center content-center">
     <div>
-      <p data-hero-item class="font-mono text-xs sm:text-sm text-subtle mb-6">Lins, SP · remoto</p>
+      <p data-hero-item class="font-mono text-xs sm:text-sm text-subtle mb-6">{tx.local}</p>
 
       <h1 data-hero-item data-split class="text-[clamp(3rem,9vw,6.5rem)] font-extrabold tracking-[-0.04em] leading-[0.95]">
         <span class="block">João Pedro</span>
@@ -37,23 +36,19 @@ const frases = [
         data-frases={JSON.stringify(frases)}
         class="mt-6 h-[1.5em] overflow-hidden whitespace-nowrap font-mono text-lg sm:text-2xl text-text"
       >
-        <span class="sr-only">
-          Full Stack Developer — Vue.js, Nuxt, TypeScript, React, Next.js, Tailwind, C#, .NET, APIs REST, Claude Code, Cursor e IA
-        </span>
+        <span class="sr-only">{tx.frasesSr}</span>
         <span aria-hidden="true"><span class="text-accent">&gt; </span><span data-typewriter-texto>{frases[0]}</span><span class="typewriter-cursor">|</span></span>
       </p>
 
-      <p data-hero-item class="mt-6 text-lg text-muted max-w-xl leading-relaxed">
-        Construo produtos web do Design System à API — com IA no centro do fluxo e eu no controle da qualidade.
-      </p>
+      <p data-hero-item class="mt-6 text-lg text-muted max-w-xl leading-relaxed">{tx.pitch}</p>
 
       <div data-hero-item class="mt-8 flex flex-wrap items-center gap-3">
-        <a href="#projetos" data-magnetic class="group inline-flex items-center gap-2 rounded-xl bg-accent text-on-accent font-semibold px-5 py-3 hover:brightness-110 transition">
-          Ver projetos
+        <a href={`#${ids.projetos}`} data-magnetic class="group inline-flex items-center gap-2 rounded-xl bg-accent text-on-accent font-semibold px-5 py-3 hover:brightness-110 transition">
+          {tx.verProjetos}
           <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-0.5" />
         </a>
         <a href={CV_HREF} download data-magnetic class="inline-flex items-center gap-2 rounded-xl border border-border-strong px-5 py-3 font-semibold hover:bg-surface transition-colors">
-          <Icon name="download" size={18} /> Baixar CV
+          <Icon name="download" size={18} /> {tx.baixarCv}
         </a>
         <div class="flex items-center gap-1 ml-1">
           {sociais.map((s) => (
@@ -70,7 +65,7 @@ const frases = [
       <div class="hero-ring" aria-hidden="true"></div>
       <Image
         src={foto}
-        alt="Foto de João Pedro Teixeira"
+        alt={tx.fotoAlt}
         widths={[240, 384, 480, 768]}
         sizes="(min-width: 768px) 384px, (min-width: 640px) 320px, 240px"
         loading="eager"
@@ -82,12 +77,12 @@ const frases = [
           <span class="absolute inline-flex size-full rounded-full bg-accent opacity-75 animate-ping"></span>
           <span class="relative inline-flex size-2 rounded-full bg-accent"></span>
         </span>
-        disponível
+        {tx.disponivel}
       </span>
     </div>
   </div>
 
-  <a href="#sobre" class="scroll-hint" aria-label="Rolar para a seção Sobre">
+  <a href={`#${ids.sobre}`} class="scroll-hint" aria-label={tx.rolarAria}>
     <span>scroll</span>
     <span class="scroll-hint-line" aria-hidden="true"></span>
   </a>

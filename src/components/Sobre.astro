@@ -1,47 +1,28 @@
 ---
 import SectionHeading from './ui/SectionHeading.astro';
+import { langDe, secoes } from '../i18n/rotas';
+import { t } from '../i18n/ui';
 
-const entregas = [
-  'Interfaces escaláveis e Design Systems componentizados',
-  'APIs REST em .NET integradas ao front',
-  'Cobertura de testes e CI desde o início',
-  'Ganho real de velocidade com IA, sem abrir mão de boas práticas',
-];
-
-const stats = [
-  { valor: '4+ anos', legenda: 'construindo produtos web' },
-  { valor: 'Design System', legenda: 'criado do zero e em evolução' },
-  { valor: 'Vue · React · .NET', legenda: 'do front à API' },
-];
+const lang = langDe(Astro.url.pathname);
+const tx = t(lang).sobre;
 ---
 
-<section id="sobre" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
-  <SectionHeading numero="01" titulo="Sobre" linha1="Um pouco" linha2="sobre mim." />
+<section id={secoes[lang].sobre} class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
+  <SectionHeading numero="01" titulo={tx.titulo} linha1={tx.linha1} linha2={tx.linha2} />
   <div class="grid gap-12 lg:grid-cols-[1.5fr_1fr] items-start">
     <div class="space-y-5 text-lg text-muted leading-relaxed" data-reveal>
-      <p>
-        Sou desenvolvedor full stack com mais de 4 anos construindo produtos web, do Design System à API.
-        Minha base é front-end — Vue.js, Nuxt, React, Next.js e TypeScript — com foco em performance,
-        acessibilidade e código sustentável, apoiado em TDD e testes automatizados (Jest, Cypress).
-      </p>
-      <p>
-        Hoje atuo também no backend com C#/.NET e APIs REST, cuidando da integração entre as camadas.
-      </p>
-      <p>
-        Trabalho com IA como parte central do meu fluxo: agentes de código como Claude Code e Cursor para
-        prototipar, refatorar e gerar testes — sempre comigo no controle da arquitetura, da revisão e da qualidade.
-      </p>
+      {tx.paragrafos.map((paragrafo) => <p>{paragrafo}</p>)}
       <div class="pt-2">
-        <p class="font-mono text-xs text-subtle mb-3">O que entrego</p>
+        <p class="font-mono text-xs text-subtle mb-3">{tx.entregasTitulo}</p>
         <ul class="space-y-2 text-base">
-          {entregas.map((item) => (
+          {tx.entregas.map((item) => (
             <li class="flex gap-3"><span class="text-accent" aria-hidden="true">→</span>{item}</li>
           ))}
         </ul>
       </div>
     </div>
     <ul class="grid gap-4 sm:grid-cols-3 lg:grid-cols-1" data-reveal-group>
-      {stats.map((stat) => (
+      {tx.stats.map((stat) => (
         <li class="rounded-2xl border border-border bg-surface/85 p-5" data-reveal data-spotlight>
           <p class="text-2xl font-bold tracking-tight text-text">{stat.valor}</p>
           <p class="mt-1 font-mono text-xs text-subtle">{stat.legenda}</p>

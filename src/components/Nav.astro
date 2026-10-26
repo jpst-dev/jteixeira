@@ -1,26 +1,25 @@
 ---
 import MobileMenu from './MobileMenu.vue';
 import Icon from './ui/Icon.astro';
-import { cvPdf } from '../i18n/rotas';
-const CV_HREF = cvPdf('pt');
+import { caminhoAlternativo, cvPdf, home, langDe, secoes } from '../i18n/rotas';
+import { t } from '../i18n/ui';
 
-const links = [
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#carreira', label: 'Carreira' },
-  { href: '#projetos', label: 'Projetos' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#contato', label: 'Contato' },
-];
-const cvHref = CV_HREF;
+const lang = langDe(Astro.url.pathname);
+const tx = t(lang).nav;
+const inicio = home(lang);
+const chaves = ['sobre', 'carreira', 'projetos', 'skills', 'contato'] as const;
+const links = chaves.map((chave) => ({ id: secoes[lang][chave], href: `${inicio}#${secoes[lang][chave]}`, label: tx.links[chave] }));
+const cvHref = cvPdf(lang);
+const outroIdioma = { href: caminhoAlternativo(Astro.url.pathname), lang: lang === 'pt' ? 'en' : 'pt-BR' };
 ---
 
 <header
   id="site-header"
-  aria-label="Navegação principal"
+  aria-label={tx.aria}
   class="fixed top-0 inset-x-0 z-50 border-b border-transparent transition-colors duration-300 [&.is-scrolled]:bg-bg/80 [&.is-scrolled]:backdrop-blur [&.is-scrolled]:border-border"
 >
   <nav class="max-w-6xl mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 py-4">
-    <a href="/#hero" class="group flex items-center gap-2 font-bold text-xl tracking-tight">
+    <a href={`${inicio}#hero`} class="group flex items-center gap-2 font-bold text-xl tracking-tight">
       <span class="font-mono text-lg text-accent transition-transform group-hover:-rotate-6" aria-hidden="true">&lt;/&gt;</span>
       <span>jteixeira<span class="text-accent">.dev</span></span>
       <span data-nav-path class="hidden lg:inline-block w-24 font-mono text-sm font-normal text-subtle" aria-hidden="true">~/</span>
@@ -31,8 +30,8 @@ const cvHref = CV_HREF;
       {links.map((link) => (
         <li class="relative">
           <a
-            href={`/${link.href}`}
-            data-nav-link={link.href.slice(1)}
+            href={link.href}
+            data-nav-link={link.id}
             class="nav-link block px-2 py-2 transition-colors hover:text-text aria-[current=true]:text-text"
           >
             {link.label}
@@ -41,18 +40,36 @@ const cvHref = CV_HREF;
       ))}
     </ul>
 
-    <a
-      href={cvHref}
-      download
-      aria-label="Baixar CV"
-      title="Baixar CV"
-      class="hidden md:inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-sm text-subtle hover:text-text hover:bg-surface transition-colors"
-    >
-      <Icon name="download" size={16} /> cv
-    </a>
+    <div class="hidden md:flex items-center gap-1">
+      <a
+        href={cvHref}
+        download
+        aria-label={tx.baixarCv}
+        title={tx.baixarCv}
+        class="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-sm text-subtle hover:text-text hover:bg-surface transition-colors"
+      >
+        <Icon name="download" size={16} /> cv
+      </a>
+      <a
+        href={outroIdioma.href}
+        hreflang={outroIdioma.lang}
+        lang={outroIdioma.lang}
+        aria-label={tx.trocarIdiomaAria}
+        title={tx.trocarIdiomaAria}
+        class="rounded-lg px-2.5 py-1.5 font-mono text-sm text-subtle hover:text-text hover:bg-surface transition-colors"
+      >
+        {tx.trocarIdioma}
+      </a>
+    </div>
 
     <div class="md:hidden">
-      <MobileMenu links={links.map((l) => ({ ...l, href: `/${l.href}` }))} cvHref={cvHref} client:media="(max-width: 767px)" />
+      <MobileMenu
+        links={links}
+        cvHref={cvHref}
+        idioma={{ ...outroIdioma, label: tx.trocarIdioma, aria: tx.trocarIdiomaAria }}
+        textos={{ abrir: tx.abrirMenu, fechar: tx.fecharMenu, menu: tx.menuMobile, baixarCv: tx.baixarCv }}
+        client:media="(max-width: 767px)"
+      />
     </div>
   </nav>
   <span class="nav-neon" aria-hidden="true"></span>
