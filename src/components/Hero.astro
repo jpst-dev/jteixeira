@@ -1,22 +1,57 @@
 ---
-const tags = ['Vue.js', 'Nuxt', 'React', 'Next.js'];
+import Icon from './ui/Icon.astro';
+
+const sociais = [
+  { label: 'GitHub', href: 'https://github.com/jpst-dev', icon: 'github' as const },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jpst-dev/', icon: 'linkedin' as const },
+];
 ---
 
-<section id="hero" class="max-w-6xl mx-auto px-4 sm:px-6 min-h-[80vh] flex flex-col justify-center gap-6">
-  <p class="font-mono text-accent text-sm">&gt; whoami --role=frontend</p>
-  <h1 class="text-4xl sm:text-5xl font-bold">João Pedro Teixeira</h1>
-  <p class="text-lg text-muted">Front-End Developer &rarr; Fullstack</p>
-  <ul class="flex flex-wrap gap-2 font-mono text-xs">
-    {tags.map((tag) => (
-      <li class="border border-border rounded px-2 py-1 text-muted">{tag}</li>
-    ))}
-  </ul>
-  <div class="flex gap-4 pt-4">
-    <a href="#projetos" class="bg-accent text-bg font-semibold px-5 py-2 rounded hover:opacity-90 transition-opacity">
-      Ver projetos
-    </a>
-    <a href="/Joao-Pedro-Teixeira-Desenvolvedor-Front-End.pdf" download class="border border-accent text-accent px-5 py-2 rounded hover:bg-accent/10 transition-colors">
-      Baixar CV
-    </a>
+<section id="hero" class="relative overflow-hidden">
+  <div class="hero-backdrop" aria-hidden="true"></div>
+
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 min-h-[100svh] pt-28 pb-16 grid gap-12 md:grid-cols-[1.4fr_1fr] items-center">
+    <div>
+      <p data-hero-item class="font-mono text-xs sm:text-sm text-accent mb-6 flex items-center gap-2">
+        <span class="relative flex size-2">
+          <span class="absolute inline-flex size-full rounded-full bg-accent opacity-75 motion-safe:animate-ping"></span>
+          <span class="relative inline-flex size-2 rounded-full bg-accent"></span>
+        </span>
+        disponível · Lins, SP · remoto
+      </p>
+
+      <h1 data-hero-item data-split class="text-[clamp(2.75rem,7vw,5rem)] font-extrabold tracking-[-0.03em] leading-[1.02]">
+        Interfaces que <span class="text-gradient">escalam.</span>
+      </h1>
+
+      <p data-hero-item class="mt-6 text-lg text-muted max-w-xl leading-relaxed">
+        Sou João Pedro Teixeira, desenvolvedor front-end com 4+ anos em Vue.js/Nuxt e Design Systems — hoje
+        evoluindo para fullstack com C#/.NET.
+      </p>
+
+      <div data-hero-item class="mt-8 flex flex-wrap items-center gap-3">
+        <a href="#projetos" class="group inline-flex items-center gap-2 rounded-xl bg-accent text-on-accent font-semibold px-5 py-3 hover:brightness-110 transition">
+          Ver projetos
+          <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-0.5" />
+        </a>
+        <a href="/Joao-Pedro-Teixeira-Desenvolvedor-Front-End.pdf" download class="inline-flex items-center gap-2 rounded-xl border border-border-strong px-5 py-3 font-semibold hover:bg-surface transition-colors">
+          <Icon name="download" size={18} /> Baixar CV
+        </a>
+        <div class="flex items-center gap-1 ml-1">
+          {sociais.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} class="p-2.5 rounded-lg text-muted hover:text-text hover:bg-surface transition-colors">
+              <Icon name={s.icon} size={20} />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div data-hero-item class="mx-auto w-full max-w-[15rem] sm:max-w-xs md:max-w-sm">
+      <!-- TODO conteúdo: substituir por <Image> com a foto -->
+      <div class="aspect-square rounded-3xl bg-surface border border-border shadow-[0_30px_80px_-20px_rgba(66,211,146,.35)] flex items-center justify-center">
+        <span class="text-7xl font-extrabold tracking-tight text-subtle select-none" aria-hidden="true">JP</span>
+      </div>
+    </div>
   </div>
 </section>
