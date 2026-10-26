@@ -31,27 +31,27 @@ async function onSubmit() {
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit" class="space-y-4 max-w-md">
+  <form @submit.prevent="onSubmit" class="space-y-4">
     <div>
       <input v-model="form.nome" type="text" placeholder="Seu nome" aria-label="Seu nome"
         :aria-describedby="errors.nome ? 'erro-nome' : undefined"
-        class="w-full bg-transparent border border-border rounded px-4 py-2 focus:outline-none focus:border-accent" />
+        class="w-full bg-bg border border-border rounded-xl px-4 py-3 placeholder:text-subtle transition-colors focus:border-accent" />
       <p v-if="errors.nome" id="erro-nome" class="text-red-400 text-sm mt-1">{{ errors.nome }}</p>
     </div>
     <div>
       <input v-model="form.email" type="email" placeholder="Seu e-mail" aria-label="Seu e-mail"
         :aria-describedby="errors.email ? 'erro-email' : undefined"
-        class="w-full bg-transparent border border-border rounded px-4 py-2 focus:outline-none focus:border-accent" />
+        class="w-full bg-bg border border-border rounded-xl px-4 py-3 placeholder:text-subtle transition-colors focus:border-accent" />
       <p v-if="errors.email" id="erro-email" class="text-red-400 text-sm mt-1">{{ errors.email }}</p>
     </div>
     <div>
       <textarea v-model="form.mensagem" placeholder="Sua mensagem" aria-label="Sua mensagem" rows="4"
         :aria-describedby="errors.mensagem ? 'erro-mensagem' : undefined"
-        class="w-full bg-transparent border border-border rounded px-4 py-2 focus:outline-none focus:border-accent"></textarea>
+        class="w-full bg-bg border border-border rounded-xl px-4 py-3 placeholder:text-subtle transition-colors focus:border-accent"></textarea>
       <p v-if="errors.mensagem" id="erro-mensagem" class="text-red-400 text-sm mt-1">{{ errors.mensagem }}</p>
     </div>
     <button type="submit" :disabled="status === 'sending'"
-      class="bg-accent text-bg font-semibold px-5 py-2 rounded hover:opacity-90 transition-opacity disabled:opacity-50">
+      class="w-full sm:w-auto bg-accent text-on-accent font-semibold px-5 py-3 rounded-xl hover:brightness-110 transition disabled:opacity-50">
       {{ status === 'sending' ? 'Enviando...' : 'Enviar mensagem' }}
     </button>
     <div aria-live="polite" aria-atomic="true">

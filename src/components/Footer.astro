@@ -1,7 +1,10 @@
 ---
-const year = 2026;
+const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border py-8 text-center text-sm text-muted font-mono">
-  <p>&copy; {year} João Pedro Teixeira — construído com Astro + Vue + Tailwind.</p>
+<footer class="border-t border-border">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row gap-2 justify-between text-sm">
+    <p class="text-muted">&copy; {year} João Pedro Teixeira</p>
+    <p class="font-mono text-xs text-subtle">Feito com Astro, Vue & Tailwind</p>
+  </div>
 </footer>

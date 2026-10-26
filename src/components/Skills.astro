@@ -1,4 +1,6 @@
 ---
+import SectionHeading from './ui/SectionHeading.astro';
+
 const grupos = [
   {
     categoria: 'Front-end',
@@ -19,15 +21,22 @@ const grupos = [
 ];
 ---
 
-<section id="skills" class="max-w-6xl mx-auto px-4 sm:px-6 py-24">
-  <h2 class="font-mono text-accent text-sm mb-8">## skills</h2>
-  <div class="grid sm:grid-cols-2 gap-8">
-    {grupos.map((grupo) => (
-      <div>
-        <h3 class="font-semibold mb-3">{grupo.categoria}</h3>
+<section id="skills" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
+  <SectionHeading numero="04" titulo="Skills" />
+  <div class="grid gap-4 md:grid-cols-3" data-reveal-group>
+    {grupos.map((grupo, i) => (
+      <div
+        data-reveal
+        class:list={[
+          'rounded-2xl border border-border bg-surface/85 p-6 transition-colors hover:border-border-strong',
+          i === 0 && 'md:col-span-2',
+          i === 3 && 'md:col-span-2',
+        ]}
+      >
+        <h3 class="font-semibold mb-4">{grupo.categoria}</h3>
         <ul class="flex flex-wrap gap-2 font-mono text-xs">
           {grupo.itens.map((item) => (
-            <li class="border border-border rounded px-2 py-1 text-muted">{item}</li>
+            <li class="rounded-full border border-border bg-bg px-2.5 py-1 text-muted">{item}</li>
           ))}
         </ul>
       </div>

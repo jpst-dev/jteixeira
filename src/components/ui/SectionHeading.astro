@@ -8,6 +8,6 @@ interface Props {
 const { numero, titulo, id } = Astro.props;
 ---
 
-<p id={id} class="font-mono text-sm mb-10" data-reveal>
+<h2 id={id} class="font-mono text-sm font-normal mb-10" data-reveal>
   <span class="text-subtle">{numero} —</span> <span class="text-text">{titulo}</span>
-</p>
+</h2>
