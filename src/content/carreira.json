@@ -17,8 +17,8 @@
       "Vue.js",
       "Nuxt",
       "C#/.NET",
-      "APIs REST",
       "IA",
+      "APIs REST",
       "Jest",
       "Cypress"
     ],
@@ -31,6 +31,15 @@
         "Evolving the platform’s Design System.",
         "Automated testing with Jest and Cypress.",
         "Code review, CI and collaboration with product, UX and QA in Scrum."
+      ],
+      "tags": [
+        "Vue.js",
+        "Nuxt",
+        "C#/.NET",
+        "AI",
+        "REST APIs",
+        "Jest",
+        "Cypress"
       ]
     }
   },
@@ -89,6 +98,10 @@
         "IT support, inventory control and requests via SAP (ERP).",
         "Monitoring and analysis of data and systems.",
         "Preventive and corrective equipment maintenance."
+      ],
+      "tags": [
+        "SAP",
+        "IT Support"
       ]
     }
   }

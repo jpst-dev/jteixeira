@@ -42,7 +42,7 @@ const carreira = defineCollection({
     fim: anoMes.optional(),
     bullets: z.array(z.string()),
     tags: z.array(z.string()),
-    en: z.object({ cargo: z.string(), local: z.string(), bullets: z.array(z.string()) }).optional(),
+    en: z.object({ cargo: z.string(), local: z.string(), bullets: z.array(z.string()), tags: z.array(z.string()).optional() }).optional(),
   }),
 });
 
