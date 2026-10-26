@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Icon from './ui/Icon.astro';
 import foto from '../assets/eu.jpeg';
+import { CV_HREF } from '../data/perfil';
 
 const sociais = [
   { label: 'GitHub', href: 'https://github.com/jpst-dev', icon: 'github' as const },
@@ -50,7 +51,7 @@ const frases = [
           Ver projetos
           <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-0.5" />
         </a>
-        <a href="/Joao-Pedro-Teixeira-Desenvolvedor-Front-End.pdf" download data-magnetic class="inline-flex items-center gap-2 rounded-xl border border-border-strong px-5 py-3 font-semibold hover:bg-surface transition-colors">
+        <a href={CV_HREF} download data-magnetic class="inline-flex items-center gap-2 rounded-xl border border-border-strong px-5 py-3 font-semibold hover:bg-surface transition-colors">
           <Icon name="download" size={18} /> Baixar CV
         </a>
         <div class="flex items-center gap-1 ml-1">

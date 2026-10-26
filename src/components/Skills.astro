@@ -1,24 +1,6 @@
 ---
 import SectionHeading from './ui/SectionHeading.astro';
-
-const grupos = [
-  {
-    categoria: 'Front-end',
-    itens: ['Vue.js', 'Nuxt', 'React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Pinia', 'Design System'],
-  },
-  {
-    categoria: 'Backend',
-    itens: ['C#', '.NET', 'APIs REST', 'Node.js', 'Integração front ↔ API'],
-  },
-  {
-    categoria: 'AI-Assisted Engineering',
-    itens: ['Claude Code', 'Cursor', 'Agentes de código', 'Refatoração e testes com IA', 'Revisão humana'],
-  },
-  {
-    categoria: 'Qualidade, testes & entrega',
-    itens: ['TDD', 'Jest', 'Vitest', 'Cypress', 'Playwright', 'Code review', 'CI/CD', 'Docker', 'Acessibilidade', 'Performance web'],
-  },
-];
+import { skills as grupos } from '../data/perfil';
 ---
 
 <section id="skills" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">

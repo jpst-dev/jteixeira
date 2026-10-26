@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "cv": "astro build && node scripts/gerar-cv.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.5",
