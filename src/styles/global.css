@@ -68,3 +68,11 @@ section[id] {
   background-size: 100% 100%, 32px 32px, 32px 32px;
   mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
 }
+
+/* Estado inicial das animações: só com JS ativo e movimento permitido (animations.ts revela). */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal],
+  .js [data-hero-item] {
+    opacity: 0;
+  }
+}

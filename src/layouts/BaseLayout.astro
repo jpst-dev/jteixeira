@@ -19,7 +19,14 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
-    <script is:inline>document.documentElement.classList.replace('no-js', 'js');</script>
+    <script is:inline>
+      // Com JS, os elementos animados começam escondidos (ver global.css). Se o GSAP
+      // não carregar em 3s, removemos a classe para nada ficar invisível.
+      document.documentElement.classList.replace('no-js', 'js');
+      setTimeout(() => {
+        if (!window.__animReady) document.documentElement.classList.remove('js');
+      }, 3000);
+    </script>
   </head>
   <body>
     <Nav />
@@ -27,5 +34,9 @@ const { title, description } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <script>
+      import { initAnimations } from '../scripts/animations';
+      initAnimations();
+    </script>
   </body>
 </html>
