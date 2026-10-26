@@ -1,0 +1,35 @@
+---
+titulo: "Veritas Fidei"
+resumo: "Interactive educational platform for studying and defending the Catholic faith, with content organized into categories, subcategories and topics."
+problema: "Catholic apologetics material tends to be scattered — standalone blogs, videos and PDFs with no structure for studying a subject step by step. The platform exists to bring order to that content and make it easy to browse by theme."
+solucao: "A Vue 3 + TypeScript (Vite) app that organizes content in a Categories → Subcategories → Topics hierarchy, with tags, improved search, favorites and a light/dark theme. Each level of the hierarchy has its own route and view, with breadcrumbs guiding navigation — a structure that scales naturally as the content grows."
+papel: "Creator — end-to-end development: architecture, components, content hierarchy, global state (theme and favorites) and deployment on Vercel."
+---
+
+## Overview
+
+An interactive, educational platform for studying and defending the Catholic faith, focused on well-organized content and a good browsing experience.
+
+## Features
+
+- Content in a Categories → Subcategories → Topics hierarchy, with a dedicated page for each level.
+- Topic detail page with related tags.
+- Improved search bar and a results page.
+- Favorites persisted locally with Pinia.
+- Light/dark theme with Pinia.
+- Breadcrumbs for deep navigation.
+- About page with mission cards, responsive layout and a custom 404 page.
+- MIT license.
+
+## Structure and technical decisions
+
+- **One view per hierarchy level**: `HomeView`, `CategoriesView`, `CategoryView`, `SubcategoryView`, `TopicsView`, `TopicView`, `TagView` and `SearchView` — each level has its own route and component, keeping the code simple and navigation predictable.
+- **Components organized by domain**: `category/`, `topic/` and `common/` folders separate feature-specific components from reusable ones (Navbar, Footer, Breadcrumbs, TopicCard, TagList).
+- **Pinia for global state**: `favorites` and `theme` stores, decoupled from the view layer.
+- **Vue Router** with clean, hierarchical routes.
+
+## What I learned
+
+- Modeling routes and components for hierarchical content (categories → subcategories → topics).
+- Practical use of Pinia in a real app: theme and favorites state.
+- Organizing components by domain in a mid-sized Vue project, with maintainability in mind.

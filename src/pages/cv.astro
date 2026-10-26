@@ -32,7 +32,7 @@ const semProtocolo = (url: string) => url.replace(/^https?:\/\//, '').replace(/\
           <a href={`https://${contato.site}`}>{contato.site}</a>
           <a href={`https://${contato.linkedin}`}>{contato.linkedin}</a>
           <a href={`https://${contato.github}`}>{contato.github}</a>
-          <span>{contato.local}</span>
+          <span>{contato.local.pt}</span>
         </p>
       </header>
 
@@ -78,7 +78,7 @@ const semProtocolo = (url: string) => url.replace(/^https?:\/\//, '').replace(/\
       <section>
         <h2>Habilidades</h2>
         <dl class="skills">
-          {skills.map((g) => (
+          {skills.pt.map((g) => (
             <div>
               <dt>{g.categoria}</dt>
               <dd>{g.itens.join(' · ')}</dd>
@@ -90,16 +90,16 @@ const semProtocolo = (url: string) => url.replace(/^https?:\/\//, '').replace(/\
       <div class="colunas">
         <section>
           <h2>Formação</h2>
-          {formacao.map((f) => (
+          {formacao.pt.map((f) => (
             <p class="formacao"><strong>{f.curso}</strong><br />{f.instituicao} · {f.periodo}</p>
           ))}
           <h2 class="espaco">Idiomas</h2>
-          <p>{idiomas.join(' · ')}</p>
+          <p>{idiomas.pt.join(' · ')}</p>
         </section>
         <section>
           <h2>Certificações</h2>
           <ul class="certs">
-            {certificacoes.map((c) => <li>{c}</li>)}
+            {certificacoes.pt.map((c) => <li>{c}</li>)}
           </ul>
         </section>
       </div>

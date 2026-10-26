@@ -12,7 +12,26 @@
       "Testes automatizados com Jest e Cypress.",
       "Code review, CI e colaboração com produto, UX e QA em Scrum."
     ],
-    "tags": ["Vue.js", "Nuxt", "C#/.NET", "APIs REST", "IA", "Jest", "Cypress"]
+    "tags": [
+      "Vue.js",
+      "Nuxt",
+      "C#/.NET",
+      "APIs REST",
+      "IA",
+      "Jest",
+      "Cypress"
+    ],
+    "en": {
+      "cargo": "Junior Front-end Developer",
+      "local": "São Paulo, Brazil · remote",
+      "bullets": [
+        "Full stack development: Vue.js/Nuxt interfaces and C#/.NET REST APIs.",
+        "Using AI (coding agents) to speed up development, refactoring and test writing, with human review.",
+        "Evolving the platform’s Design System.",
+        "Automated testing with Jest and Cypress.",
+        "Code review, CI and collaboration with product, UX and QA in Scrum."
+      ]
+    }
   },
   {
     "id": "mercado-eletronico-programador",
@@ -26,7 +45,23 @@
       "Participação na criação do Design System do zero, padronizando componentes entre times.",
       "Implantação de testes automatizados (Jest, Cypress) e práticas de TDD no time."
     ],
-    "tags": ["Vue.js", "Nuxt", "Design System", "TDD", "Jest", "Cypress"]
+    "tags": [
+      "Vue.js",
+      "Nuxt",
+      "Design System",
+      "TDD",
+      "Jest",
+      "Cypress"
+    ],
+    "en": {
+      "cargo": "Front-end Programmer",
+      "local": "São Paulo, Brazil · remote",
+      "bullets": [
+        "Built scalable product interfaces with Vue.js and Nuxt.js.",
+        "Helped create the Design System from scratch, standardizing components across teams.",
+        "Introduced automated testing (Jest, Cypress) and TDD practices to the team."
+      ]
+    }
   },
   {
     "id": "viarondon",
@@ -40,6 +75,18 @@
       "Monitoramento e análise de dados e sistemas.",
       "Manutenção preventiva e corretiva de equipamentos."
     ],
-    "tags": ["SAP", "Suporte"]
+    "tags": [
+      "SAP",
+      "Suporte"
+    ],
+    "en": {
+      "cargo": "IT Apprentice",
+      "local": "Lins, Brazil",
+      "bullets": [
+        "IT support, inventory control and requests via SAP (ERP).",
+        "Monitoring and analysis of data and systems.",
+        "Preventive and corrective equipment maintenance."
+      ]
+    }
   }
 ]

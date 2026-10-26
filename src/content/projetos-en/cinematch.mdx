@@ -1,0 +1,38 @@
+---
+titulo: "CineMatch"
+resumo: "Movie recommendation platform with smart search, advanced filters and TMDb API integration, wrapped in a clean, fully responsive UI."
+problema: "Figuring out what to watch means cross-checking several sources: popular movies, top rated, by genre, now playing. This project brings all of it into a single interface, with real data from the TMDb API and a focus on usability."
+solucao: "A Vue 3 + TypeScript (Vite) app consuming the TMDb API. Search is debounced (VueUse) to avoid unnecessary requests and shows instant autocomplete suggestions. Global state lives in Pinia, lists use infinite scroll, and highlights sit in carousels of now-playing and recommended movies. The movie page has everything — synopsis, trailer, cast and where to watch — and the app is deployed on Vercel."
+papel: "Front-end developer — I built it from scratch: design, code architecture, TMDb API integration and deployment on Vercel."
+---
+
+## Overview
+
+CineMatch is a movie recommendation project that pairs good looks with real functionality, consuming an external API. Users can discover popular or top-rated movies, or filter by genre, rating and release date — all in a fast, responsive interface.
+
+## Features
+
+- Suggestions by popularity and rating.
+- Debounced search with instant suggestions (autocomplete).
+- Filters by genre, rating, popularity and date.
+- Movie cards in 3 customizable sizes.
+- Infinite scroll for dynamic loading.
+- Carousels with now-playing and recommended movies.
+- Full details: synopsis, trailer, cast and where to watch.
+- Responsive layout for every screen size.
+
+## Technical decisions
+
+- **Vue 3 + TypeScript (Vite)**: a modern base with strong typing across all the data coming from the API.
+- **Pinia** for global state, keeping filters and data predictable.
+- **Debounced search with VueUse**: avoids firing a request on every keystroke, cutting cost and latency.
+- **Infinite scroll + carousels**: dynamic loading without explicit pagination, prioritizing smooth browsing.
+- **Axios** for HTTP requests to TMDb, with the API layer isolated from the rest of the app.
+
+## What I learned
+
+- Real-world integration with an external API (TMDb): key-based auth, response handling and typed data.
+- UX patterns like autocomplete, debouncing and incremental loading.
+- Deploying an SPA on Vercel with environment variables (`VITE_TMDB_API_KEY`).
+
+> Note: since this is a static SPA, the TMDb key ships in the client bundle (the service's standard approach for read-only apps). A natural next step is moving API calls behind a server-side proxy, as I did in DealsGamer.

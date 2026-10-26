@@ -1,7 +1,8 @@
 ---
 import MobileMenu from './MobileMenu.vue';
 import Icon from './ui/Icon.astro';
-import { CV_HREF } from '../data/perfil';
+import { cvPdf } from '../i18n/rotas';
+const CV_HREF = cvPdf('pt');
 
 const links = [
   { href: '#sobre', label: 'Sobre' },

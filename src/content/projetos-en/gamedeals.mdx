@@ -1,0 +1,39 @@
+---
+titulo: "DealsGamer"
+resumo: "PC game deal tracker for Brazilian gamers, powered by IsThereAnyDeal data — live on its own domain, built for great UX and low API usage."
+problema: "Keeping up with PC game sales means checking several stores one by one. This project brings every deal into one place, with up-to-date data from the IsThereAnyDeal API, without blowing through the API's rate limits."
+solucao: "A Nuxt 3 app with SSR for better SEO and performance, consuming IsThereAnyDeal through a server-side Nitro proxy — a choice that keeps the API key safe (ITAD_API_KEY never reaches the client) and lets me normalize the data and control request volume. The catalog loads incrementally with auto-load, global search has autocomplete, the game page shows a price table and a visual price history (Chart.js), URLs are slug-based, and favorites/filters are persisted locally with Pinia."
+papel: "Creator — I built the entire front-end application and the IsThereAnyDeal integration, including architecture, the API proxy, UX and deployment."
+---
+
+## Overview
+
+A PC game deal tracker that brings prices and sales from many stores into a single interface, using data from [IsThereAnyDeal](https://docs.isthereanydeal.com/). The goal is a great user experience while keeping API usage low and predictable.
+
+## Features
+
+- Storefront-style home: a hero with Steam artwork and themed shelves.
+- `/ofertas` catalog with always-visible filters (a side panel on mobile), applied instantly with state in the URL, plus collections like `/ofertas/gratis` (free) and `/ofertas/acabando` (ending soon).
+- Incremental loading with auto-load plus a manual "Load more" button.
+- Global search with suggestions that already show cover art, price, discount and historical low; recent searches and `/` and `Ctrl+K` shortcuts.
+- Game page with a buy box, stores sorted by price and a visual price history.
+- Slug-based URLs (`/game/cyberpunk-2077`).
+- Favorites at `/favoritos` with the current best price, saved in the browser.
+- SEO: per-page meta, product JSON-LD, canonical URLs, sitemap and robots.
+
+## Technical decisions and architecture
+
+- **SSR with Nuxt 3**: better SEO (key for indexing a catalog) and faster first load.
+- **Server API routes** (Nitro, `server/api/**`): the IsThereAnyDeal key lives only on the server, out of the client bundle, and data normalization happens in one place.
+- **SWR caching on the routes**: responses are reused across visitors, keeping API usage low and predictable.
+- **Strict TypeScript** throughout, making the integration with external data more reliable.
+- **Centralized normalization** in the `useGamesApi.ts` composable, keeping pages decoupled from the API's shape.
+- **Global state with Pinia** (`stores/games.ts`) for favorites and filters, with no server-side storage.
+- **Price chart with Chart.js + vue-chartjs** on the game page.
+- **Yarn 4** with the `node_modules` linker for faster, reproducible installs.
+
+## What I learned
+
+- How to design an API proxy that protects credentials in SSR apps.
+- Incremental loading and autocomplete patterns that keep request costs low.
+- Continuous deployment on Vercel with environment variables for Production/Preview/Development.

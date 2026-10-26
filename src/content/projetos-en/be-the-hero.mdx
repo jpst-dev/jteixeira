@@ -1,0 +1,35 @@
+---
+titulo: "Be The Hero"
+resumo: "Full-stack platform connecting NGOs with donors: NGOs sign up, publish cases and get contacted by people who want to help."
+problema: "NGOs need a simple, fast way to promote their causes and raise funds. Without a dedicated platform, outreach is scattered across social media and contact with potential donors is disorganized."
+solucao: "A full-stack app with a Node.js + Express back end and a React (JavaScript) front end. The API (Express, Knex and SQLite3) exposes CRUD for NGOs, cases and login sessions, with controllers split by domain (OngController, IncidentController, ProfileController, SessionController). On the front end, React Router organizes the flows into pages (Logon, Register, Profile, Newincident) and Axios centralizes API calls in a service layer. It's a complete full-stack project: simple NGO-ID authentication, case registration and a profile page listing the logged-in NGO's cases."
+papel: "Full-stack developer — I built the back end (REST API with Express/Knex/SQLite) and the front end (React with routing, API consumption and the login, sign-up and profile screens)."
+---
+
+## Overview
+
+A project from Rocketseat's OmniStack Week 11 (2020) that connects NGOs with people willing to help. The goal of the exercise was to build a complete full-stack application, from the database to the interface. It's a study project that cemented my foundation in full-stack JavaScript development.
+
+## Features
+
+- NGO sign-up with a generated login ID.
+- NGO login session (SessionController).
+- Creating and listing cases (incidents) with title, description and amount.
+- NGO profile page listing its cases, with the option to delete them.
+- Front-end routes: Logon, Register, Profile and Newincident.
+
+## Technical decisions
+
+- **Layered back end**: `controllers/` splits logic by domain, `routes.js` centralizes routing and `database/` isolates the Knex configuration.
+- **SQLite + Knex**: a simple local database with no infrastructure dependency — right for the scope, with migrations handling schema changes.
+- **Service layer on the front end** (`src/services`): Axios is kept out of the pages, a pattern that makes maintenance easier.
+- **React Router DOM** for navigating between the NGO flows.
+
+## What I learned
+
+- My first full-stack experience: connecting a React front end to my own REST API, from scratch.
+- Relational database modeling with Knex (NGOs and cases linked by a foreign key).
+- A complete, simple ID-based authentication flow, without external auth libraries.
+- Structuring a project with domain-based folders on both the back end and the front end.
+
+> Study project: written in JavaScript (no TypeScript) and not deployed. Kept here as a record of my first end-to-end full-stack application.

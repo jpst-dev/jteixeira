@@ -2,7 +2,8 @@
 import { Image } from 'astro:assets';
 import Icon from './ui/Icon.astro';
 import foto from '../assets/eu.jpeg';
-import { CV_HREF } from '../data/perfil';
+import { cvPdf } from '../i18n/rotas';
+const CV_HREF = cvPdf('pt');
 
 const sociais = [
   { label: 'GitHub', href: 'https://github.com/jpst-dev', icon: 'github' as const },

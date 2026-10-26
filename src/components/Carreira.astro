@@ -43,7 +43,7 @@ const experiencias = (await getCollection('carreira')).sort((a, b) => b.data.ini
     <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal data-spotlight>
       <h3 class="font-semibold mb-4">Formação</h3>
       <ul class="space-y-4">
-        {formacao.map((item) => (
+        {formacao.pt.map((item) => (
           <li>
             <p class="text-text">{item.curso}</p>
             <p class="text-sm text-muted">{item.instituicao} · <span class="font-mono text-xs text-subtle">{item.periodo}</span></p>
@@ -54,7 +54,7 @@ const experiencias = (await getCollection('carreira')).sort((a, b) => b.data.ini
     <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal data-spotlight>
       <h3 class="font-semibold mb-4">Certificações</h3>
       <ul class="space-y-2 text-sm text-muted list-disc pl-4 marker:text-accent/60">
-        {certificacoes.map((item) => <li>{item}</li>)}
+        {certificacoes.pt.map((item) => <li>{item}</li>)}
       </ul>
     </div>
   </div>
