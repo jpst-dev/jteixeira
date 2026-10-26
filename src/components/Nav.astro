@@ -18,20 +18,20 @@ const cvHref = '/Joao-Pedro-Teixeira-Desenvolvedor-Front-End.pdf';
   class="fixed top-0 inset-x-0 z-50 border-b border-transparent transition-colors duration-300 [&.is-scrolled]:bg-bg/80 [&.is-scrolled]:backdrop-blur [&.is-scrolled]:border-border"
 >
   <nav class="max-w-6xl mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 py-4">
-    <a href="/#hero" class="group flex items-center gap-2 font-bold text-lg tracking-tight">
-      <span class="font-mono text-base text-accent transition-transform group-hover:-rotate-6" aria-hidden="true">&lt;/&gt;</span>
+    <a href="/#hero" class="group flex items-center gap-2 font-bold text-xl tracking-tight">
+      <span class="font-mono text-lg text-accent transition-transform group-hover:-rotate-6" aria-hidden="true">&lt;/&gt;</span>
       <span>jteixeira<span class="text-accent">.dev</span></span>
-      <span data-nav-path class="hidden lg:inline-block w-20 font-mono text-xs font-normal text-subtle" aria-hidden="true">~/</span>
+      <span data-nav-path class="hidden lg:inline-block w-24 font-mono text-sm font-normal text-subtle" aria-hidden="true">~/</span>
     </a>
 
-    <ul data-nav-list class="relative hidden md:flex items-center gap-1 rounded-full border border-border bg-surface/80 backdrop-blur px-2 py-1.5 text-sm text-muted">
+    <ul data-nav-list class="relative hidden md:flex items-center gap-2 lg:gap-4 text-base text-muted">
       <li data-nav-indicator aria-hidden="true" class="nav-indicator"></li>
       {links.map((link) => (
         <li class="relative">
           <a
             href={`/${link.href}`}
             data-nav-link={link.href.slice(1)}
-            class="block rounded-full px-3.5 py-1.5 transition-colors hover:text-text aria-[current=true]:text-text"
+            class="nav-link block px-2 py-2 transition-colors hover:text-text aria-[current=true]:text-text"
           >
             {link.label}
           </a>
@@ -44,9 +44,9 @@ const cvHref = '/Joao-Pedro-Teixeira-Desenvolvedor-Front-End.pdf';
       download
       aria-label="Baixar CV"
       title="Baixar CV"
-      class="hidden md:inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-subtle hover:text-text hover:bg-surface transition-colors"
+      class="hidden md:inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-sm text-subtle hover:text-text hover:bg-surface transition-colors"
     >
-      <Icon name="download" size={14} /> cv
+      <Icon name="download" size={16} /> cv
     </a>
 
     <div class="md:hidden">
@@ -85,8 +85,10 @@ const cvHref = '/Joao-Pedro-Teixeira-Desenvolvedor-Front-End.pdf';
     const base = lista.getBoundingClientRect();
     const r = ativo.getBoundingClientRect();
     indicador.style.opacity = '1';
-    indicador.style.width = `${r.width}px`;
-    indicador.style.translate = `${r.left - base.left - lista.clientLeft}px 0`;
+    // O sublinhado acompanha só o texto (desconta o padding horizontal do link).
+    const padding = parseFloat(getComputedStyle(ativo).paddingLeft);
+    indicador.style.width = `${r.width - padding * 2}px`;
+    indicador.style.translate = `${r.left - base.left - lista.clientLeft + padding}px 0`;
   };
 
   const ids = ['hero', ...Array.from(navLinks, (l) => l.dataset.navLink ?? '')];
@@ -102,27 +104,51 @@ const cvHref = '/Joao-Pedro-Teixeira-Desenvolvedor-Front-End.pdf';
     const section = document.getElementById(id);
     if (section) observer.observe(section);
   }
-  // Recalcula a posição se a pílula mudar de tamanho (fontes carregando, resize).
+  // Recalcula a posição se a lista mudar de tamanho (fontes carregando, resize).
   if (lista) new ResizeObserver(() => marcar(document.querySelector('[data-nav-link][aria-current]')?.getAttribute('data-nav-link') ?? null)).observe(lista);
 </script>
 
 <style>
+  /* Sublinhado verde do link ativo, deslizando entre os links. */
   .nav-indicator {
     position: absolute;
-    top: 0.375rem;
-    bottom: 0.375rem;
+    bottom: 0.2rem;
     left: 0;
     width: 0;
+    height: 2px;
     opacity: 0;
     border-radius: 9999px;
-    background: rgba(66, 211, 146, 0.12);
-    box-shadow:
-      inset 0 0 0 1px rgba(66, 211, 146, 0.35),
-      0 0 18px -4px rgba(66, 211, 146, 0.5);
+    background: var(--color-accent);
+    box-shadow: 0 0 10px rgba(66, 211, 146, 0.7);
     transition:
       translate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
       width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
       opacity 0.3s;
+  }
+
+  /* Hover: sublinhado cresce da esquerda para a direita (no ativo, o indicador já cumpre o papel). */
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.2rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: var(--color-border-strong);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+  .nav-link[aria-current='true']::after {
+    display: none;
   }
 
   /* Brilho neon atravessando a borda de baixo, da esquerda para a direita. */
