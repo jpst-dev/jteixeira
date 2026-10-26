@@ -1,4 +1,5 @@
-// Tecnologias principais do perfil (Vue, Nuxt, TypeScript, C#/.NET e variações) ganham destaque nos badges.
-const PRINCIPAL = /^(vue|nuxt|typescript|c#|\.net|IA|AI|Design System)(?![a-z-])/i;
+// Em cada card, as primeiras tags marcam o que é central naquele projeto ou cargo;
+// a ordem é escolhida no conteúdo. O nível de domínio fica na seção Skills.
+const DESTAQUES = 2;
 
-export const ehPrincipal = (tech: string): boolean => PRINCIPAL.test(tech.trim());
+export const ehDestaque = (indice: number): boolean => indice < DESTAQUES;

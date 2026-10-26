@@ -1,17 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { ehPrincipal } from './tags';
+import { ehDestaque } from './tags';
 
-describe('ehPrincipal', () => {
-  it('highlights the core stack and its variations', () => {
-    for (const tech of ['Vue.js', 'Vue 3', 'Nuxt', 'Nuxt 3', 'Nuxt UI', 'TypeScript', 'C#', 'C#/.NET', '.NET', 'IA', 'AI', 'Design System']) {
-      expect(ehPrincipal(tech), tech).toBe(true);
-    }
+describe('ehDestaque', () => {
+  it('highlights the first two tags of a card, whatever they are', () => {
+    expect(['Astro', 'Vue 3', 'TypeScript', 'GSAP'].map((_, i) => ehDestaque(i))).toEqual([true, true, false, false]);
   });
 
-  it('keeps everything else neutral', () => {
-    for (const tech of ['React', 'Next.js', 'Jest', 'APIs REST', 'REST APIs', 'Tailwind CSS', 'Integração front ↔ API', 'AI-assisted refactoring and testing']) {
-      expect(ehPrincipal(tech), tech).toBe(false);
-    }
+  it('highlights both tags of a two-tag list', () => {
+    expect(['SAP', 'Suporte'].map((_, i) => ehDestaque(i))).toEqual([true, true]);
   });
 });
 

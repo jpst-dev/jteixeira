@@ -9,43 +9,52 @@ export const contato = {
   local: { pt: 'Lins, SP · remoto', en: 'Lins, Brazil · remote' } satisfies Record<Lang, string>,
 };
 
-type Grupo = { categoria: string; itens: string[] };
+// diaADia: o que uso no trabalho hoje; jaUsei: o que já usei em projetos.
+type Grupo = { categoria: string; diaADia: string[]; jaUsei: string[] };
 
 export const skills: Record<Lang, Grupo[]> = {
   pt: [
     {
       categoria: 'Front-end',
-      itens: ['Vue.js', 'Nuxt', 'React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Pinia', 'Design System'],
+      diaADia: ['Vue.js', 'Nuxt', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Pinia', 'Design System'],
+      jaUsei: ['React', 'Next.js'],
     },
     {
       categoria: 'Backend',
-      itens: ['C#', '.NET', 'APIs REST', 'Node.js', 'Integração front ↔ API'],
+      diaADia: ['C#', '.NET', 'APIs REST', 'Integração front ↔ API'],
+      jaUsei: ['Node.js'],
     },
     {
       categoria: 'AI-Assisted Engineering',
-      itens: ['Claude Code', 'Cursor', 'Agentes de código', 'Refatoração e testes com IA', 'Revisão humana'],
+      diaADia: ['Claude Code', 'Cursor', 'Agentes de código', 'Refatoração e testes com IA', 'Revisão humana'],
+      jaUsei: [],
     },
     {
       categoria: 'Qualidade, testes & entrega',
-      itens: ['TDD', 'Jest', 'Vitest', 'Cypress', 'Playwright', 'Code review', 'CI/CD', 'Docker', 'Acessibilidade', 'Performance web'],
+      diaADia: ['TDD', 'Jest', 'Cypress', 'Code review', 'Acessibilidade', 'Performance web'],
+      jaUsei: ['Vitest', 'Playwright', 'CI/CD', 'Docker'],
     },
   ],
   en: [
     {
       categoria: 'Front end',
-      itens: ['Vue.js', 'Nuxt', 'React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Pinia', 'Design System'],
+      diaADia: ['Vue.js', 'Nuxt', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Pinia', 'Design System'],
+      jaUsei: ['React', 'Next.js'],
     },
     {
       categoria: 'Back end',
-      itens: ['C#', '.NET', 'REST APIs', 'Node.js', 'Front end ↔ API integration'],
+      diaADia: ['C#', '.NET', 'REST APIs', 'Front end ↔ API integration'],
+      jaUsei: ['Node.js'],
     },
     {
       categoria: 'AI-Assisted Engineering',
-      itens: ['Claude Code', 'Cursor', 'Coding agents', 'AI-assisted refactoring and testing', 'Human review'],
+      diaADia: ['Claude Code', 'Cursor', 'Coding agents', 'AI-assisted refactoring and testing', 'Human review'],
+      jaUsei: [],
     },
     {
       categoria: 'Quality, testing & delivery',
-      itens: ['TDD', 'Jest', 'Vitest', 'Cypress', 'Playwright', 'Code review', 'CI/CD', 'Docker', 'Accessibility', 'Web performance'],
+      diaADia: ['TDD', 'Jest', 'Cypress', 'Code review', 'Accessibility', 'Web performance'],
+      jaUsei: ['Vitest', 'Playwright', 'CI/CD', 'Docker'],
     },
   ],
 };

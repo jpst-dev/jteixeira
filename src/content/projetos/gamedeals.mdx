@@ -3,7 +3,7 @@ titulo: "DealsGamer"
 resumo: "Comparador de ofertas de jogos para PC para jogadores brasileiros, com dados da IsThereAnyDeal — no ar com domínio próprio, focado em boa UX e baixo consumo de API."
 problema: "Acompanhar promoções de jogos para PC exige checar várias lojas separadamente. O projeto resolve isso centralizando ofertas em um só lugar, com dados atualizados da API da IsThereAnyDeal, sem estourar o consumo da API (que tem limites de requisição)."
 solucao: "Aplicação Nuxt 3 com SSR para melhor SEO e performance, consumindo a IsThereAnyDeal via um proxy Nitro no servidor — decisão que protege a chave da API (ITAD_API_KEY nunca chega ao client) e permite normalizar e controlar o consumo de requisições. O catálogo tem carregamento incremental com auto-load, busca global com autocomplete, página de detalhe com tabela de preços e histórico visual (Chart.js), URLs amigáveis por slug e favoritos/filtros locais persistidos via Pinia."
-stack: ["Nuxt 3", "Vue 3", "TypeScript", "Tailwind CSS", "Nuxt UI", "Pinia", "Chart.js"]
+stack: ["Nuxt 3", "Nuxt UI", "TypeScript", "Vue 3", "Tailwind CSS", "Pinia", "Chart.js"]
 papel: "Criador do projeto — desenvolvi toda a aplicação front-end e a integração com a API da IsThereAnyDeal, incluindo arquitetura, proxy de API, UX e deploy."
 linkRepo: "https://github.com/jpst-dev/gamedeals"
 linkDemo: "https://dealsgamer.com"

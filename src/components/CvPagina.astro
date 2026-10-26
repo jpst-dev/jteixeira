@@ -82,7 +82,7 @@ const semProtocolo = (url: string) => url.replace(/^https?:\/\//, '').replace(/\
           {skills[lang].map((g) => (
             <div>
               <dt>{g.categoria}</dt>
-              <dd>{g.itens.join(' · ')}</dd>
+              <dd>{[...g.diaADia, ...g.jaUsei].join(' · ')}</dd>
             </div>
           ))}
         </dl>

@@ -77,7 +77,7 @@ const pt = {
     proximo: 'Próximo projeto',
     screenshotAlt: 'Screenshot do projeto',
   },
-  skills: { titulo: 'Skills', linha1: 'Ferramentas do', linha2: 'dia a dia.' },
+  skills: { titulo: 'Skills', linha1: 'Com o que', linha2: 'eu trabalho.', diaADia: 'No dia a dia', jaUsei: 'Também já usei' },
   contato: {
     titulo: 'Contato',
     linha1: 'Vamos',
@@ -188,7 +188,7 @@ const en: Dicionario = {
     proximo: 'Next project',
     screenshotAlt: 'Screenshot of',
   },
-  skills: { titulo: 'Skills', linha1: 'Everyday', linha2: 'toolkit.' },
+  skills: { titulo: 'Skills', linha1: 'What I', linha2: 'work with.', diaADia: 'Day to day', jaUsei: 'Also used' },
   contato: {
     titulo: 'Contact',
     linha1: "Let's",

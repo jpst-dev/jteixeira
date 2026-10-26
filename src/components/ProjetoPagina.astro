@@ -4,7 +4,7 @@ import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjetoThumb from './ProjetoThumb.astro';
 import Icon from './ui/Icon.astro';
-import { ehPrincipal } from '../lib/tags';
+import { ehDestaque } from '../lib/tags';
 import type { ProjetoIdioma } from '../data/projetos';
 import { home, langDe, projeto as rotaProjeto, secoes } from '../i18n/rotas';
 import { t } from '../i18n/ui';
@@ -30,8 +30,8 @@ const { Content } = await render(projeto.conteudo);
         <h1 class="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight" data-hero-item>{titulo}</h1>
         <p class="mt-4 text-lg text-muted leading-relaxed max-w-3xl" data-hero-item>{papel}</p>
         <ul class="mt-6 flex flex-wrap gap-2 font-mono text-xs" data-hero-item>
-          {stack.map((tech) => (
-            <li class:list={['tag', ehPrincipal(tech) && 'tag-principal']}>{tech}</li>
+          {stack.map((tech, i) => (
+            <li class:list={['tag', ehDestaque(i) && 'tag-principal']}>{tech}</li>
           ))}
         </ul>
         {(linkRepo || linkDemo) && (

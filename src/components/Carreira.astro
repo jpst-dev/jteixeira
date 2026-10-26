@@ -3,7 +3,7 @@ import SectionHeading from './ui/SectionHeading.astro';
 import { formatPeriodo } from '../lib/formatPeriodo';
 import { duracao } from '../lib/duracao';
 import { agruparEmpresas } from '../lib/agruparEmpresas';
-import { ehPrincipal } from '../lib/tags';
+import { ehDestaque } from '../lib/tags';
 import { formacao, certificacoes } from '../data/perfil';
 import { experienciasDoIdioma } from '../data/carreira';
 import { langDe, secoes } from '../i18n/rotas';
@@ -66,7 +66,7 @@ const hoje = new Date().toISOString().slice(0, 7);
                     {data.bullets.map((bullet) => <li>{bullet}</li>)}
                   </ul>
                   <ul class="mt-4 flex flex-wrap gap-2">
-                    {data.tags.map((tag) => <li class:list={['tag', ehPrincipal(tag) && 'tag-principal']}>{tag}</li>)}
+                    {data.tags.map((tag, i) => <li class:list={['tag', ehDestaque(i) && 'tag-principal']}>{tag}</li>)}
                   </ul>
                 </li>
               ))}

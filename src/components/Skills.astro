@@ -1,7 +1,6 @@
 ---
 import SectionHeading from './ui/SectionHeading.astro';
 import Icon from './ui/Icon.astro';
-import { ehPrincipal } from '../lib/tags';
 import { skills } from '../data/perfil';
 import { langDe } from '../i18n/rotas';
 import { t } from '../i18n/ui';
@@ -30,11 +29,18 @@ const icones = ['monitor', 'server', 'sparkles', 'shield-check'] as const;
           <span class="icone-contorno" aria-hidden="true"><Icon name={icones[i]} size={16} /></span>
           {grupo.categoria}
         </h3>
+        <p class="mb-2 font-mono text-xs text-subtle">{tx.diaADia}</p>
         <ul class="flex flex-wrap gap-2 font-mono text-xs">
-          {grupo.itens.map((item) => (
-            <li class:list={['tag', ehPrincipal(item) && 'tag-principal']}>{item}</li>
-          ))}
+          {grupo.diaADia.map((item) => <li class="tag tag-principal">{item}</li>)}
         </ul>
+        {grupo.jaUsei.length > 0 && (
+          <>
+            <p class="mt-5 mb-2 font-mono text-xs text-subtle">{tx.jaUsei}</p>
+            <ul class="flex flex-wrap gap-2 font-mono text-xs">
+              {grupo.jaUsei.map((item) => <li class="tag">{item}</li>)}
+            </ul>
+          </>
+        )}
       </div>
     ))}
   </div>

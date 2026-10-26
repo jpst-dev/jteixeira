@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import ProjetoThumb from './ProjetoThumb.astro';
 import Icon from './ui/Icon.astro';
-import { ehPrincipal } from '../lib/tags';
+import { ehDestaque } from '../lib/tags';
 import { langDe, projeto as rotaProjeto } from '../i18n/rotas';
 import { t } from '../i18n/ui';
 
@@ -40,8 +40,8 @@ const tx = t(lang).projetos;
     <h3 class:list={['mt-2 font-semibold tracking-tight', destaque ? 'text-2xl sm:text-3xl' : 'text-xl']}>{titulo}</h3>
     <p class="mt-2 text-sm text-muted leading-relaxed">{resumo}</p>
     <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs">
-      {tags.map((tech) => (
-        <li class:list={['tag', ehPrincipal(tech) && 'tag-principal']}>{tech}</li>
+      {tags.map((tech, i) => (
+        <li class:list={['tag', ehDestaque(i) && 'tag-principal']}>{tech}</li>
       ))}
       {restantes > 0 && <li class="rounded-full px-1.5 py-1 text-subtle">+{restantes}</li>}
     </ul>
