@@ -29,6 +29,7 @@ const { title, description } = Astro.props;
     </script>
   </head>
   <body>
+    <div id="constellation" class="constellation" aria-hidden="true"></div>
     <Nav />
     <main>
       <slot />
@@ -37,6 +38,18 @@ const { title, description } = Astro.props;
     <script>
       import { initAnimations } from '../scripts/animations';
       initAnimations();
+
+      // O fundo é decorativo: carrega depois da página pronta e falhas são ignoradas.
+      const iniciarFundo = () => {
+        const el = document.getElementById('constellation');
+        if (el) import('../scripts/constellation').then((m) => m.initConstellation(el)).catch(() => {});
+      };
+      const agendar = () =>
+        'requestIdleCallback' in window
+          ? requestIdleCallback(iniciarFundo, { timeout: 2000 })
+          : setTimeout(iniciarFundo, 1500);
+      if (document.readyState === 'complete') agendar();
+      else addEventListener('load', agendar, { once: true });
     </script>
   </body>
 </html>
