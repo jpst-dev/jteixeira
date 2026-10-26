@@ -22,8 +22,9 @@
   --radius: 0.5rem;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Rolagem suave das âncoras: ver scripts/smoothScroll.ts (o CSS smooth brigaria com o GSAP). */
+section[tabindex="-1"]:focus {
+  outline: none;
 }
 
 body {
