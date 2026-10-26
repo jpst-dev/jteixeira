@@ -2,12 +2,19 @@
 interface Props {
   numero: string;
   titulo: string;
-  id?: string;
+  linha1: string;
+  linha2: string;
 }
 
-const { numero, titulo, id } = Astro.props;
+const { numero, titulo, linha1, linha2 } = Astro.props;
 ---
 
-<h2 id={id} class="font-mono text-sm font-normal mb-10" data-reveal>
-  <span class="text-subtle">{numero} —</span> <span class="text-text">{titulo}</span>
-</h2>
+<div class="mb-12" data-reveal>
+  <p class="font-mono text-sm mb-4">
+    <span class="text-subtle">{numero} —</span> <span class="text-text">{titulo}</span>
+  </p>
+  <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tight leading-[1.05]">
+    <span class="block">{linha1}</span>
+    <span class="block text-gradient">{linha2}</span>
+  </h2>
+</div>
