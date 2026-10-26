@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from './ui/Icon.astro';
+import foto from '../assets/eu.jpeg';
 
 const sociais = [
   { label: 'GitHub', href: 'https://github.com/jpst-dev', icon: 'github' as const },
@@ -48,10 +50,15 @@ const sociais = [
     </div>
 
     <div data-hero-item class="mx-auto w-full max-w-[15rem] sm:max-w-xs md:max-w-sm">
-      <!-- TODO conteúdo: substituir por <Image> com a foto -->
-      <div class="aspect-square rounded-3xl bg-surface border border-border shadow-[0_30px_80px_-20px_rgba(66,211,146,.35)] flex items-center justify-center">
-        <span class="text-7xl font-extrabold tracking-tight text-subtle select-none" aria-hidden="true">JP</span>
-      </div>
+      <Image
+        src={foto}
+        alt="Foto de João Pedro Teixeira"
+        widths={[240, 384, 480, 768]}
+        sizes="(min-width: 768px) 384px, (min-width: 640px) 320px, 240px"
+        loading="eager"
+        fetchpriority="high"
+        class="aspect-square w-full rounded-3xl border border-border object-cover object-[50%_20%] shadow-[0_30px_80px_-20px_rgba(66,211,146,.35)]"
+      />
     </div>
   </div>
 </section>

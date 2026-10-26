@@ -17,6 +17,6 @@ npm run test
 
 ## Antes do deploy
 
-- [ ] Substituir o placeholder "JP" da foto no Hero (`src/components/Hero.astro`) pela foto real
+- [x] Foto real no Hero (`src/assets/eu.jpeg`, otimizada pelo `astro:assets`)
 - [ ] Adicionar `imagens` (screenshots) aos projetos em `src/content/projetos/*.mdx`
 - [ ] Revisar os dados provisórios da carreira em `src/content/carreira.json`
