@@ -3,8 +3,24 @@ import { getCollection } from 'astro:content';
 import SectionHeading from './ui/SectionHeading.astro';
 import { formatPeriodo } from '../lib/formatPeriodo';
 
-// O JSON já vem do mais recente para o mais antigo.
-const experiencias = await getCollection('carreira');
+// Mais recente primeiro; o loader não garante a ordem do JSON.
+const experiencias = (await getCollection('carreira')).sort((a, b) => b.data.inicio.localeCompare(a.data.inicio));
+
+const formacao = [
+  { curso: 'CST em Tecnologia da Informação', instituicao: 'UNIGRANDE', periodo: '2025 — 2027 · cursando' },
+  { curso: 'Tecnólogo em Tecnologia da Informação', instituicao: 'FATEC-SP', periodo: '2020 — 2022 · trancado' },
+];
+
+const certificacoes = [
+  'Formação Engenheiro de IA Generativa 2026: IA na Prática',
+  'Engenharia de Prompt: ChatGPT, Gemini, Meta AI, Grok e mais',
+  'TDC 2024 São Paulo — Trilhas Web & Front-end, JavaScript & Node.js e UX Design',
+  'TDC 2023 Business — Trilha JavaScript e TypeScript',
+  'TDC 2022 Business — Trilha Web / Front-end',
+  'Performance Web I e II: otimização, Critical Path, HTTP/2 e Resource Hints',
+  'Cypress: automação de testes E2E',
+  'Desenvolvimento Web Completo 2022',
+];
 ---
 
 <section id="carreira" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
@@ -37,4 +53,24 @@ const experiencias = await getCollection('carreira');
       </li>
     ))}
   </ol>
+
+  <div class="mt-16 grid gap-4 md:grid-cols-[1fr_1.4fr]" data-reveal-group>
+    <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal>
+      <h3 class="font-semibold mb-4">Formação</h3>
+      <ul class="space-y-4">
+        {formacao.map((item) => (
+          <li>
+            <p class="text-text">{item.curso}</p>
+            <p class="text-sm text-muted">{item.instituicao} · <span class="font-mono text-xs text-subtle">{item.periodo}</span></p>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-border bg-surface/85 p-6" data-reveal>
+      <h3 class="font-semibold mb-4">Certificações</h3>
+      <ul class="space-y-2 text-sm text-muted list-disc pl-4 marker:text-accent/60">
+        {certificacoes.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
 </section>

@@ -1,18 +1,32 @@
 [
   {
-    "id": "mercado-eletronico",
+    "id": "mercado-eletronico-jr",
     "empresa": "Mercado Eletrônico",
-    "cargo": "Desenvolvedor Front-end",
+    "cargo": "Desenvolvedor Front-end Jr",
+    "local": "São Paulo, SP · remoto",
+    "inicio": "2025-06",
+    "bullets": [
+      "Desenvolvimento full stack: interfaces em Vue.js/Nuxt e APIs REST em C#/.NET.",
+      "Uso de IA (agentes de código) para acelerar desenvolvimento, refatoração e criação de testes, com revisão humana.",
+      "Evolução do Design System da plataforma.",
+      "Testes automatizados com Jest e Cypress.",
+      "Code review, CI e colaboração com produto, UX e QA em Scrum."
+    ],
+    "tags": ["Vue.js", "Nuxt", "C#/.NET", "APIs REST", "IA", "Jest", "Cypress"]
+  },
+  {
+    "id": "mercado-eletronico-programador",
+    "empresa": "Mercado Eletrônico",
+    "cargo": "Programador Front-end",
     "local": "São Paulo, SP · remoto",
     "inicio": "2022-07",
+    "fim": "2025-06",
     "bullets": [
-      "Desenvolvimento de interfaces escaláveis com Vue.js e Nuxt.js.",
-      "Criação e manutenção de Design System com foco em componentização e padronização.",
-      "Implementação de testes automatizados com Cypress e Jest.",
-      "Integração contínua (CI), versionamento com Git e práticas de code review.",
-      "Colaboração com áreas de produto, UX e QA em sprints ágeis (Scrum)."
+      "Construção de interfaces escaláveis em Vue.js e Nuxt.js para produto.",
+      "Participação na criação do Design System do zero, padronizando componentes entre times.",
+      "Implantação de testes automatizados (Jest, Cypress) e práticas de TDD no time."
     ],
-    "tags": ["Vue.js", "Nuxt", "Design System", "Cypress", "Jest"]
+    "tags": ["Vue.js", "Nuxt", "Design System", "TDD", "Jest", "Cypress"]
   },
   {
     "id": "viarondon",

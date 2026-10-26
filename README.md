@@ -19,4 +19,4 @@ npm run test
 
 - [x] Foto real no Hero (`src/assets/eu.jpeg`, otimizada pelo `astro:assets`)
 - [ ] Adicionar `imagens` (screenshots) aos projetos em `src/content/projetos/*.mdx`
-- [ ] Revisar os dados provisórios da carreira em `src/content/carreira.json`
+- [x] Carreira, Sobre e Skills alinhados ao LinkedIn (`src/content/carreira.json`)

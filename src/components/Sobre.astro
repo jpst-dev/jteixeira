@@ -1,10 +1,17 @@
 ---
 import SectionHeading from './ui/SectionHeading.astro';
 
+const entregas = [
+  'Interfaces escaláveis e Design Systems componentizados',
+  'APIs REST em .NET integradas ao front',
+  'Cobertura de testes e CI desde o início',
+  'Ganho real de velocidade com IA, sem abrir mão de boas práticas',
+];
+
 const stats = [
-  { valor: '4+ anos', legenda: 'em front-end' },
-  { valor: 'Design System', legenda: 'em produção' },
-  { valor: 'Vue · Nuxt · .NET', legenda: 'stack principal' },
+  { valor: '4+ anos', legenda: 'construindo produtos web' },
+  { valor: 'Design System', legenda: 'criado do zero e em evolução' },
+  { valor: 'Vue · React · .NET', legenda: 'do front à API' },
 ];
 ---
 
@@ -13,22 +20,25 @@ const stats = [
   <div class="grid gap-12 lg:grid-cols-[1.5fr_1fr] items-start">
     <div class="space-y-5 text-lg text-muted leading-relaxed" data-reveal>
       <p>
-        Sou desenvolvedor front-end há mais de 4 anos, especializado em Vue.js e Nuxt —
-        com base sólida também em React e Next.js. Meu foco é construir interfaces
-        performáticas, acessíveis e fáceis de manter, aplicando TDD, testes automatizados
-        e Design System no dia a dia.
+        Sou desenvolvedor full stack com mais de 4 anos construindo produtos web, do Design System à API.
+        Minha base é front-end — Vue.js, Nuxt, React, Next.js e TypeScript — com foco em performance,
+        acessibilidade e código sustentável, apoiado em TDD e testes automatizados (Jest, Cypress).
       </p>
       <p>
-        Atualmente estou evoluindo para fullstack: aprofundando backend com C#/.NET e
-        APIs REST no trabalho, sempre com atenção à arquitetura e à integração entre o
-        que o front consome e o que o backend entrega.
+        Hoje atuo também no backend com C#/.NET e APIs REST, cuidando da integração entre as camadas.
       </p>
       <p>
-        Uso IA como parte do meu fluxo — para acelerar tarefas repetitivas e ganhar
-        produtividade — sempre com revisão humana e foco em qualidade. Acredito que
-        tecnologia bem construída simplifica o dia a dia das pessoas, e é assim que
-        busco evoluir: da interface à infraestrutura.
+        Trabalho com IA como parte central do meu fluxo: agentes de código como Claude Code e Cursor para
+        prototipar, refatorar e gerar testes — sempre comigo no controle da arquitetura, da revisão e da qualidade.
       </p>
+      <div class="pt-2">
+        <p class="font-mono text-xs text-subtle mb-3">O que entrego</p>
+        <ul class="space-y-2 text-base">
+          {entregas.map((item) => (
+            <li class="flex gap-3"><span class="text-accent" aria-hidden="true">→</span>{item}</li>
+          ))}
+        </ul>
+      </div>
     </div>
     <ul class="grid gap-4 sm:grid-cols-3 lg:grid-cols-1" data-reveal-group>
       {stats.map((stat) => (
