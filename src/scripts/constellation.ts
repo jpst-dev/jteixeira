@@ -6,10 +6,8 @@ export async function initConstellation(container: HTMLElement): Promise<void> {
   ]);
   await loadSlim(tsParticles);
 
-  const reduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile = matchMedia('(max-width: 767px)').matches;
   const ponteiroFino = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const interativo = !reduzido;
 
   const instancia = await tsParticles.load({
     id: container.id,
@@ -26,13 +24,13 @@ export async function initConstellation(container: HTMLElement): Promise<void> {
         opacity: { value: 0.35 },
         size: { value: { min: 1, max: 3 } },
         links: { enable: true, color: '#ffffff', opacity: 0.12, width: 1, distance: 150 },
-        move: { enable: !reduzido, speed: 0.5, outModes: 'bounce' },
+        move: { enable: true, speed: 0.5, outModes: 'bounce' },
       },
       interactivity: {
         detectsOn: 'window',
         events: {
-          onHover: { enable: interativo && ponteiroFino, mode: 'attract' },
-          onClick: { enable: interativo, mode: 'repulse' },
+          onHover: { enable: ponteiroFino, mode: 'attract' },
+          onClick: { enable: true, mode: 'repulse' },
         },
         modes: {
           attract: { distance: 180, speed: 1 },

@@ -5,7 +5,6 @@ const EASE = 'cubic-bezier(.2,.8,.2,1)';
 // Botões magnéticos ([data-magnetic]) e holofote nos cards ([data-spotlight]): só com mouse.
 export function initInteractions(): void {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   for (const el of document.querySelectorAll<HTMLElement>('[data-magnetic]')) {
     // Usa `translate` (não `transform`) para não brigar com as transições de cor das classes utilitárias.

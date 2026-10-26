@@ -59,7 +59,7 @@ function animarSecoes() {
 export function initAnimations(): void {
   // Sem a classe `js`, o fallback de 3s do BaseLayout já mostrou tudo: animar agora faria o conteúdo piscar.
   const jaRevelado = !document.documentElement.classList.contains('js');
-  if (!jaRevelado && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (!jaRevelado) {
     gsap.registerPlugin(ScrollTrigger, SplitText);
     animarHero();
     animarSecoes();

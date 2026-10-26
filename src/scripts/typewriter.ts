@@ -2,8 +2,6 @@ import { proximoPasso, type EstadoDigitacao } from '../lib/typewriter';
 
 // Liga cada [data-typewriter] (frases em data-frases) ao loop de digitação.
 export function initTypewriter(): void {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
   for (const el of document.querySelectorAll<HTMLElement>('[data-typewriter]')) {
     const alvo = el.querySelector<HTMLElement>('[data-typewriter-texto]');
     const frases: string[] = JSON.parse(el.dataset.frases ?? '[]');
