@@ -1,0 +1,22 @@
+---
+interface Props {
+  titulo: string;
+  imagem?: string;
+  class?: string;
+}
+
+const { titulo, imagem, class: className } = Astro.props;
+---
+
+<div class:list={['aspect-video overflow-hidden', className ?? 'rounded-xl']}>
+  {imagem ? (
+    <img src={imagem} alt={`Screenshot do projeto ${titulo}`} loading="lazy" class="size-full object-cover" />
+  ) : (
+    <div
+      class="size-full flex items-center justify-center bg-[radial-gradient(ellipse_at_70%_20%,rgba(66,211,146,.25),transparent_60%),linear-gradient(135deg,#18181b,#0f2a1f)]"
+      aria-hidden="true"
+    >
+      <span class="font-mono text-sm sm:text-base text-muted px-6 text-center">{titulo}</span>
+    </div>
+  )}
+</div>

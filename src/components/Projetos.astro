@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ProjetoCard from './ProjetoCard.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+import { separarProjetos } from '../lib/separarProjetos';
+
+const { destaque, demais } = separarProjetos(await getCollection('projetos'));
+const numero = (i: number) => String(i + 1).padStart(2, '0');
+const offset = destaque ? 1 : 0;
+---
+
+<section id="projetos" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
+  <SectionHeading numero="03" titulo="Projetos" />
+  <div class="space-y-6">
+    {destaque && <ProjetoCard projeto={destaque} variante="destaque" numero={numero(0)} />}
+    <div class="grid gap-6 sm:grid-cols-2" data-reveal-group>
+      {demais.map((projeto, i) => (
+        <ProjetoCard projeto={projeto} variante="grid" numero={numero(i + offset)} />
+      ))}
+    </div>
+  </div>
+</section>

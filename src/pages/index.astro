@@ -4,20 +4,9 @@ import Hero from '../components/Hero.astro';
 import Sobre from '../components/Sobre.astro';
 import StackMarquee from '../components/StackMarquee.astro';
 import Carreira from '../components/Carreira.astro';
+import Projetos from '../components/Projetos.astro';
 import Skills from '../components/Skills.astro';
 import Contato from '../components/Contato.astro';
-import ProjetosGrid from '../components/ProjetosGrid.vue';
-import { getCollection } from 'astro:content';
-
-const projetosRaw = await getCollection('projetos');
-const projetos = projetosRaw
-  .sort((a, b) => Number(b.data.destaque) - Number(a.data.destaque))
-  .map((p) => ({
-    id: p.id,
-    titulo: p.data.titulo,
-    resumo: p.data.resumo,
-    stack: p.data.stack,
-  }));
 ---
 
 <BaseLayout
@@ -28,10 +17,7 @@ const projetos = projetosRaw
   <Sobre />
   <StackMarquee />
   <Carreira />
-  <section id="projetos" class="max-w-6xl mx-auto px-4 sm:px-6 py-24">
-    <h2 class="font-mono text-accent text-sm mb-8">## projetos</h2>
-    <ProjetosGrid projetos={projetos} client:visible />
-  </section>
+  <Projetos />
   <Skills />
   <Contato />
 </BaseLayout>

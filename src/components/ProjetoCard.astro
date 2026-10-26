@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjetoThumb from './ProjetoThumb.astro';
+import Icon from './ui/Icon.astro';
+
+interface Props {
+  projeto: CollectionEntry<'projetos'>;
+  variante: 'destaque' | 'grid';
+  numero: string;
+}
+
+const { projeto, variante, numero } = Astro.props;
+const { titulo, resumo, stack, imagens } = projeto.data;
+const MAX_TAGS = 4;
+const tags = stack.slice(0, MAX_TAGS);
+const restantes = stack.length - tags.length;
+const destaque = variante === 'destaque';
+---
+
+<a
+  href={`/projetos/${projeto.id}/`}
+  data-reveal
+  class:list={[
+    'group block rounded-2xl border border-border bg-surface/85 p-3 transition duration-300 hover:border-border-strong hover:shadow-[0_20px_60px_-25px_rgba(66,211,146,.35)]',
+    destaque && 'md:grid md:grid-cols-[1.3fr_1fr] md:gap-8 md:items-center',
+  ]}
+>
+  <ProjetoThumb titulo={titulo} imagem={imagens[0]} />
+  <div class:list={['p-3 pt-5', destaque && 'md:py-6 md:pr-6']}>
+    <div class="flex items-center gap-3 font-mono text-xs text-subtle">
+      <span>{numero}</span>
+      {destaque && <span class="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-accent">Destaque</span>}
+    </div>
+    <h3 class:list={['mt-2 font-semibold tracking-tight', destaque ? 'text-2xl sm:text-3xl' : 'text-xl']}>{titulo}</h3>
+    <p class="mt-2 text-sm text-muted leading-relaxed">{resumo}</p>
+    <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs">
+      {tags.map((tech) => (
+        <li class="rounded-full border border-border bg-bg px-2.5 py-1 text-muted">{tech}</li>
+      ))}
+      {restantes > 0 && <li class="rounded-full px-1.5 py-1 text-subtle">+{restantes}</li>}
+    </ul>
+    <p class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-text">
+      Ver case
+      <Icon name="arrow-up-right" size={16} class="text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    </p>
+  </div>
+</a>
