@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import ProjetoThumb from './ProjetoThumb.astro';
 import Icon from './ui/Icon.astro';
+import { ehPrincipal } from '../lib/tags';
 import { langDe, projeto as rotaProjeto } from '../i18n/rotas';
 import { t } from '../i18n/ui';
 
@@ -26,7 +27,7 @@ const tx = t(lang).projetos;
   data-reveal
   data-spotlight
   class:list={[
-    'group block rounded-2xl border border-border bg-surface/85 p-3 transition duration-300 hover:border-border-strong hover:shadow-[0_20px_60px_-25px_rgba(66,211,146,.35)]',
+    'group block card rounded-2xl p-3 transition duration-300 hover:border-border-strong hover:shadow-[0_20px_60px_-25px_rgba(66,211,146,.35)]',
     destaque && 'md:grid md:grid-cols-[1.3fr_1fr] md:gap-8 md:items-center',
   ]}
 >
@@ -34,13 +35,13 @@ const tx = t(lang).projetos;
   <div class:list={['p-3 pt-5', destaque && 'md:py-6 md:pr-6']}>
     <div class="flex items-center gap-3 font-mono text-xs text-subtle">
       <span>{numero}</span>
-      {destaque && <span class="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-accent">{tx.destaque}</span>}
+      {destaque && <span class="rounded-md border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-accent">{tx.destaque}</span>}
     </div>
     <h3 class:list={['mt-2 font-semibold tracking-tight', destaque ? 'text-2xl sm:text-3xl' : 'text-xl']}>{titulo}</h3>
     <p class="mt-2 text-sm text-muted leading-relaxed">{resumo}</p>
     <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs">
       {tags.map((tech) => (
-        <li class="rounded-full border border-border bg-bg px-2.5 py-1 text-muted">{tech}</li>
+        <li class:list={['tag', ehPrincipal(tech) && 'tag-principal']}>{tech}</li>
       ))}
       {restantes > 0 && <li class="rounded-full px-1.5 py-1 text-subtle">+{restantes}</li>}
     </ul>

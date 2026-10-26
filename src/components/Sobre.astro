@@ -23,7 +23,7 @@ const tx = t(lang).sobre;
     </div>
     <ul class="grid gap-4 sm:grid-cols-3 lg:grid-cols-1" data-reveal-group>
       {tx.stats.map((stat) => (
-        <li class="rounded-2xl border border-border bg-surface/85 p-5" data-reveal data-spotlight>
+        <li class="card rounded-2xl p-5" data-reveal data-spotlight>
           <p class="text-2xl font-bold tracking-tight text-text">{stat.valor}</p>
           <p class="mt-1 font-mono text-xs text-subtle">{stat.legenda}</p>
         </li>
