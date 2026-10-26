@@ -245,7 +245,7 @@ footer {
     color: var(--color-accent);
   }
   .tag-principal::before {
-    content: '#';
+    content: '#' / '';
     opacity: 0.6;
     margin-right: 1px;
   }

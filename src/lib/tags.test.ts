@@ -14,3 +14,12 @@ describe('ehPrincipal', () => {
     }
   });
 });
+
+describe('.tag-principal css', () => {
+  it('hides the decorative "#" from screen readers (empty alt text)', async () => {
+    const { readFileSync } = await import('node:fs');
+    const css = readFileSync('src/styles/global.css', 'utf8');
+    const regra = css.slice(css.indexOf('.tag-principal::before'));
+    expect(regra.slice(0, regra.indexOf('}'))).toMatch(/content:\s*'#'\s*\/\s*''/);
+  });
+});
