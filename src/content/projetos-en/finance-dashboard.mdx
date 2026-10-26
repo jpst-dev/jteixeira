@@ -1,14 +1,14 @@
 ---
 titulo: "Finance Dashboard"
-resumo: "Modern financial dashboard for managing personal finances and crypto investments, with interactive charts and portfolio tracking."
+resumo: "Personal finance dashboard with a graphite-and-lime identity: transactions, goals and a crypto portfolio with live prices in Brazilian reais, pre-filled with sample data on the first visit."
 problema: "Managing personal finances while also tracking crypto investments usually takes separate tools: an expense tracker and an exchange or portfolio app. This project puts everything in one dashboard — balance, income/expenses and the crypto portfolio side by side."
-solucao: "A Vue 3 + TypeScript (Vite) app with two main areas: Dashboard (total balance, monthly income/expenses, monthly chart, expenses by category and recent transactions) and Portfolio (real-time portfolio value, gains/losses, asset allocation and performance history). Transactions and investments have full CRUD with confirmation modals, and the app includes financial goals and an i18n structure with locales. Crypto data lives in a dedicated service layer (cryptoService.ts), decoupled from the views."
+solucao: "A Vue 3 + TypeScript (Vite) app with two main areas: Dashboard (total balance, monthly income/expenses, monthly chart, expenses by category and recent transactions) and Portfolio (real-time portfolio value, gains/losses, asset allocation and performance history). Transactions and investments have full CRUD with confirmation modals, and the app includes financial goals and an i18n structure with locales. Crypto data lives in a dedicated service layer (cryptoService.ts), decoupled from the views. In a second pass I gave the app its own visual identity (graphite, lime and monospaced numbers), switched amounts to Brazilian reais and added sample data for first-time visitors."
 papel: "Creator — end-to-end development: architecture, components, CRUD for transactions and investments, charts, crypto data integration and global state with Pinia."
 ---
 
 ## Overview
 
-A financial dashboard that combines personal finance tracking and crypto portfolio management in a single interface, with interactive charts (Chart.js), light/dark mode and a responsive layout. ISC license.
+A financial dashboard that combines personal finance tracking and crypto portfolio management in a single interface, with interactive charts (Chart.js), a sidebar on desktop and a layout adapted for phones. All data stays in the browser (localStorage).
 
 ## Features
 
@@ -18,6 +18,8 @@ A financial dashboard that combines personal finance tracking and crypto portfol
 - Monthly overview chart and expenses by category.
 - Recent transactions with full CRUD (create, edit, delete with a confirmation modal).
 - Financial goals (dedicated form).
+- Sample data on the first visit, with options to clear everything or restore the sample.
+- Portuguese and English, with amounts always in Brazilian reais.
 
 **Crypto portfolio**
 - Total portfolio value tracked with real data (cryptoService).
@@ -32,6 +34,9 @@ A financial dashboard that combines personal finance tracking and crypto portfol
 - **Focused components**: charts (`MonthlyChart`, `ExpenseChart`, `PortfolioAllocationChart`, `PortfolioHistoryChart`), form modals and lists (`TransactionList`, `InvestmentList`, `CryptoTransactions`) — one responsibility per reusable component.
 - **i18n with locales** (`src/i18n/locales`), so the structure is ready for multiple languages.
 - **Chart.js** for all four visualizations, and **Axios** as the HTTP client in the service layer.
+- **Theme through the Tailwind config**: the identity was applied by redefining the theme palettes, restyling every component without rewriting each one.
+- **Prices straight from CoinGecko**, with no proxy, keeping the last known values when the API is down.
+- **Vitest tests** for sample-data generation and currency formatting.
 
 ## What I learned
 

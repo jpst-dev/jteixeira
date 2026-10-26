@@ -1,19 +1,19 @@
 ---
 titulo: "Finance Dashboard"
-resumo: "Dashboard financeiro moderno para gerenciar finanças pessoais e investimentos em criptomoedas, com gráficos interativos e acompanhamento do portfólio."
+resumo: "Painel de finanças pessoais com identidade grafite e lima: transações, metas e carteira de criptomoedas com preços em reais em tempo real, já preenchido com dados de exemplo na primeira visita."
 problema: "Gerenciar finanças pessoais e, ao mesmo tempo, acompanhar investimentos em criptomoedas normalmente exige ferramentas separadas: um app de controle de gastos e uma exchange/portfólio para os ativos. O projeto centraliza tudo em um único painel, com visão do saldo, receitas/despesas e do portfólio de cripto em um só lugar."
-solucao: "Aplicação Vue 3 + TypeScript (Vite) com duas áreas principais: Dashboard (saldo total, receitas/despesas mensais, gráfico mensal, despesas por categoria e lista de transações recentes) e Portfolio (valor do portfólio em tempo real, lucros/perdas, alocação de ativos e histórico de performance). Transações e investimentos têm CRUD completo com modais de confirmação, e o app inclui metas financeiras e estrutura de internacionalização (i18n) com locales. Os dados de criptomoedas ficam isolados em uma camada de serviço (cryptoService.ts), desacoplada das views."
-stack: ["Vue 3", "TypeScript", "Tailwind CSS", "Pinia", "Vue Router", "Chart.js", "Vite", "Axios"]
+solucao: "Aplicação Vue 3 + TypeScript (Vite) com duas áreas principais: Dashboard (saldo total, receitas/despesas mensais, gráfico mensal, despesas por categoria e lista de transações recentes) e Portfolio (valor do portfólio em tempo real, lucros/perdas, alocação de ativos e histórico de performance). Transações e investimentos têm CRUD completo com modais de confirmação, e o app inclui metas financeiras e estrutura de internacionalização (i18n) com locales. Os dados de criptomoedas ficam isolados em uma camada de serviço (cryptoService.ts), desacoplada das views. Numa segunda etapa, dei ao app uma identidade visual própria (grafite, lima e números em fonte monoespaçada), passei os valores para reais e criei dados de exemplo para quem abre o projeto pela primeira vez."
+stack: ["Vue 3", "TypeScript", "Tailwind CSS", "Pinia", "Chart.js", "vue-i18n", "Vitest"]
 papel: "Criador do projeto — desenvolvimento completo: arquitetura, componentes, CRUD de transações e investimentos, gráficos, integração com dados de criptomoedas e estado global via Pinia."
 linkRepo: "https://github.com/jpst-dev/finance-dashboard"
-linkDemo: "https://finance-dashboard-8gk3.vercel.app"
+linkDemo: "https://finance.jteixeira.dev"
 imagens: ["/projetos/finance-dashboard.webp"]
 destaque: false
 ---
 
 ## Visão geral
 
-Dashboard financeiro que reúne controle de finanças pessoais e gestão de portfólio de criptomoedas em uma única interface, com gráficos interativos (Chart.js), modo claro/escuro e layout responsivo. Licença ISC.
+Dashboard financeiro que reúne controle de finanças pessoais e gestão de portfólio de criptomoedas em uma única interface, com gráficos interativos (Chart.js), menu lateral no computador e layout adaptado para o celular. Todos os dados ficam só no navegador (localStorage).
 
 ## Funcionalidades
 
@@ -23,6 +23,8 @@ Dashboard financeiro que reúne controle de finanças pessoais e gestão de port
 - Gráfico de visão geral mensal e de despesas por categoria.
 - Lista de transações recentes, com CRUD completo (criar, editar, excluir com modal de confirmação).
 - Metas financeiras (formulário dedicado).
+- Dados de exemplo na primeira visita, com opções para limpar tudo ou restaurar o exemplo.
+- Português e inglês, com valores sempre em reais.
 
 **Portfólio de criptomoedas**
 - Acompanhamento do valor total do portfólio com dados reais (cryptoService).
@@ -37,6 +39,9 @@ Dashboard financeiro que reúne controle de finanças pessoais e gestão de port
 - **Componentes especializados**: gráficos (`MonthlyChart`, `ExpenseChart`, `PortfolioAllocationChart`, `PortfolioHistoryChart`), modais de formulário e listas (`TransactionList`, `InvestmentList`, `CryptoTransactions`) — cada responsabilidade em um componente reutilizável.
 - **i18n com locales** (`src/i18n/locales`), preparando a aplicação para múltiplos idiomas desde a estrutura.
 - **Chart.js** para as quatro visualizações, e **Axios** como cliente HTTP na camada de serviços.
+- **Tema pela configuração do Tailwind**: a identidade foi aplicada redefinindo as paletas do tema, o que mudou o visual de todos os componentes sem reescrever cada um.
+- **Preços direto da CoinGecko**, sem proxy, e mantendo os últimos valores conhecidos quando a API não responde.
+- **Testes com Vitest** para a geração dos dados de exemplo e a formatação da moeda.
 
 ## Aprendizados
 
