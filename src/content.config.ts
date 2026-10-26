@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 
 const projetos = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/projetos' }),
@@ -17,4 +17,19 @@ const projetos = defineCollection({
   }),
 });
 
-export const collections = { projetos };
+const anoMes = z.string().regex(/^\d{4}-\d{2}$/);
+
+const carreira = defineCollection({
+  loader: file('src/content/carreira.json'),
+  schema: z.object({
+    empresa: z.string(),
+    cargo: z.string(),
+    local: z.string(),
+    inicio: anoMes,
+    fim: anoMes.optional(),
+    bullets: z.array(z.string()),
+    tags: z.array(z.string()),
+  }),
+});
+
+export const collections = { projetos, carreira };

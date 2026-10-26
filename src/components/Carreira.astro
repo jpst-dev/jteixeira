@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeading from './ui/SectionHeading.astro';
+import { formatPeriodo } from '../lib/formatPeriodo';
+
+// O JSON já vem do mais recente para o mais antigo.
+const experiencias = await getCollection('carreira');
+---
+
+<section id="carreira" class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
+  <SectionHeading numero="02" titulo="Carreira" />
+  <ol class="relative border-l border-border ml-1.5 space-y-8" data-reveal-group>
+    {experiencias.map(({ data }) => (
+      <li class="relative pl-6 sm:pl-10" data-reveal>
+        <span
+          class:list={[
+            'absolute -left-[7px] top-7 size-3.5 rounded-full border-2 border-bg',
+            data.fim ? 'bg-border-strong' : 'bg-accent shadow-[0_0_0_4px_rgba(66,211,146,.15),0_0_20px_rgba(66,211,146,.5)]',
+          ]}
+          aria-hidden="true"
+        ></span>
+        <article class="rounded-2xl border border-border bg-surface/85 p-5 sm:p-6 transition-colors hover:border-border-strong">
+          <header class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+            <h3 class="text-lg font-semibold">{data.empresa}</h3>
+            <p class="font-mono text-xs text-subtle">{formatPeriodo(data.inicio, data.fim)}</p>
+          </header>
+          <p class="mt-1 text-muted">{data.cargo} · <span class="text-subtle">{data.local}</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-muted leading-relaxed list-disc pl-4 marker:text-accent/60">
+            {data.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+          <ul class="mt-5 flex flex-wrap gap-2 font-mono text-xs">
+            {data.tags.map((tag) => (
+              <li class="rounded-full border border-border bg-bg px-2.5 py-1 text-muted">{tag}</li>
+            ))}
+          </ul>
+        </article>
+      </li>
+    ))}
+  </ol>
+</section>
