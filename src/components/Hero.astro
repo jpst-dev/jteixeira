@@ -7,28 +7,42 @@ const sociais = [
   { label: 'GitHub', href: 'https://github.com/jpst-dev', icon: 'github' as const },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jpst-dev/', icon: 'linkedin' as const },
 ];
+
+const frases = [
+  'Full Stack Developer',
+  'Vue.js · Nuxt · TypeScript',
+  'React · Next.js · Tailwind',
+  'C# · .NET · APIs REST',
+  'Claude Code · Cursor · IA',
+];
 ---
 
 <section id="hero" class="relative overflow-hidden">
   <div class="hero-backdrop" aria-hidden="true"></div>
 
-  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 min-h-[100svh] pt-28 pb-16 grid gap-12 md:grid-cols-[1.4fr_1fr] items-center content-center">
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 min-h-[100svh] pt-28 pb-24 grid gap-12 md:grid-cols-[1.4fr_1fr] items-center content-center">
     <div>
-      <p data-hero-item class="font-mono text-xs sm:text-sm text-accent mb-6 flex items-center gap-2">
-        <span class="relative flex size-2">
-          <span class="absolute inline-flex size-full rounded-full bg-accent opacity-75 motion-safe:animate-ping"></span>
-          <span class="relative inline-flex size-2 rounded-full bg-accent"></span>
-        </span>
-        disponível · Lins, SP · remoto
-      </p>
+      <p data-hero-item class="font-mono text-xs sm:text-sm text-subtle mb-6">Lins, SP · remoto</p>
 
-      <h1 data-hero-item data-split class="text-[clamp(2.75rem,7vw,5rem)] font-extrabold tracking-[-0.03em] leading-[1.02]">
-        Do Design System <span class="text-gradient">à API.</span>
+      <h1 data-hero-item data-split class="text-[clamp(3rem,9vw,6.5rem)] font-extrabold tracking-[-0.04em] leading-[0.95]">
+        <span class="block">João Pedro</span>
+        <span class="block text-gradient">Teixeira.</span>
       </h1>
 
+      <p
+        data-hero-item
+        data-typewriter
+        data-frases={JSON.stringify(frases)}
+        class="mt-6 h-[1.5em] overflow-hidden whitespace-nowrap font-mono text-lg sm:text-2xl text-text"
+      >
+        <span class="sr-only">
+          Full Stack Developer — Vue.js, Nuxt, TypeScript, React, Next.js, Tailwind, C#, .NET, APIs REST, Claude Code, Cursor e IA
+        </span>
+        <span aria-hidden="true"><span class="text-accent">&gt; </span><span data-typewriter-texto>{frases[0]}</span><span class="typewriter-cursor">|</span></span>
+      </p>
+
       <p data-hero-item class="mt-6 text-lg text-muted max-w-xl leading-relaxed">
-        Sou João Pedro Teixeira, desenvolvedor full stack com 4+ anos construindo produtos web com Vue/Nuxt,
-        React/Next, TypeScript e C#/.NET — com IA no centro do fluxo e eu no controle da qualidade.
+        Construo produtos web do Design System à API — com IA no centro do fluxo e eu no controle da qualidade.
       </p>
 
       <div data-hero-item class="mt-8 flex flex-wrap items-center gap-3">
@@ -49,7 +63,9 @@ const sociais = [
       </div>
     </div>
 
-    <div data-hero-item class="mx-auto w-full max-w-[15rem] sm:max-w-xs md:max-w-sm">
+    <div data-hero-item class="relative mx-auto w-full max-w-[15rem] sm:max-w-xs md:max-w-sm">
+      <div class="hero-dots" aria-hidden="true"></div>
+      <div class="hero-ring" aria-hidden="true"></div>
       <Image
         src={foto}
         alt="Foto de João Pedro Teixeira"
@@ -57,8 +73,20 @@ const sociais = [
         sizes="(min-width: 768px) 384px, (min-width: 640px) 320px, 240px"
         loading="eager"
         fetchpriority="high"
-        class="aspect-square w-full rounded-3xl border border-border object-cover object-[50%_20%] shadow-[0_30px_80px_-20px_rgba(66,211,146,.35)]"
+        class="relative aspect-square w-full rounded-3xl border border-border object-cover object-[50%_20%] shadow-[0_30px_80px_-20px_rgba(66,211,146,.35)]"
       />
+      <span class="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-border bg-bg/90 px-3 py-1.5 font-mono text-xs text-accent backdrop-blur">
+        <span class="relative flex size-2">
+          <span class="absolute inline-flex size-full rounded-full bg-accent opacity-75 motion-safe:animate-ping"></span>
+          <span class="relative inline-flex size-2 rounded-full bg-accent"></span>
+        </span>
+        disponível
+      </span>
     </div>
   </div>
+
+  <a href="#sobre" class="scroll-hint [@media(max-height:700px)]:hidden" aria-label="Rolar para a seção Sobre">
+    <span>scroll</span>
+    <span class="scroll-hint-line" aria-hidden="true"></span>
+  </a>
 </section>

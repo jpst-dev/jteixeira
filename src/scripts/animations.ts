@@ -19,13 +19,14 @@ function animarHero() {
 
   const titulo = document.querySelector<HTMLElement>('[data-split]');
   if (titulo) {
-    const split = SplitText.create(titulo, { type: 'words', mask: 'words' });
+    const split = SplitText.create(titulo, { type: 'words,chars', mask: 'chars' });
     // background-clip:text não atravessa os wrappers inline-block do SplitText:
-    // cada palavra dentro de .text-gradient recebe o próprio gradiente.
-    for (const palavra of split.words as HTMLElement[]) {
-      if (palavra.parentElement?.closest('.text-gradient')) palavra.classList.add('text-gradient');
+    // cada letra dentro de .text-gradient recebe o próprio gradiente.
+    for (const letra of split.chars as HTMLElement[]) {
+      if (letra.parentElement?.closest('.text-gradient')) letra.classList.add('text-gradient');
     }
-    tl.from(split.words, { yPercent: 100, duration: 0.8, stagger: 0.06 }, 0.1);
+    // Ao terminar, desfaz o split: o gradiente volta a ser um só na palavra inteira.
+    tl.from(split.chars, { yPercent: 110, duration: 0.8, stagger: 0.03, onComplete: () => split.revert() }, 0.1);
   }
 }
 
