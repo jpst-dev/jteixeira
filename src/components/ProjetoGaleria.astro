@@ -1,0 +1,118 @@
+---
+import Icon from './ui/Icon.astro';
+import { langDe } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+interface Props {
+  titulo: string;
+  imagens: string[];
+}
+
+// Prints do case: o primeiro grande, o resto em grade. Clicar abre a imagem ampliada num
+// <dialog> nativo (Esc fecha, setas e deslize trocam de imagem).
+const { titulo, imagens } = Astro.props;
+const tx = t(langDe(Astro.url.pathname)).projetos;
+const alt = `${tx.screenshotAlt} ${titulo}`;
+const [capa, ...resto] = imagens;
+const botao = 'group relative block w-full cursor-zoom-in overflow-hidden rounded-2xl border border-border transition-colors hover:border-border-strong';
+const botaoDialogo = 'inline-flex size-11 items-center justify-center rounded-xl border border-white/15 bg-black/60 text-white transition-colors hover:border-accent hover:text-accent';
+---
+
+{capa && (
+  <div data-galeria>
+    <div data-reveal>
+      <button type="button" data-galeria-abrir="0" aria-label={`${tx.ampliar}: ${alt} 1`} class={botao}>
+        <img src={capa} alt={alt} class="aspect-video w-full object-cover" />
+      </button>
+    </div>
+    {resto.length > 0 && (
+      <div class:list={["mt-4 grid gap-4", resto.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"]}>
+        {resto.map((imagem, i) => (
+          <button type="button" data-galeria-abrir={i + 1} aria-label={`${tx.ampliar}: ${alt} ${i + 2}`} class={botao}>
+            <img src={imagem} alt={alt} loading="lazy" class="w-full" />
+          </button>
+        ))}
+      </div>
+    )}
+
+    <dialog
+      data-galeria-dialogo
+      aria-label={titulo}
+      class="m-0 h-dvh max-h-none w-screen max-w-none bg-black p-0 text-white backdrop:bg-black open:flex open:flex-col"
+    >
+      <div class="flex items-center justify-between gap-4 p-4">
+        <p class="font-mono text-sm text-white/70"><span data-galeria-atual>1</span> / {imagens.length}</p>
+        <button type="button" data-galeria-fechar aria-label={tx.fechar} class={botaoDialogo}>
+          <Icon name="x" size={20} />
+        </button>
+      </div>
+      <div data-galeria-palco class="relative flex min-h-0 flex-1 items-center justify-center gap-3 px-2 pb-6 sm:px-4">
+        {imagens.length > 1 && (
+          <button type="button" data-galeria-passo="-1" aria-label={tx.imagemAnterior} class:list={[botaoDialogo, 'absolute left-3 z-10 shrink-0 sm:static']}>
+            <Icon name="chevron-left" size={20} />
+          </button>
+        )}
+        <img data-galeria-imagem src={capa} alt={alt} class="max-h-full min-w-0 max-w-full rounded-xl object-contain" />
+        {imagens.length > 1 && (
+          <button type="button" data-galeria-passo="1" aria-label={tx.proximaImagem} class:list={[botaoDialogo, 'absolute right-3 z-10 shrink-0 sm:static']}>
+            <Icon name="chevron-right" size={20} />
+          </button>
+        )}
+      </div>
+    </dialog>
+  </div>
+)}
+
+<script>
+  import { vizinho } from '../lib/galeria';
+
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-galeria]')) {
+    const dialogo = raiz.querySelector<HTMLDialogElement>('[data-galeria-dialogo]')!;
+    const imagem = dialogo.querySelector<HTMLImageElement>('[data-galeria-imagem]')!;
+    const contador = dialogo.querySelector<HTMLElement>('[data-galeria-atual]')!;
+    const abrir = Array.from(raiz.querySelectorAll<HTMLButtonElement>('[data-galeria-abrir]'));
+    const fontes = abrir.map((botao) => botao.querySelector('img')!.src);
+    let atual = 0;
+    let origem: HTMLButtonElement | null = null;
+
+    const mostrar = (i: number) => {
+      atual = i;
+      imagem.src = fontes[i];
+      contador.textContent = String(i + 1);
+    };
+    const passar = (passo: 1 | -1) => fontes.length > 1 && mostrar(vizinho(atual, fontes.length, passo));
+
+    abrir.forEach((botao, i) =>
+      botao.addEventListener('click', () => {
+        origem = botao;
+        mostrar(i);
+        dialogo.showModal();
+        document.documentElement.style.overflow = 'hidden';
+      }),
+    );
+    dialogo.addEventListener('close', () => {
+      document.documentElement.style.overflow = '';
+      origem?.focus();
+    });
+    dialogo.querySelector('[data-galeria-fechar]')!.addEventListener('click', () => dialogo.close());
+    for (const botao of dialogo.querySelectorAll<HTMLButtonElement>('[data-galeria-passo]')) {
+      botao.addEventListener('click', () => passar(Number(botao.dataset.galeriaPasso) as 1 | -1));
+    }
+    // Clique fora da imagem (no fundo escuro) fecha.
+    dialogo.addEventListener('click', (e) => {
+      const alvo = e.target as HTMLElement;
+      if (alvo === dialogo || alvo.hasAttribute('data-galeria-palco')) dialogo.close();
+    });
+    dialogo.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') passar(1);
+      if (e.key === 'ArrowLeft') passar(-1);
+    });
+    // Deslizar para os lados no celular.
+    let inicioX = 0;
+    dialogo.addEventListener('touchstart', (e) => (inicioX = e.touches[0].clientX), { passive: true });
+    dialogo.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - inicioX;
+      if (Math.abs(dx) > 50) passar(dx < 0 ? 1 : -1);
+    });
+  }
+</script>

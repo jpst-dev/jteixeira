@@ -8,16 +8,12 @@ import { t } from '../i18n/ui';
 
 interface Props {
   projeto: CollectionEntry<'projetos'>;
-  variante: 'destaque' | 'grid';
-  numero: string;
 }
 
-const { projeto, variante, numero } = Astro.props;
-const { titulo, resumo, stack, imagens } = projeto.data;
-const MAX_TAGS = 4;
-const tags = stack.slice(0, MAX_TAGS);
-const restantes = stack.length - tags.length;
-const destaque = variante === 'destaque';
+// Card de "Outros projetos": print, título, resumo curto e as tecnologias centrais.
+const { projeto } = Astro.props;
+const { titulo, resumo, stack, imagens, tipo } = projeto.data;
+const tags = stack.slice(0, 3);
 const lang = langDe(Astro.url.pathname);
 const tx = t(lang).projetos;
 ---
@@ -26,28 +22,21 @@ const tx = t(lang).projetos;
   href={rotaProjeto(lang, projeto.id)}
   data-reveal
   data-spotlight
-  class:list={[
-    'group block card rounded-2xl p-3 transition duration-300 hover:border-border-strong hover:shadow-[0_20px_60px_-25px_rgba(66,211,146,.35)]',
-    destaque && 'md:grid md:grid-cols-[1.3fr_1fr] md:gap-8 md:items-center',
-  ]}
+  class="group card flex h-full flex-col rounded-2xl p-3 transition duration-300 hover:border-border-strong"
 >
   <ProjetoThumb titulo={titulo} imagem={imagens[0]} />
-  <div class:list={['p-3 pt-5', destaque && 'md:py-6 md:pr-6']}>
-    <div class="flex items-center gap-3 font-mono text-xs text-subtle">
-      <span>{numero}</span>
-      {destaque && <span class="rounded-md border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-accent">{tx.destaque}</span>}
-    </div>
-    <h3 class:list={['mt-2 font-semibold tracking-tight', destaque ? 'text-2xl sm:text-3xl' : 'text-xl']}>{titulo}</h3>
-    <p class="mt-2 text-sm text-muted leading-relaxed">{resumo}</p>
+  <div class="flex flex-1 flex-col p-3 pt-5">
+    <p class="font-mono text-xs text-subtle">{tipo}</p>
+    <h3 class="mt-1.5 text-xl font-semibold tracking-tight">{titulo}</h3>
+    <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{resumo}</p>
     <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs">
       {tags.map((tech, i) => (
         <li class:list={['tag', ehDestaque(i) && 'tag-principal']}>{tech}</li>
       ))}
-      {restantes > 0 && <li class="rounded-full px-1.5 py-1 text-subtle">+{restantes}</li>}
     </ul>
-    <p class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-text">
+    <p class="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-text">
       {tx.verCase}
-      <Icon name="arrow-up-right" size={16} class="text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      <Icon name="arrow-up-right" size={16} class="text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
     </p>
   </div>
 </a>

@@ -12,7 +12,10 @@ const projetos = defineCollection({
     papel: z.string(),
     linkRepo: z.string().url().optional(),
     linkDemo: z.string().url().optional(),
-    destaque: z.boolean().default(false),
+    // Posição na seção Projetos da home (os 3 primeiros vão para a vitrine), no "próximo projeto" e no currículo (menor primeiro).
+    ordem: z.number().int(),
+    // Rótulo curto mostrado na vitrine ("Produto no ar", "Ferramenta desktop"...).
+    tipo: z.string(),
     imagens: z.array(z.string()).default([]),
   }),
 });
@@ -25,6 +28,7 @@ const projetosEn = defineCollection({
     resumo: z.string(),
     problema: z.string(),
     solucao: z.string(),
+    tipo: z.string(),
     papel: z.string(),
   }),
 });

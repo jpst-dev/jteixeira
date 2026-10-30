@@ -1,26 +1,31 @@
 ---
 import { projetosDoIdioma } from '../data/projetos';
+import ProjetoVitrine from './ProjetoVitrine.astro';
 import ProjetoCard from './ProjetoCard.astro';
 import SectionHeading from './ui/SectionHeading.astro';
-import { separarProjetos } from '../lib/separarProjetos';
+import { dividirVitrine } from '../lib/dividirVitrine';
 import { langDe, secoes } from '../i18n/rotas';
 import { t } from '../i18n/ui';
 
 const lang = langDe(Astro.url.pathname);
 const tx = t(lang).projetos;
-const { destaque, demais } = separarProjetos(await projetosDoIdioma(lang));
+const { vitrine, outros } = dividirVitrine(await projetosDoIdioma(lang));
 const numero = (i: number) => String(i + 1).padStart(2, '0');
-const offset = destaque ? 1 : 0;
 ---
 
 <section id={secoes[lang].projetos} class="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
   <SectionHeading numero="03" titulo={tx.titulo} linha1={tx.linha1} linha2={tx.linha2} />
-  <div class="space-y-6">
-    {destaque && <ProjetoCard projeto={destaque} variante="destaque" numero={numero(0)} />}
-    <div class="grid gap-6 sm:grid-cols-2" data-reveal-group>
-      {demais.map((projeto, i) => (
-        <ProjetoCard projeto={projeto} variante="grid" numero={numero(i + offset)} />
-      ))}
-    </div>
+  <div class="space-y-16 md:space-y-20">
+    {vitrine.map((projeto, i) => (
+      <ProjetoVitrine projeto={projeto} numero={numero(i)} invertido={i % 2 === 1} />
+    ))}
   </div>
+  {outros.length > 0 && (
+    <div class="mt-20 border-t border-border pt-10">
+      <h3 class="font-mono text-sm text-subtle">{tx.outros}</h3>
+      <div class="mt-5 grid gap-6 md:grid-cols-3" data-reveal-group>
+        {outros.map((projeto) => <ProjetoCard projeto={projeto} />)}
+      </div>
+    </div>
+  )}
 </section>

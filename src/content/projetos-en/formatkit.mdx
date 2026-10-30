@@ -1,0 +1,42 @@
+---
+titulo: "FormatKit"
+resumo: "A Windows tool in .NET 10, with a command line and a WPF interface, that rebuilds a computer after a clean install from a JSON profile: drivers, system cleanup, programs and the development environment."
+problema: "Formatting Windows is the easy part; the work is getting the machine ready again. Hunting for drivers, removing preinstalled apps, turning off privacy settings, reinstalling programs and redoing WSL, Git and SSH keys takes hours, and something always gets forgotten. The optimization scripts going around apply tweaks without saying what they break and with no way to undo them."
+solucao: "A single self-contained executable (formatkit.exe) that reads a JSON profile and runs its modules in order: drivers, cleanup, programs and the development environment. Every step is logged and can be previewed with --dry-run, and when a reboot is needed FormatKit schedules the run to resume at the next logon. Cleanup has levels, explains what each item does and what it may break, and keeps a journal to undo everything. On top of the same engine, a WPF interface (FormatKitUI.exe) runs without administrator rights and only asks for UAC when the plan needs it."
+tipo: "Desktop tool"
+papel: "Creator: architecture, CLI and WPF interface, automated tests, virtual machine test script and documentation site."
+---
+
+## Overview
+
+FormatKit handles the tedious part of a clean Windows reinstall. Before formatting, a read-only checklist shows what would be lost. Afterwards, it detects the hardware and rebuilds the machine from a profile: a small JSON file that says what to set up. The documentation, in Portuguese and English, is on the [project site](https://jpst-dev.github.io/formatkit/).
+
+## Features
+
+- **Drivers**: Windows Update, vendor tools (Dell, HP, Lenovo), GPU driver, a report of devices missing drivers and a network driver backup for offline use.
+- **Windows cleanup**: removes preinstalled apps and applies privacy, AI, interface and performance tweaks at three cumulative levels, with per-item undo.
+- **Diagnosis**: `cleanup check` finds tweaks already applied on the PC that break or weaken Windows and shows the fix.
+- **Programs**: installs from a catalog, from winget ids, from a `winget export` file of the old PC or from direct installers with a mandatory hash check.
+- **Development environment**: WSL with a distro and user, Git, an SSH key and ssh-agent, dotfiles, zsh and Oh My Zsh, Oh My Posh and a Dev Drive with package caches.
+- **Preparation checklist**: answers "is it safe to format?" by listing what to save first.
+- **Graphical interface**: checklist, profile runs with per-step progress, hardware, diagnosis and catalogs.
+- Text in Portuguese and English, following the Windows display language.
+
+## Technical decisions
+
+- **System access behind interfaces**: registry, files, processes, services and console go through `SystemAccess` interfaces. Steps never call Windows directly, so all the logic is tested with fakes: more than 1,700 unit tests, run in CI on every push.
+- **One engine for the CLI and the UI**: composition lives in a shared project, and the WPF window uses the same engine as the terminal. The window runs unelevated and hands work that needs administrator rights to a separate process.
+- **Reboot and resume**: a step can ask for a reboot; the run state is saved and a scheduled task picks up from the right point at the next logon. If the profile changes in between, the resume is refused.
+- **Reversible, explained changes**: each cleanup item has a level and a description of what it breaks and what it gains, and every change goes into a journal that allows undoing it. Tweaks with no documented gain sit in the aggressive level, which requires an explicit confirmation in the profile.
+- **Virtual machine testing**: the manual test script has 25 reproducible scenarios on a Hyper-V VM (network down, reboot and resume, cleanup and undo, development environment), driven by PowerShell scripts. Every problem found in the VM becomes a unit test.
+
+## Next steps
+
+- Installation media with an answer file and a first-logon run: in development, still under review.
+- A first published release for download on GitHub Releases.
+
+## What I learned
+
+- Designing code that changes the operating system so it can be tested without touching the system.
+- Treating reboots as a normal part of the flow, with saved state and a safe resume.
+- Separating an unprivileged interface from an elevated process, asking for permission only when needed.

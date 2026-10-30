@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { mesclarProjeto } from '../lib/mesclarProjeto';
+import { ordenarProjetos } from '../lib/ordenarProjetos';
 import type { Lang } from '../i18n/rotas';
 
 /** Entrada a renderizar: o próprio projeto PT ou a tradução EN (corpo do case). */
@@ -7,7 +8,7 @@ export type ProjetoIdioma = CollectionEntry<'projetos'> & { conteudo: Collection
 
 // Projetos no idioma pedido. No EN, cada projeto PT exige sua tradução (o build falha sem ela).
 export async function projetosDoIdioma(lang: Lang): Promise<ProjetoIdioma[]> {
-  const projetos = await getCollection('projetos');
+  const projetos = ordenarProjetos(await getCollection('projetos'));
   if (lang === 'pt') return projetos.map((p) => ({ ...p, conteudo: p }));
   const traducoes = await getCollection('projetosEn');
   return projetos.map((p) => {

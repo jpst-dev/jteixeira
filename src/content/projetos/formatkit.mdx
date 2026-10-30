@@ -1,0 +1,47 @@
+---
+titulo: "FormatKit"
+resumo: "Ferramenta para Windows em .NET 10, com linha de comando e interface WPF, que reconstrói o computador depois de uma formatação a partir de um perfil JSON: drivers, limpeza do sistema, programas e ambiente de desenvolvimento."
+problema: "Formatar o Windows é a parte fácil; o trabalho está em deixar a máquina pronta de novo. Procurar drivers, remover apps que vêm instalados, desfazer configurações de privacidade, reinstalar programas e refazer WSL, Git e chaves SSH leva horas, e quase sempre algo é esquecido. Os scripts de otimização que circulam aplicam ajustes sem explicar o que quebram e sem como desfazer."
+solucao: "Um único executável autocontido (formatkit.exe) que lê um perfil JSON e executa os módulos em ordem: drivers, limpeza, programas e ambiente de desenvolvimento. Cada passo é registrado, pode ser visto antes com --dry-run e, quando precisa reiniciar, o FormatKit agenda a retomada no próximo logon. A limpeza tem níveis, explica o que cada item faz e o que pode quebrar, e guarda um diário para desfazer tudo. Por cima do mesmo motor, uma interface WPF (FormatKitUI.exe) roda sem privilégios de administrador e só pede o UAC quando o plano precisa."
+stack: ["C# / .NET 10", "WPF", "xUnit", "System.CommandLine", "PowerShell", "GitHub Actions"]
+papel: "Criador do projeto: arquitetura, CLI e interface WPF, testes automatizados, roteiro de testes em máquina virtual e site de documentação."
+linkRepo: "https://github.com/jpst-dev/formatkit"
+linkDemo: "https://jpst-dev.github.io/formatkit/"
+imagens: ["/projetos/formatkit-site.webp", "/projetos/formatkit.webp", "/projetos/formatkit-cli.webp", "/projetos/formatkit-catalogos.webp"]
+ordem: 2
+tipo: "Ferramenta desktop"
+---
+
+## Visão geral
+
+O FormatKit cuida da parte chata de uma reinstalação limpa do Windows. Antes de formatar, um checklist somente leitura mostra o que seria perdido. Depois, ele detecta o hardware e reconstrói a máquina a partir de um perfil: um arquivo JSON pequeno que diz o que configurar. A documentação, em português e inglês, está no [site do projeto](https://jpst-dev.github.io/formatkit/).
+
+## Funcionalidades
+
+- **Drivers**: Windows Update, ferramentas dos fabricantes (Dell, HP, Lenovo), driver de GPU, relatório de dispositivos sem driver e backup do driver de rede para usar sem internet.
+- **Limpeza do Windows**: remove apps pré-instalados e aplica ajustes de privacidade, IA, interface e desempenho em três níveis cumulativos, com desfazer item a item.
+- **Diagnóstico**: `cleanup check` encontra ajustes já aplicados no PC que quebram ou enfraquecem o Windows e mostra a correção.
+- **Programas**: instala por catálogo, por ids do winget, por um arquivo `winget export` do PC antigo ou por instaladores diretos com verificação obrigatória de hash.
+- **Ambiente de desenvolvimento**: WSL com distro e usuário, Git, chave SSH e ssh-agent, dotfiles, zsh e Oh My Zsh, Oh My Posh e Dev Drive com caches de pacotes.
+- **Checklist de preparação**: responde "é seguro formatar?" listando o que precisa ser salvo antes.
+- **Interface gráfica**: checklist, execução de perfil com acompanhamento de cada passo, hardware, diagnóstico e catálogos.
+- Textos em português e inglês, seguindo o idioma do Windows.
+
+## Decisões técnicas
+
+- **Acesso ao sistema atrás de interfaces**: registro, arquivos, processos, serviços e console passam por interfaces `SystemAccess`. Os passos nunca chamam o Windows diretamente, então toda a lógica é testada com fakes: são mais de 1.700 testes unitários, rodando no CI a cada push.
+- **Um motor para CLI e interface**: a composição fica num projeto compartilhado, e a janela WPF usa o mesmo motor do terminal. A janela roda sem elevação e delega o trabalho que precisa de administrador a um processo separado.
+- **Reinicialização e retomada**: um passo pode pedir reinicialização; o estado da execução é salvo e uma tarefa agendada continua do ponto certo no próximo logon. Se o perfil mudar no meio, a retomada é recusada.
+- **Mudanças reversíveis e explicadas**: cada item de limpeza tem nível, descrição do que quebra e do ganho, e toda alteração vai para um diário que permite desfazer. Ajustes sem ganho documentado ficam no nível agressivo, que exige confirmação explícita no perfil.
+- **Testes em máquina virtual**: o roteiro de testes manuais tem 25 cenários reproduzíveis numa VM Hyper-V (rede desligada, reinicialização e retomada, limpeza e desfazer, ambiente de desenvolvimento), controlados por scripts PowerShell. Todo problema encontrado na VM vira um teste unitário.
+
+## Próximos passos
+
+- Mídia de instalação com arquivo de respostas e execução no primeiro logon: em desenvolvimento, ainda em revisão.
+- Primeira versão publicada para download nas Releases do GitHub.
+
+## Aprendizados
+
+- Desenhar código que mexe no sistema operacional para ser testável sem tocar no sistema.
+- Tratar a reinicialização como parte normal do fluxo, com estado salvo e retomada segura.
+- Separar uma interface sem privilégios de um processo elevado, pedindo permissão só quando necessário.

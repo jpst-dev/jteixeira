@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjetoThumb from './ProjetoThumb.astro';
+import Icon from './ui/Icon.astro';
+import { ehDestaque } from '../lib/tags';
+import { langDe, projeto as rotaProjeto } from '../i18n/rotas';
+import { t } from '../i18n/ui';
+
+interface Props {
+  projeto: CollectionEntry<'projetos'>;
+  numero: string;
+  /** Print à direita (as linhas da vitrine alternam o lado). */
+  invertido?: boolean;
+}
+
+// Uma linha da vitrine: print grande de um lado e o resumo do outro (empilhados no celular).
+const { projeto, numero, invertido = false } = Astro.props;
+const { titulo, resumo, stack, imagens, tipo } = projeto.data;
+const tags = stack.slice(0, 3);
+const lang = langDe(Astro.url.pathname);
+const tx = t(lang).projetos;
+const href = rotaProjeto(lang, projeto.id);
+---
+
+<article data-reveal class:list={['grid items-center gap-6 md:gap-12', invertido ? 'md:grid-cols-[1fr_1.25fr]' : 'md:grid-cols-[1.25fr_1fr]']}>
+  <a
+    href={href}
+    data-spotlight
+    tabindex="-1"
+    aria-hidden="true"
+    class:list={['group card block rounded-2xl p-2 transition duration-300 hover:border-border-strong', invertido && 'md:order-2']}
+  >
+    <ProjetoThumb titulo={titulo} imagem={imagens[0]} />
+  </a>
+  <div>
+    <p class="font-mono text-xs text-subtle">{numero} · {tipo}</p>
+    <h3 class="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
+      <a href={href} class="transition-colors hover:text-accent">{titulo}</a>
+    </h3>
+    <p class="mt-3 text-sm leading-relaxed text-muted sm:text-base">{resumo}</p>
+    <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs">
+      {tags.map((tech, i) => (
+        <li class:list={['tag', ehDestaque(i) && 'tag-principal']}>{tech}</li>
+      ))}
+    </ul>
+    <a href={href} class="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-text">
+      {tx.verCase}
+      <Icon name="arrow-up-right" size={16} class="text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+    </a>
+  </div>
+</article>
