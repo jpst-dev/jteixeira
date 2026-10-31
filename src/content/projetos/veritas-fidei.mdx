@@ -1,40 +1,43 @@
 ---
 titulo: "Veritas Fidei"
-resumo: "Site de formação e defesa da fé católica: artigos revisados e trilhas de estudo, com identidade de livro litúrgico e cor que acompanha o tempo litúrgico."
+resumo: "Site de formação e defesa da fé católica: artigos revisados e trilhas de estudo, ilustrados com arte sacra de procedência conferida e com cor que acompanha o tempo litúrgico."
 problema: "Material católico de qualidade costuma estar espalhado em blogs, vídeos e PDFs, sem ordem para estudar e, muitas vezes, sem fontes conferidas. A primeira versão do projeto era uma SPA: o Google não indexava os artigos, os links compartilhados não geravam prévia e cada texto novo exigia mexer no código."
-solucao: "Recomecei o projeto em Nuxt 4 com Nuxt Content 3, gerado de forma estática na Vercel. Cada artigo é um arquivo Markdown com metadados validados por schema, e só entra no site com status de publicado. Um verificador próprio confere os artigos contra um padrão editorial (estrutura, citações do Catecismo, links das referências e ortografia), e o visual foi pensado para leitura longa, com tipografia de livro e cor de destaque calculada pelo calendário litúrgico."
+solucao: "Recomecei o projeto em Nuxt 4 com Nuxt Content 3, gerado de forma estática na Vercel. Artigos, temas, trilhas e obras de arte são conteúdo com schema validado, e um artigo só entra no site com status de publicado. Um verificador próprio confere cada texto contra um padrão editorial e contra as fontes oficiais (Escritura na Nova Vulgata e Catecismo no vatican.va), e cada artigo recebe um parecer doutrinal antes de publicar. O visual foi pensado para leitura longa: tipografia de livro, abertura em claro-escuro com uma obra de arte sacra e cor de destaque calculada pelo calendário litúrgico."
 stack: ["Nuxt 4", "Nuxt Content", "TypeScript", "Tailwind CSS", "Vitest"]
-papel: "Criador do projeto: arquitetura, modelo de conteúdo, padrão editorial e ferramenta de revisão, identidade visual e deploy na Vercel."
+papel: "Criador do projeto: arquitetura, modelo de conteúdo, padrão editorial e ferramentas de revisão, curadoria de arte sacra, identidade visual e deploy na Vercel."
 linkRepo: "https://github.com/jpst-dev/veritas-fidei"
 linkDemo: "https://veritas.jteixeira.dev"
-imagens: ["/projetos/veritas-fidei.webp"]
+imagens: ["/projetos/veritas-fidei.webp", "/projetos/veritas-fidei-artigo.webp", "/projetos/veritas-fidei-trilha.webp"]
 ordem: 3
 tipo: "Site de conteúdo"
 ---
 
 ## Visão geral
 
-O Veritas Fidei é um site para o católico que quer entender o que a Igreja ensina, por que ensina e onde isso está nas Escrituras e na Tradição. O conteúdo se divide em **Aprender** (artigos de ensino), **Trilhas** (artigos em ordem sobre um tema) e **Defesa da fé** (respostas a objeções).
+O Veritas Fidei é um site para o católico que quer entender o que a Igreja ensina, por que ensina e onde isso está nas Escrituras e na Tradição. São mais de 50 artigos publicados, organizados em 11 temas na ordem do Catecismo e em 11 trilhas de estudo (artigos em sequência sobre um assunto), além da **Defesa da fé**, com respostas a objeções.
 
 ## Funcionalidades
 
-- Artigos de ensino e de defesa da fé, organizados em temas e trilhas de estudo.
+- Trilhas de estudo com os passos em sequência, tempo total e "Começar a trilha".
+- Arte sacra em cada artigo, tema e trilha, com título, autor, data e acervo da obra na legenda e uma página de créditos das imagens.
 - Artigos de defesa da fé no formato das questões medievais: "Parece que…", "Em sentido contrário…" e "Respondo".
+- Índice de todos os artigos por tema, com busca pelo título; no fim de cada artigo, "Continue lendo" e convite para a trilha.
 - Índice do artigo, barra de progresso de leitura e tempo de leitura calculado no build.
 - Cor de destaque que muda com o tempo litúrgico (verde, roxo, branco e dourado, vermelho).
-- Tema escuro por padrão, com modo claro salvo no navegador.
-- Feed RSS gerado no build.
+- Página "Nosso compromisso", com um link discreto no fim dos artigos para sugerir correções.
+- Tema escuro por padrão, com modo claro salvo no navegador, e feed RSS gerado no build.
 
 ## Decisões técnicas
 
-- **Recomeçar em vez de remendar**: o valor de um site de conteúdo está em ser encontrado e compartilhado, e uma SPA entrega HTML vazio. Com geração estática, cada página já sai pronta para o Google e para as prévias do WhatsApp.
-- **Nuxt Content com schema**: título, tema, status e referências de cada artigo são validados no build; publicar é criar um arquivo `.md`.
-- **Revisão como parte do código**: `npm run verificar` confere estrutura, citações do Catecismo, links das referências e ortografia (LanguageTool). Rascunhos aparecem só no desenvolvimento, com selo de status.
+- **Recomeçar em vez de remendar**: o valor de um site de conteúdo está em ser encontrado e compartilhado, e uma SPA entrega HTML vazio. Com geração estática, cada página já sai pronta para o Google e para as prévias do WhatsApp, e as URLs do site antigo redirecionam para o lugar novo.
+- **Conteúdo com schema**: artigos, temas, trilhas e obras são coleções do Nuxt Content validadas no build. Publicar é criar um arquivo, não mexer em componente.
+- **Revisão contra as fontes**: `npm run verificar` confere estrutura, ortografia (LanguageTool), links, se cada referência bíblica existe na Nova Vulgata do vatican.va, as citações literais do Catecismo e se o link do Catecismo aponta para a página do parágrafo citado. Um artigo só é publicado sem erros.
+- **Parecer doutrinal por artigo**: antes de publicar, cada texto recebe um parecer interno no modelo do censor eclesiástico (o peso de cada afirmação, as fontes e as ambiguidades), registrado no repositório. É uma revisão interna e não é apresentada como *imprimatur*.
+- **Arte com procedência**: as obras vêm só do Wikimedia Commons, e `npm run obra` lê licença, autor e fonte direto de lá. Cada obra guarda acervo, licença, texto alternativo para leitores de tela e o recorte usado em cada formato. Nada de banco de imagens nem de imagem gerada por IA.
 - **Calendário litúrgico calculado**: o tempo litúrgico vem do calendário romano com as transferências usadas no Brasil, coberto por testes.
-- **Tipografia para leitura longa**: Literata no texto e Cinzel nos títulos, e referências como "CIC 1252" nunca quebram de linha.
 
 ## Aprendizados
 
 - Escolher a arquitetura pelo tipo de produto: conteúdo pede renderização estática, não SPA.
-- Tratar conteúdo como código, com schema, validação e revisão automatizada.
-- Construir uma identidade visual que reforça o tema do site.
+- Tratar conteúdo como código, com schema, validação e revisão automatizada contra as fontes.
+- Construir uma identidade visual que ensina junto com o texto: a arte sacra como parte do conteúdo, não como enfeite.

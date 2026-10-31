@@ -1,35 +1,38 @@
 ---
 titulo: "Veritas Fidei"
-resumo: "A site for learning and defending the Catholic faith: reviewed articles and study tracks, with a liturgical-book look and an accent color that follows the liturgical season."
+resumo: "A site for learning and defending the Catholic faith: reviewed articles and study tracks, illustrated with sacred art of verified provenance and an accent color that follows the liturgical season."
 problema: "Good Catholic material tends to be scattered across blogs, videos and PDFs, with no order for study and often without checked sources. The first version of this project was an SPA: Google didn't index the articles, shared links had no preview, and every new text meant touching the code."
-solucao: "I restarted the project in Nuxt 4 with Nuxt Content 3, statically generated on Vercel. Each article is a Markdown file with schema-validated metadata, and it only goes live once marked as published. A custom checker validates articles against an editorial standard (structure, Catechism citations, reference links and spelling), and the design is built for long reading, with book typography and an accent color computed from the liturgical calendar."
+solucao: "I restarted the project in Nuxt 4 with Nuxt Content 3, statically generated on Vercel. Articles, topics, tracks and artworks are content with a validated schema, and an article only goes live once marked as published. A custom checker validates each text against an editorial standard and the official sources (Scripture in the Nova Vulgata and the Catechism on vatican.va), and every article gets a doctrinal review before publishing. The design is built for long reading: book typography, a chiaroscuro opening with a work of sacred art and an accent color computed from the liturgical calendar."
 tipo: "Content site"
-papel: "Creator: architecture, content model, editorial standard and review tooling, visual identity and deployment on Vercel."
+papel: "Creator: architecture, content model, editorial standard and review tooling, sacred art curation, visual identity and deployment on Vercel."
 ---
 
 ## Overview
 
-Veritas Fidei is a site for Catholics who want to understand what the Church teaches, why, and where it is found in Scripture and Tradition. Content is split into **Learn** (teaching articles), **Tracks** (articles in order on one subject) and **Defending the faith** (answers to objections).
+Veritas Fidei is a site for Catholics who want to understand what the Church teaches, why, and where it is found in Scripture and Tradition. It has more than 50 published articles, organized into 11 topics in the order of the Catechism and 11 study tracks (articles in sequence on one subject), plus **Defending the faith**, with answers to objections.
 
 ## Features
 
-- Teaching and apologetics articles, organized into topics and study tracks.
+- Study tracks with their steps in order, total reading time and "Start the track".
+- Sacred art on every article, topic and track, with the work's title, artist, date and collection in the caption, and an image credits page.
 - Apologetics articles in the medieval disputed-question format: "It seems that…", "On the contrary…" and "I answer that".
+- An index of all articles by topic, with title search; at the end of each article, "Keep reading" and an invitation to the track.
 - Table of contents, reading progress bar and reading time computed at build time.
 - Accent color that changes with the liturgical season (green, purple, white and gold, red).
-- Dark theme by default, with a light mode saved in the browser.
-- RSS feed generated at build time.
+- An "Our commitment" page, with a discreet link at the end of articles to suggest corrections.
+- Dark theme by default, with a light mode saved in the browser, and an RSS feed generated at build time.
 
 ## Technical decisions
 
-- **Restart instead of patching**: a content site's value is in being found and shared, and an SPA ships empty HTML. With static generation every page is ready for Google and for link previews.
-- **Nuxt Content with a schema**: each article's title, topic, status and references are validated at build time; publishing means adding a `.md` file.
-- **Review as code**: `npm run verificar` checks structure, Catechism citations, reference links and spelling (LanguageTool). Drafts only show in development, with a status badge.
+- **Restart instead of patching**: a content site's value is in being found and shared, and an SPA ships empty HTML. With static generation every page is ready for Google and for link previews, and the old site's URLs redirect to their new place.
+- **Content with a schema**: articles, topics, tracks and artworks are Nuxt Content collections validated at build time. Publishing means adding a file, not touching a component.
+- **Review against the sources**: `npm run verificar` checks structure, spelling (LanguageTool), links, whether each Bible reference exists in the Nova Vulgata on vatican.va, literal Catechism quotes, and whether each Catechism link points to the page of the cited paragraph. An article is only published with no errors.
+- **A doctrinal review per article**: before publishing, each text gets an internal review modeled on an ecclesiastical censor's (the weight of each claim, the sources and the ambiguities), kept in the repository. It is an internal review and is not presented as an *imprimatur*.
+- **Art with provenance**: artworks come only from Wikimedia Commons, and `npm run obra` reads license, artist and source straight from there. Each work stores its collection, license, alt text for screen readers and the crop used in each format. No stock photos and no AI-generated images.
 - **Computed liturgical calendar**: the season comes from the Roman calendar with the transfers used in Brazil, covered by tests.
-- **Typography for long reading**: Literata for body text and Cinzel for headings, and references like "CIC 1252" never break across lines.
 
 ## What I learned
 
 - Choosing the architecture by product type: content calls for static rendering, not an SPA.
-- Treating content as code, with a schema, validation and automated review.
-- Building a visual identity that reinforces the site's subject.
+- Treating content as code, with a schema, validation and automated review against the sources.
+- Building a visual identity that teaches alongside the text: sacred art as part of the content, not decoration.
